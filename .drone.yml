@@ -1,33 +1,8 @@
 pipeline:
-  run-logger-tests:
-    image: node:8.2
-    commands:
-      - cd common-logger && ./bin/run.sh && cd ../
-    when:
-      status: [ failure, success ]
-      event: [ pull_request ]
-
-  run-api-starter-tests:
-    image: node:8.2
-    commands:
-      - cd koa-api-starter && ./bin/run.sh && cd ../
-    when:
-      status: [ failure, success ]
-      event: [ pull_request ]
-
   run-koa-react-starter-tests:
-    image: node:8.2
+    image: node:8.9
     commands:
-      - cd koa-react-starter && ./bin/run.sh && cd ../
-    when:
-      status: [ failure, success ]
-      event: [ pull_request ]
-
-  run-pdf-service-tests:
-    image: node:8.2
-    commands:
-      - cd pdf-service/client && ./bin/run.sh && cd ../../
-      - cd pdf-service/server && ./bin/run.sh && cd ../../
+      - ./bin/run.sh
     when:
       status: [ failure, success ]
       event: [ pull_request ]
