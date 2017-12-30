@@ -1,8 +1,14 @@
+## v1.3.0 (2017-12-30)
+
+* Add toaster messages.
+* Add ability to update user profile.
+* Add validation of the data using `Joi` schema.
+
 ## v1.2.0 (2017-11-06)
 
 * Configured `cssnext`.
 * Changed work of the hot reloading.
-* Added styles for react components;
+* Added styles for react components.
 
 ## v1.1.0 (2017-10-07)
 
