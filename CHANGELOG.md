@@ -1,3 +1,7 @@
+## v1.3.1 (2018-01-27)
+
+* Update npm dependencies
+
 ## v1.3.0 (2017-12-30)
 
 * Add toaster messages.
