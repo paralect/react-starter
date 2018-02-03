@@ -1,3 +1,7 @@
+## v1.3.3 (2018-02-03)
+
+* Change start of static server
+
 ## v1.3.2 (2018-02-02)
 
 * Update npm dependencies
