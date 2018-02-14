@@ -1,3 +1,7 @@
+## v1.3.4 (2018-02-14)
+
+* Fix axios errors in ie11
+
 ## v1.3.3 (2018-02-03)
 
 * Change start of static server
