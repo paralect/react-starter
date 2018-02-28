@@ -1,8 +1,9 @@
 version: '3.3'  
 services:
   redis:
-    command: redis
-    image: redis:4.0
+    image: redis:4.0.8
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
     ports:
       - "6379:6379" # map port to none standard port, to avoid conflicts with locally installed redis.
   web:
@@ -11,5 +12,13 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - "./src:/app/src"
+    depends_on:
+      - redis
+    links:
+      - redis
+    environment:
+      NODE_ENV: development
+      HRM_HOST: "0.0.0.0"
     ports:
-      - "3000:3000"
+      - "3002:3002"
+      - "8081:8081"
