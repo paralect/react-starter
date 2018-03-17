@@ -1,3 +1,7 @@
+## v2.0.1 (2018-03-17)
+
+* Fix extract css plugin
+
 ## v2.0.0 (2018-03-17)
 
 * Add support of the flow
