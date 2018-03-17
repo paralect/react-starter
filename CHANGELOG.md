@@ -1,3 +1,11 @@
+## v2.0.0 (2018-03-17)
+
+* Add support of the flow
+* Fix hmr
+* Fix script to start redis
+* Update Node.js version
+* Update dependencies
+
 ## v1.3.4 (2018-02-14)
 
 * Fix axios errors in ie11
