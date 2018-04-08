@@ -3,6 +3,8 @@
 import React from 'react';
 import type { Node } from 'react';
 import { connect } from 'react-redux';
+import axios, { CancelToken } from 'axios';
+import type { CancelTokenSource } from 'axios';
 
 import _pick from 'lodash/pick';
 import _omit from 'lodash/omit';
@@ -21,15 +23,20 @@ import {
   validateUserField,
   validateUser,
 } from 'resources/user/user.actions';
-import type { StateType as UserStateType, ValidationErrorsType } from 'resources/user/user.types';
+import type {
+  StateType as UserStateType,
+  ValidationErrorsType,
+  FetchUserApiType,
+  UpdateUserApiType,
+} from 'resources/user/user.types';
 import type { ValidationResultErrorsType } from 'helpers/validation/types';
 import { addErrorMessage, addSuccessMessage } from 'components/common/toast/toast.actions';
 
 import styles from './profile.styles.pcss';
 
 type PropsType = {
-  updateUser: (id: string, data: UserStateType) => ValidationResultErrorsType,
-  fetchUser: (id: string) => void,
+  updateUser: UpdateUserApiType,
+  fetchUser: FetchUserApiType,
   user: UserStateType, // eslint-disable-line
   addErrorMessage: (title: string, text?: string, isHTML?: boolean) => void,
   addSuccessMessage: (title: string, text?: string, isHTML?: boolean) => void,
@@ -94,11 +101,18 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
     }
   }
 
+  componentWillUnmount() {
+    if (this.source) {
+      this.source.cancel();
+    }
+  }
+
   onFieldChange = (field: string): ChangeFnType => (value: string) => {
     this.setState({ [field]: value });
   };
 
   updateUserAsync: AsyncFnType;
+  source: CancelTokenSource;
 
   showErrors(errors: ValidationErrorsType) {
     this.setState({ errors });
@@ -118,10 +132,15 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
     }
 
     try {
-      await this.props.updateUser('current', _omit(this.state, 'errors'));
+      this.source = CancelToken.source();
+      await this.props.updateUser('current', _omit(this.state, 'errors'), {
+        cancelToken: this.source.token,
+      });
       this.props.addSuccessMessage('User info updated!');
     } catch (error) {
-      this.showErrors(error.data.errors);
+      if (!axios.isCancel(error)) {
+        this.showErrors(error.data.errors);
+      }
     }
   }
 

@@ -39,7 +39,11 @@ module.exports = {
     ],
     "flowtype/no-primitive-constructor-types": 2,
     "flowtype/no-types-missing-file-annotation": 2,
-    "flowtype/no-weak-types": 2,
+    "flowtype/no-weak-types": [2, {
+      "any": false,
+      "Object": false,
+      "Function": true,
+    }],
     "flowtype/object-type-delimiter": [
       2,
       "comma"

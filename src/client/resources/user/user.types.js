@@ -1,5 +1,7 @@
 // @flow
 
+import type { $AxiosXHRConfigBase } from 'axios';
+
 export type ValidationErrorsType = {
   _global?: Array<string>,
   firstName?: Array<string>,
@@ -22,3 +24,11 @@ export type ActionType = {
 };
 
 export type ReducerType = (state: StateType, action: ActionType) => StateType;
+
+export type FetchUserApiType = (id: string) => Promise<*>;
+
+export type UpdateUserApiType = (
+  id: string,
+  data: StateType,
+  options?: $AxiosXHRConfigBase<Object>,
+) => Promise<*>;

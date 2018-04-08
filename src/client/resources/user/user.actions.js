@@ -2,6 +2,7 @@
 
 import Joi from 'joi-browser';
 import _isEmpty from 'lodash/isEmpty';
+import type { $AxiosXHRConfigBase } from 'axios';
 
 import { validate, validateField } from 'helpers/validation';
 import type { ValidationResultType, ValidationResultErrorsType } from 'helpers/validation/types';
@@ -71,12 +72,17 @@ export const validateUser = (data: $Shape<StateType>): ValidationResultErrorsTyp
   };
 };
 
-export const updateUser = (id: string, data: StateType): VoidFnType => (dispatch: DispatchFnType): Promise<*> => {
-  return api.updateUser(id, data).then((payload: StateType): StateType => {
-    dispatch({
-      type: UPDATE_USER,
-      payload,
+export const updateUser = (
+  id: string,
+  data: StateType,
+  options?: $AxiosXHRConfigBase<Object>,
+): VoidFnType => (dispatch: DispatchFnType): Promise<*> => {
+  return api.updateUser(id, data, options)
+    .then((payload: StateType): StateType => {
+      dispatch({
+        type: UPDATE_USER,
+        payload,
+      });
+      return payload;
     });
-    return payload;
-  });
 };

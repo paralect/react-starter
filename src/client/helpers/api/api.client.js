@@ -1,13 +1,17 @@
 // @flow
 
-import axios from 'axios';
-import type { $AxiosXHR, $AxiosError, $AxiosXHRConfig } from 'axios';
+import axios, { Cancel } from 'axios';
+import type { $AxiosXHR, $AxiosError, $AxiosXHRConfig, $AxiosXHRConfigBase } from 'axios';
+
+import _merge from 'lodash/merge';
 
 import ApiError from './api.error';
 
-/* eslint-disable flowtype/no-weak-types */
-
-type AxiosFnType = (url: string, data?: Object) => Promise<Object>;
+type AxiosFnType = (
+  url: string,
+  data?: Object,
+  options?: $AxiosXHRConfigBase<Object>,
+) => Promise<Object>;
 
 type ApiErrorDataType = {
   data: Object,
@@ -17,7 +21,12 @@ type ApiErrorDataType = {
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(
   (axiosConfig: $AxiosXHR<*>): $AxiosXHR<*> => axiosConfig,
-  (error: $AxiosError<Object>): Object => error.response,
+  (error: $AxiosError<Object> | Cancel): Object => {
+    if (error instanceof Cancel) {
+      throw error;
+    }
+    return error.response;
+  },
 );
 
 const generalError = {
@@ -29,28 +38,34 @@ const throwApiError = ({ data = {}, status = 500 }: ApiErrorDataType) => {
   throw new ApiError(data, status);
 };
 
-const httpRequest = (method: string): AxiosFnType => async (url: string, data?: Object): Object => {
+const httpRequest = (method: string): AxiosFnType => async (
+  url: string,
+  data?: Object,
+  options?: $AxiosXHRConfigBase<Object> = {},
+): Object => {
   let urlWithSlash: string = url;
 
   if (urlWithSlash[0] !== '/') {
     urlWithSlash = `/${urlWithSlash}`;
   }
 
-  const options: $AxiosXHRConfig<Object> = {
+  const axiosOptions: $AxiosXHRConfig<Object> = {
     headers: { Authorization: `Bearer ${window.token}` },
     method,
     url: `${window.config.apiUrl}${urlWithSlash}`,
   };
 
+  _merge(axiosOptions, options);
+
   if (data) {
     if (method === 'get') {
-      options.params = data;
+      axiosOptions.params = data;
     } else {
-      options.data = data;
+      axiosOptions.data = data;
     }
   }
 
-  const response: ?$AxiosXHR<Object> = await axios(options);
+  const response: ?$AxiosXHR<Object> = await axios(axiosOptions);
   if (!response) {
     throwApiError({
       data: { errors: generalError },

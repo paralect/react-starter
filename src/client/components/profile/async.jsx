@@ -5,8 +5,6 @@ import Loadable from 'react-loadable';
 
 import Loading from 'components/common/loading/async';
 
-/* eslint-disable flowtype/no-weak-types */
-
 type EsModuleType = {
   default: React$ComponentType<any>,
 };
