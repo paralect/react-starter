@@ -1,3 +1,8 @@
+## v2.1.0 (2018-04-08)
+
+* Add flow types
+* Update react to version 16.3.1
+
 ## v2.0.1 (2018-03-17)
 
 * Fix extract css plugin
