@@ -4,7 +4,7 @@ import React from 'react';
 import type { Node } from 'react';
 import type { LoadableExport$LoadingComponentProps } from 'react-loadable';
 
-import Loading from '../loading';
+import Loading from 'components/common/loading';
 
 const AsyncLoading = (props: LoadableExport$LoadingComponentProps): Node => {
   if (props.error) {

@@ -63,7 +63,7 @@ declare module 'react-router-redux' {
     goBack: typeof goBack,
     goForward: typeof goForward
   };
-  
+
   declare export interface LocationChangeAction {
     type: string,
     payload: Location & {
@@ -79,7 +79,7 @@ declare module 'react-router-redux' {
       }
     }
   }
-  declare export function routerMiddleware(history: History): Middleware;
+  declare export function routerMiddleware<A, S, D>(history: History): Middleware<A, S, D>;
   declare export function createMatchSelector(path: string): (state: {
     router: RouterState
   }) => match<{}> | null

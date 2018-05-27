@@ -2,7 +2,6 @@ const path = require('path');
 const requestLogger = require('koa-logger');
 const serve = require('koa-static');
 const mount = require('koa-mount');
-const bodyParser = require('koa-bodyparser');
 const views = require('koa-views');
 const session = require('koa-generic-session');
 const handlebars = require('handlebars');
@@ -31,8 +30,6 @@ module.exports = (app) => {
       },
     },
   }));
-
-  app.use(bodyParser());
 
   if (config.isDev) {
     hmr(app);

@@ -48,11 +48,13 @@ export const UPDATE_USER = 'updateUser';
 type DispatchFnType = (obj: ActionType | Promise<ActionType>) => void;
 type VoidFnType = (dispatch: DispatchFnType) => Promise<*>;
 
-export const fetchUser = (id: string): VoidFnType => (dispatch: DispatchFnType): Promise<*> => {
-  return api.fetchUser(id).then((payload: StateType) => {
-    dispatch({ type: FETCH_USER, payload });
-  });
-};
+export const fetchUser = (id: string): VoidFnType =>
+  (dispatch: DispatchFnType): Promise<StateType> => {
+    return api.fetchUser(id).then((payload: StateType): StateType => {
+      dispatch({ type: FETCH_USER, payload });
+      return payload;
+    });
+  };
 
 export const validateUserField = (data: $Shape<StateType>, field: string): ValidationResultType => {
   return validateField(data, field, schema);

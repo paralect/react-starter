@@ -40,6 +40,11 @@ const Root = (): Node => (
 );
 
 const renderApp = () => {
+  // const icon = document.querySelector('[rel="shortcut icon"]');
+  // if (icon instanceof Element) {
+  //   icon.href = favicon;
+  // }
+
   const rootEl = document.getElementById('root');
   if (!(rootEl instanceof Element)) {
     throw new Error('invalid type');

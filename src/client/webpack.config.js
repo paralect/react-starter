@@ -51,7 +51,8 @@ module.exports = {
   output: {
     path: `${__dirname}/static/`,
     publicPath: '/static/',
-    filename: '[name].[hash].js',
+    filename: 'main.[hash].js',
+    chunkFilename: 'main.[id].[hash].js',
   },
 
   context: path.resolve(__dirname, './'),
@@ -69,6 +70,14 @@ module.exports = {
               {
                 generateScopedName,
                 webpackHotModuleReloading: false,
+              },
+            ],
+            [
+              'inline-react-svg',
+              {
+                svgo: {
+                  plugins: [{ cleanupIDs: false }],
+                },
               },
             ],
           ],
@@ -98,7 +107,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
       },
     ],
@@ -119,7 +128,10 @@ module.exports = {
   },
 
   plugins: [
-    new MiniCssExtractPlugin({ chunkFilename: '[name].[hash].css' }),
+    new MiniCssExtractPlugin({
+      filename: 'main.[hash].css',
+      chunkFilename: 'main.[id].[hash].css',
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
