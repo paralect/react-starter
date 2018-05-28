@@ -33,11 +33,18 @@ const createUniqueIdGenerator = () => {
 
 const uniqueIdGenerator = createUniqueIdGenerator();
 
+const getComponentName = (resourcePath, separator) => {
+  return resourcePath.split(separator).slice(-5, -1).join(separator);
+};
+
 const generateScopedName = (localName, resourcePath) => {
-  const componentName = resourcePath
-    .split('/')
-    .slice(-5, -1)
-    .join('/');
+  const componentUnixName = getComponentName(resourcePath, '/');
+  const componentWindowsName = getComponentName(resourcePath, '\\');
+
+  const componentName = componentUnixName > componentWindowsName
+    ? componentUnixName
+    : componentWindowsName;
+
   return `${uniqueIdGenerator(componentName)}_${uniqueIdGenerator(localName)}`;
 };
 
