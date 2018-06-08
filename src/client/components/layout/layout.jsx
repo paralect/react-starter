@@ -5,6 +5,7 @@ import type { Node } from 'react';
 
 import Toast from 'components/common/toast';
 import Header from './components/header';
+import Footer from './components/footer';
 
 import styles from './layout.styles.pcss';
 
@@ -15,12 +16,14 @@ type PropsType = {
 class Layout extends Component<PropsType> {
   render(): Node {
     return (
-      <div>
+      <div className={styles.page}>
         <Header />
 
-        <div className={styles.page}>
+        <div className={styles.content}>
           {this.props.children}
         </div>
+
+        <Footer />
 
         <Toast />
       </div>

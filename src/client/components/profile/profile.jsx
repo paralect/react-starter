@@ -4,8 +4,8 @@ import React from 'react';
 import type { Node } from 'react';
 import { connect } from 'react-redux';
 
-import _pick from 'lodash/pick';
 import _omit from 'lodash/omit';
+import _pick from 'lodash/pick';
 
 import type { StateType } from 'resources/types';
 import type { ErrorDataType } from 'helpers/api/api.types';
@@ -21,7 +21,10 @@ import {
   validateUserField,
   validateUser,
 } from 'resources/user/user.actions';
-import type { StateType as UserStateType, ValidationErrorsType } from 'resources/user/user.types';
+import type {
+  StateType as UserStateType,
+  ValidationErrorsType,
+} from 'resources/user/user.types';
 import type { ValidationResultErrorsType } from 'helpers/validation/types';
 import { addErrorMessage, addSuccessMessage } from 'resources/toast/toast.actions';
 
@@ -29,7 +32,7 @@ import styles from './profile.styles.pcss';
 
 type PropsType = {
   updateUser: (id: string, data: UserStateType) => ValidationResultErrorsType,
-  fetchUser: (id: string) => void,
+  fetchUser: (id: string) => Promise<UserStateType>,
   user: UserStateType, // eslint-disable-line
   addErrorMessage: (title: string, text?: string, isHTML?: boolean) => void,
   addSuccessMessage: (title: string, text?: string, isHTML?: boolean) => void,
@@ -40,6 +43,7 @@ type ProfileStateType = {
   lastName: string,
   email: string,
   errors: ValidationErrorsType,
+  prevProps?: PropsType,
 };
 
 type UserFieldType = 'firstName' | 'lastName' | 'email';
@@ -53,22 +57,6 @@ type VoidFnType = () => void;
 type AsyncFnType = () => Promise<*>;
 
 class Profile extends React.Component<PropsType, ProfileStateType> {
-  static getDerivedStateFromProps(props: PropsType, state: ProfileStateType): ?ProfileStateType {
-    const { user } = props;
-    if (
-      user.firstName !== state.firstName ||
-      user.lastName !== state.lastName ||
-      user.email !== state.email
-    ) {
-      return {
-        ..._pick(user, ['firstName', 'lastName', 'email']),
-        errors: {},
-      };
-    }
-
-    return null;
-  }
-
   constructor(props: PropsType) {
     super(props);
 
@@ -82,9 +70,20 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
     this.updateUserAsync = this.updateUser.bind(this);
   }
 
-  async componentDidMount(): Promise<*> {
+  componentDidMount() {
+    this.feathUserData();
+  }
+
+  onFieldChange = (field: string): ChangeFnType => (value: string) => {
+    this.setState({ [field]: value });
+  };
+
+  updateUserAsync: AsyncFnType;
+
+  async feathUserData(): Promise<*> {
     try {
-      await this.props.fetchUser('current');
+      const response: UserStateType = await this.props.fetchUser('current');
+      this.setState(_pick(response, ['firstName', 'lastName', 'email']));
     } catch (error) {
       const { errors }: ErrorDataType = error.data;
       this.props.addErrorMessage(
@@ -93,12 +92,6 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
       );
     }
   }
-
-  onFieldChange = (field: string): ChangeFnType => (value: string) => {
-    this.setState({ [field]: value });
-  };
-
-  updateUserAsync: AsyncFnType;
 
   showErrors(errors: ValidationErrorsType) {
     this.setState({ errors });
@@ -110,7 +103,10 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
   }
 
   async updateUser(): Promise<*> {
-    const result: ValidationResultErrorsType = validateUser(this.state);
+    const result: ValidationResultErrorsType = validateUser(_omit(
+      this.state,
+      ['errors', 'prevProps'],
+    ));
 
     if (!result.isValid) {
       this.showErrors(result.errors);
@@ -126,7 +122,7 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
   }
 
   validateField = (field: UserFieldType): VoidFnType => () => {
-    const result = validateUserField(_omit(this.state, 'errors'), field);
+    const result = validateUserField(_omit(this.state, ['errors', 'prevProps']), field);
     this.setState({ errors: result.errors });
   };
 

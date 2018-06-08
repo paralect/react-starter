@@ -53,13 +53,15 @@ const renderApp = () => {
 
 const hidePoster = () => {
   const poster = document.getElementById('poster');
-  if (!(poster instanceof Element)) {
+  const html = document.documentElement;
+  if (!(poster instanceof Element) || !(html instanceof Element)) {
     return;
   }
   poster.classList.add(styles.posterHidden);
 
   setTimeout(() => {
     poster.classList.add(styles.posterNone);
+    html.classList.remove('show-poster');
   }, 600);
 };
 

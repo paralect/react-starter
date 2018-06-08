@@ -16,19 +16,19 @@ type ColorType = 'green' | 'blue' | 'red';
 
 type PropsType = {
   children: Node,
-  onClick?: (e: SyntheticEvent<HTMLDivElement>) => Promise<*>
-    | (e: SyntheticEvent<HTMLDivElement>) => void,
-  onKeyDown?: (e: SyntheticKeyboardEvent<HTMLDivElement>) => Promise<*>
-    | (e: SyntheticKeyboardEvent<HTMLDivElement>) => void,
+  onClick?: (e: SyntheticEvent<HTMLDivElement>) => Promise<*> | void,
+  onKeyDown?: (e: SyntheticKeyboardEvent<HTMLDivElement>) => Promise<*> | void,
   tabIndex?: string | number,
   color?: ColorType,
   className?: string,
 };
 
+const noop = () => {};
+
 class Button extends Component<PropsType> {
   static defaultProps = {
-    onClick: undefined,
-    onKeyDown: undefined,
+    onClick: noop,
+    onKeyDown: noop,
     tabIndex: 0,
     color: colors.blue,
     className: '',
