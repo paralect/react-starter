@@ -1,7 +1,9 @@
-version: '3.3'  
+version: '3.6'  
 services:
   redis:
     image: redis:4.0.8
+    networks:
+      - backend
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
     ports:
@@ -12,13 +14,18 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - "./src:/app/src"
-    depends_on:
-      - redis
-    links:
-      - redis
+    networks:
+      - frontend
+      - backend
     environment:
       NODE_ENV: development
       HRM_HOST: "0.0.0.0"
     ports:
       - "3002:3002"
       - "8081:8081"
+
+networks:
+  frontend:
+    name: ship_frontend
+  backend:
+    name: ship_backend
