@@ -3,7 +3,7 @@ services:
   redis:
     image: redis:4.0.8
     networks:
-      - backend
+      - ship
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
     ports:
@@ -15,8 +15,7 @@ services:
     volumes:
       - "./src:/app/src"
     networks:
-      - frontend
-      - backend
+      - ship
     environment:
       NODE_ENV: development
       HRM_HOST: "0.0.0.0"
@@ -25,7 +24,5 @@ services:
       - "8081:8081"
 
 networks:
-  frontend:
-    name: ship_frontend
-  backend:
-    name: ship_backend
+  ship:
+    name: ship_network
