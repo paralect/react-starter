@@ -17,7 +17,7 @@ type ApiErrorDataType = {
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(
   (axiosConfig: $AxiosXHR<*>): $AxiosXHR<*> => axiosConfig,
-  (error: $AxiosError<Object>): Object => error.response,
+  (error: $AxiosError<Object>): Object => error.response || {},
 );
 
 const generalError = {

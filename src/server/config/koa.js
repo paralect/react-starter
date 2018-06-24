@@ -19,7 +19,7 @@ const pathToViews = path.join(__dirname, './../../client/views');
 const pathToStatic = path.join(__dirname, './../../client/static');
 handlebars.registerHelper('json', context => JSON.stringify(context));
 
-module.exports = (app) => {
+module.exports = async (app) => {
   app.use(requestLogger());
   app.use(views(config.isDev ? pathToViews : pathToStatic, {
     default: 'html',
@@ -32,7 +32,8 @@ module.exports = (app) => {
   }));
 
   if (config.isDev) {
-    hmr(app);
+    const middleware = await hmr();
+    app.use(middleware);
   } else {
     app.use(mount('/static', serve(pathToStatic)));
   }
