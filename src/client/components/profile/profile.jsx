@@ -53,7 +53,6 @@ type ConnectedStateType = {
 };
 
 type ChangeFnType = (value: string) => void;
-type VoidFnType = () => void;
 type AsyncFnType = () => Promise<*>;
 
 class Profile extends React.Component<PropsType, ProfileStateType> {
@@ -103,7 +102,7 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
   }
 
   async updateUser(): Promise<*> {
-    const result: ValidationResultErrorsType = validateUser(_omit(
+    const result: ValidationResultErrorsType = await validateUser(_omit(
       this.state,
       ['errors', 'prevProps'],
     ));
@@ -121,8 +120,8 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
     }
   }
 
-  validateField = (field: UserFieldType): VoidFnType => () => {
-    const result = validateUserField(_omit(this.state, ['errors', 'prevProps']), field);
+  validateField = (field: UserFieldType): AsyncFnType => async (): Promise<*> => {
+    const result = await validateUserField(_omit(this.state, ['errors', 'prevProps']), field);
     this.setState({ errors: result.errors });
   };
 
