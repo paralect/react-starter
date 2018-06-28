@@ -1,3 +1,10 @@
+## v3.0.0 (2018-06-28)
+
+* Replace `joi-browser` with `yup`
+* Replace `react-router-redux` with `connected-react-router`
+* Major update of the `koa-webpack`
+* Update `eslint` rules
+
 ## v2.1.1 (2018-05-13)
 
 * Update README

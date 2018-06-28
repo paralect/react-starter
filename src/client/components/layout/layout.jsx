@@ -15,12 +15,14 @@ type PropsType = {
 
 class Layout extends Component<PropsType> {
   render(): Node {
+    const { children } = this.props;
+
     return (
       <div className={styles.page}>
         <Header />
 
         <div className={styles.content}>
-          {this.props.children}
+          {children}
         </div>
 
         <Footer />

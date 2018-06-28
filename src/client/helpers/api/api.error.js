@@ -1,9 +1,10 @@
 // @flow
 
-import type { ErrorDataType } from './api.types';
+import type { ErrorDataType } from './api.types'; // eslint-disable-line
 
 class ApiError extends Error {
   data: ErrorDataType;
+
   status: number;
 
   constructor(data: ErrorDataType, status: number) {

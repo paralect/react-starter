@@ -60,11 +60,18 @@ class Home extends Component<*> {
         >
           <div className={styles.time}>
             <FaClockO size={15} />
-            <span>{meeting.time}</span>
+            <span>
+              {meeting.time}
+            </span>
           </div>
-          <div className={styles.description}>{meeting.description}</div>
 
-          <h3 className={styles.participantsTitle}>Participants:</h3>
+          <div className={styles.description}>
+            {meeting.description}
+          </div>
+
+          <h3 className={styles.participantsTitle}>
+            {'Participants:'}
+          </h3>
           <ul className={styles.participantsList}>
             {Home.participantsList(meeting.participants)}
           </ul>
@@ -76,7 +83,9 @@ class Home extends Component<*> {
   render(): Node {
     return (
       <div>
-        <h1 className={styles.title}>Meetings</h1>
+        <h1 className={styles.title}>
+          {'Meetings'}
+        </h1>
 
         <div>
           {Home.meetings()}

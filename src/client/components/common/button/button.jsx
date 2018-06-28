@@ -35,8 +35,9 @@ class Button extends Component<PropsType> {
   };
 
   onEnterDown = (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
-    if (e.keyCode === 13 && this.props.onClick) {
-      this.props.onClick(e);
+    const { onClick } = this.props;
+    if (e.keyCode === 13 && onClick) {
+      onClick(e);
     }
   };
 

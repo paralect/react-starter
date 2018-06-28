@@ -40,7 +40,8 @@ class Search extends Component<PropsType, StateType> {
   }
 
   onChangeSearchState = () => {
-    if (!this.state.active) {
+    const { active } = this.state;
+    if (!active) {
       this.setState({ active: true }, () => {
         setTimeout(this.openAndFocus, 200);
       });
@@ -56,27 +57,31 @@ class Search extends Component<PropsType, StateType> {
   onCloseSearch() {
     this.setState({ open: false }, () => {
       setTimeout(() => {
-        if (!this.state.open) {
+        const { open } = this.state;
+        if (!open) {
           this.setState({ active: false });
         }
       }, 300);
     });
   }
 
-  wrap: ?HTMLDivElement;
-  input: ?HTMLInputElement;
-
   openAndFocus = () => {
-    if (this.state.active) {
+    const { active } = this.state;
+    if (active) {
       this.setState({ open: true }, () => {
         setTimeout(() => {
-          if (this.state.open && this.input) {
+          const { open } = this.state;
+          if (open && this.input) {
             this.input.focus();
           }
         }, 500);
       });
     }
   }
+
+  wrap: ?HTMLDivElement;
+
+  input: ?HTMLInputElement;
 
   render(): React$Node {
     const { className } = this.props;

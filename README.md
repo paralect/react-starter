@@ -35,9 +35,9 @@ Application structured in a way, which we find most efficient in both short and 
     - **[src/client/resources/store.js](./src/client/resources/store.js)** - initialization logic for the redux store. Adds redux middlewares.
     - **[src/client/resources/reducer.js](./src/client/resources/reducer.js)** - combines all reducers.
     - **[src/client/resources/types.js](./src/client/resources/types.js)** - flow type definitions for store and actions.
-    - **[src/client/resources/\*/\*.actions.js](./src/client/resources/user/user.actions.js)** - consist redux action creators for the given resource.
+    - **[src/client/resources/\*/\*.actions.js](./src/client/resources/user/user.actions.js)** - consist redux action creators for the given resource. Also here you can find validation schema created using [yup](https://github.com/jquense/yup) which is similar to the Joi schema validation.
     - **[src/client/resources/\*/\*.api.js](./src/client/resources/user/user.api.js)** - consist all api methods of the given resource. Optional.
-    - **[src/client/resources/\*/\*.reducer.js](./src/client/resources/user/user.reducer.js)** - consist reducer for the give resource. All reducers combined together in the `[reducer.js](./src/client/resources/reducer.js)`.
+    - **[src/client/resources/\*/\*.reducer.js](./src/client/resources/user/user.reducer.js)** - consist reducer for the give resource. All reducers combined together in the [reducer.js](./src/client/resources/reducer.js).
     - **[src/client/resource/\*/\*.selectors.js](./src/client/resources/user/user.selectors.js)** - consist selectors for the given resource. You should never access store directly, but always use selectors instead. That would simplify things when structure of the store data changes.
     - **[src/client/resources/\*/\*.types.js](./src/client/resources/user/user.types.js)** - flow type definitions for state and actions for the particular resource.
 5. **[src/client/services](./src/client/services)** - folder should consist the logic for the the third party service integrations (such as Intercom, Segment, etc). Not limited only to the third party services, but could consist some standalone application related services.

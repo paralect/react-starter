@@ -25,4 +25,3 @@ export type ThunkedActionType = (dispatch: Dispatch) => void;
 export type DispatchType = ReduxDispatch<ActionType> & (action: ThunkedActionType) => void;
 
 export type StoreType = ReduxStore<StateType, ActionType, DispatchType>;
-

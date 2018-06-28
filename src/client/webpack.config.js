@@ -99,8 +99,8 @@ module.exports = {
             options: {
               importLoaders: 1,
               camelCase: true,
-              getLocalIdent: (context, localIdentName, localName) => {
-                return generateScopedName(localName, context.resourcePath);
+              getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
+                return generateScopedName(localName, resourcePath);
               },
               minimize: true,
               modules: true,

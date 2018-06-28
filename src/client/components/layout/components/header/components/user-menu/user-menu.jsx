@@ -56,7 +56,9 @@ class UserMenu extends Component<*, StateType> {
         <li key={link.label}>
           <Link to={link.to} className={styles.link}>
             <link.icon size={16} />
-            <span>{link.label}</span>
+            <span>
+              {link.label}
+            </span>
           </Link>
         </li>
       );
@@ -76,9 +78,9 @@ class UserMenu extends Component<*, StateType> {
   }
 
   onToggleMenu = () => {
-    this.setState({
-      menuOpen: !this.state.menuOpen,
-    });
+    const { menuOpen } = this.state;
+
+    this.setState({ menuOpen: !menuOpen });
   };
 
   onDocumentClick = (e: MouseEvent) => {

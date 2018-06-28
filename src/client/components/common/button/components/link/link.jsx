@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from 'components/common/button';
+import Button from 'components/common/button/button';
 
 import styles from './link.styles.pcss';
 
@@ -22,8 +22,9 @@ class ButtonLink extends Component<PropsType> {
   };
 
   onKeyDown = (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
-    if (e.keyCode === 13 && this.props.onClick) {
-      this.props.onClick(e);
+    const { onClick } = this.props;
+    if (e.keyCode === 13 && onClick) {
+      onClick(e);
     }
   };
 

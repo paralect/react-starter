@@ -46,12 +46,14 @@ class Menu extends Component<PropType> {
   }
 
   render(): React$Node {
+    const { className } = this.props;
+
     const linkNodes = links.map((link: LinkType): React$Node => {
       return Menu.item(link);
     });
 
     return (
-      <ul className={classnames(styles.menu, this.props.className)}>
+      <ul className={classnames(styles.menu, className)}>
         {linkNodes}
       </ul>
     );
