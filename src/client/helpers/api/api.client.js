@@ -59,8 +59,10 @@ const httpRequest = (method: string): AxiosFnType => async (url: string, data?: 
     return null;
   }
 
+  response.data = response.data || {};
+
   if (response.status >= 200 && response.status < 300) {
-    return response.data || {};
+    return response;
   }
   if (response.status === 400) {
     throwApiError(response);

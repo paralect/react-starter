@@ -10,6 +10,8 @@ class ApiError extends Error {
   constructor(data: ErrorDataType, status: number) {
     super(data);
 
+    this.name = this.constructor.name;
+
     // a workaround to make `instanceof ApiError` work in ES5 with babel
     // $FlowFixMe
     this.constructor = ApiError;
