@@ -1,3 +1,7 @@
+## v3.0.1 (2018-07-02)
+
+* Fix api errors
+
 ## v3.0.0 (2018-06-28)
 
 * Replace `joi-browser` with `yup`
