@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
-import FaSearch from 'react-icons/lib/fa/search';
+import { FaSearch } from 'react-icons/fa';
 
 import styles from './search.styles.pcss';
 
