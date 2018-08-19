@@ -1,3 +1,8 @@
+## v3.1.0 (2018-08-19)
+
+* Update module `react-icons`
+* Replace `postcss-cssnext` with `postcss-preset-env`
+
 ## v3.0.1 (2018-07-02)
 
 * Fix api errors
