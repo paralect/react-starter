@@ -52,7 +52,7 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    main: ['babel-polyfill', './index.jsx'],
+    main: ['@babel/polyfill', './index.jsx'],
   },
 
   output: {
@@ -77,14 +77,6 @@ module.exports = {
               {
                 generateScopedName,
                 webpackHotModuleReloading: false,
-              },
-            ],
-            [
-              'inline-react-svg',
-              {
-                svgo: {
-                  plugins: [{ cleanupIDs: false }],
-                },
               },
             ],
           ],
