@@ -22,7 +22,7 @@ import styles from './toast.styles.pcss';
 
 type ToastPropsType = {
   messages: Array<MessageType>,
-  removeMessage: (id: string) => void,
+  removeMessage: (id: string) => *,
 };
 
 type StatePropsType = {
