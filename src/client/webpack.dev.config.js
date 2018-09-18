@@ -6,7 +6,7 @@ module.exports = {
 
   entry: {
     main: [
-      'babel-polyfill',
+      '@babel/polyfill',
       'react-hot-loader/patch',
       './index.jsx',
     ],

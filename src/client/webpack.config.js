@@ -52,7 +52,7 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    main: ['babel-polyfill', './index.jsx'],
+    main: ['@babel/polyfill', './index.jsx'],
   },
 
   output: {
@@ -77,14 +77,6 @@ module.exports = {
               {
                 generateScopedName,
                 webpackHotModuleReloading: false,
-              },
-            ],
-            [
-              'inline-react-svg',
-              {
-                svgo: {
-                  plugins: [{ cleanupIDs: false }],
-                },
               },
             ],
           ],
@@ -124,10 +116,6 @@ module.exports = {
   resolve: {
     modules: ['./', 'node_modules'],
     extensions: ['.mjs', '.js', '.jsx', '.pcss'],
-    alias: {
-      // temp solution [issue](https://github.com/jquense/yup/issues/273)
-      '@babel/runtime/helpers/builtin': path.resolve('./node_modules/@babel/runtime/helpers'),
-    },
   },
 
   optimization: {

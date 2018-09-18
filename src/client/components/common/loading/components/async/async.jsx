@@ -2,11 +2,11 @@
 
 import React from 'react';
 import type { Node } from 'react';
-import type { LoadableExport$LoadingComponentProps } from 'react-loadable';
+import type { LoadingProps } from 'react-loadable';
 
 import Loading from 'components/common/loading/loading';
 
-const AsyncLoading = ({ error, pastDelay }: LoadableExport$LoadingComponentProps): Node => {
+const AsyncLoading = ({ error, pastDelay }: LoadingProps): Node => {
   if (error) {
     return (
       <div>

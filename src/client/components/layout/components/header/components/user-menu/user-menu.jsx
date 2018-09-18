@@ -31,6 +31,7 @@ type LinkType = {
   label: string,
   to: LocationShape,
   icon: React$ComponentType<IconBaseProps>,
+  routerLink: boolean,
 };
 
 const linksList: Array<LinkType> = [
@@ -38,30 +39,49 @@ const linksList: Array<LinkType> = [
     label: 'Profile',
     to: profilePath(),
     icon: UserCircleO,
+    routerLink: true,
   },
   {
     label: 'Change Password',
     to: changePasswordPath(),
     icon: FaUnlockAlt,
+    routerLink: true,
   },
   {
     label: 'Log Out',
     to: logoutPath(),
     icon: FaSignOutAlt,
+    routerLink: false,
   },
 ];
 
 class UserMenu extends Component<*, StateType> {
   static links(): Array<React$Node> {
     return linksList.map((link: LinkType): React$Node => {
+      const linkContent: React$Node = (
+        <>
+          <link.icon size={16} />
+          <span>
+            {link.label}
+          </span>
+        </>
+      );
+
+      const linkEl: React$Node = link.routerLink
+        ? (
+          <Link to={link.to} className={styles.link}>
+            {linkContent}
+          </Link>
+        )
+        : (
+          <a href={link.to.pathname} className={styles.link}>
+            {linkContent}
+          </a>
+        );
+
       return (
         <li key={link.label}>
-          <Link to={link.to} className={styles.link}>
-            <link.icon size={16} />
-            <span>
-              {link.label}
-            </span>
-          </Link>
+          {linkEl}
         </li>
       );
     });
