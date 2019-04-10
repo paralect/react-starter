@@ -12,6 +12,7 @@ type EsModuleType = {
   default: ComponentType<any>,
 };
 
+// $FlowFixMe
 const LoadableComponent = Loadable({
   loader: (): Promise<EsModuleType> => import('./index'),
   loading: LoadingAsync,

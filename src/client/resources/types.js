@@ -20,7 +20,7 @@ export type ReduxInitActionType = { type: '@@INIT' };
 
 export type ActionType = ReduxInitActionType | ToastActionType | UserActionType;
 
-export type ThunkedActionType = (dispatch: Dispatch) => void;
+export type ThunkedActionType = (dispatch: ReduxDispatch<*>) => void;
 
 export type DispatchType = ReduxDispatch<ActionType> & (action: ThunkedActionType) => void;
 

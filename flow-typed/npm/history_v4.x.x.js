@@ -1,5 +1,5 @@
-// flow-typed signature: b523a8f9195de20b66a830531d983f40
-// flow-typed version: 9cb16b6503/history_v4.x.x/flow_>=v0.25.x
+// flow-typed signature: 540e42745f797051f3bf17a6af1ccf06
+// flow-typed version: 6a3fe49a8b/history_v4.x.x/flow_>=v0.25.x
 
 declare module "history/createBrowserHistory" {
   declare function Unblock(): void;
@@ -27,8 +27,8 @@ declare module "history/createBrowserHistory" {
     goBack(): void,
     goForward(): void,
     listen: Function,
-    block(message: string): Unblock,
-    block((location: BrowserLocation, action: Action) => string): Unblock,
+    block(message: string): typeof Unblock,
+    block((location: BrowserLocation, action: Action) => string): typeof Unblock,
   }
 
   declare export type BrowserHistory = IBrowserHistory;
@@ -75,8 +75,8 @@ declare module "history/createMemoryHistory" {
     // Memory only
     canGo(n: number): boolean,
     listen: Function,
-    block(message: string): Unblock,
-    block((location: MemoryLocation, action: Action) => string): Unblock,
+    block(message: string): typeof Unblock,
+    block((location: MemoryLocation, action: Action) => string): typeof Unblock,
   }
 
   declare export type MemoryHistory = IMemoryHistory;
@@ -117,8 +117,8 @@ declare module "history/createHashHistory" {
     goBack(): void,
     goForward(): void,
     listen: Function,
-    block(message: string): Unblock,
-    block((location: HashLocation, action: Action) => string): Unblock,
+    block(message: string): typeof Unblock,
+    block((location: HashLocation, action: Action) => string): typeof Unblock,
     push(path: string): void,
   }
 
