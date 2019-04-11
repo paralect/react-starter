@@ -15,8 +15,8 @@ type PropsType = {
   onChange: (value: string) => void,
   value: string,
   className?: string,
-  type: InputType,
-  errors: Array<string>,
+  type?: InputType,
+  errors?: Array<string>,
 };
 
 export default class Input extends Component<PropsType> {
@@ -32,7 +32,7 @@ export default class Input extends Component<PropsType> {
   };
 
   errors(): Node {
-    const { errors } = this.props;
+    const { errors = [] } = this.props;
     if (!errors.length) {
       return null;
     }
@@ -45,7 +45,7 @@ export default class Input extends Component<PropsType> {
   }
 
   render(): Node {
-    const { className, errors } = this.props;
+    const { className, errors = [] } = this.props;
     const props = _omit(this.props, ['className', 'errors', 'onChange']);
 
     return (
