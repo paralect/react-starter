@@ -90,12 +90,13 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              camelCase: true,
-              getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                return generateScopedName(localName, resourcePath);
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]',
+                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
+                  return generateScopedName(localName, resourcePath);
+                },
               },
-              modules: true,
-              localIdentName: '[local]_[hash:base64:5]',
+              localsConvention: 'camelCase',
             },
           },
           {
