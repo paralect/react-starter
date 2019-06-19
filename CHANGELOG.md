@@ -1,3 +1,9 @@
+## v3.2.0 (2019-06-20)
+
+* Update all packages (excluding `flow`) to the latest versions
+* Add logout route
+* Update node version to 10.16.0 LTS
+
 ## v3.1.0 (2018-08-19)
 
 * Update module `react-icons`
