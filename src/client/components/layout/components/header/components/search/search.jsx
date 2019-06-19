@@ -24,6 +24,10 @@ class Search extends Component<PropsType, StateType> {
     search: '',
   }
 
+  wrap: ?HTMLDivElement;
+
+  input: ?HTMLInputElement;
+
   componentDidMount() {
     document.addEventListener('click', this.onDocumentClick);
   }
@@ -94,10 +98,6 @@ class Search extends Component<PropsType, StateType> {
       });
     }
   }
-
-  wrap: ?HTMLDivElement;
-
-  input: ?HTMLInputElement;
 
   render(): React$Node {
     const { className } = this.props;

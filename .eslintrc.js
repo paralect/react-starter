@@ -28,6 +28,10 @@ module.exports = {
       2,
       { forbidDefaultForRequired: false }
     ],
+    "react/default-props-match-prop-types": [
+      2,
+      { allowRequiredDefaults: true }
+    ],
     "flowtype/boolean-style": [
       2,
       "boolean"

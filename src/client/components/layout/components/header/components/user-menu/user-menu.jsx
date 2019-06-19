@@ -91,6 +91,8 @@ class UserMenu extends Component<*, StateType> {
     menuOpen: false,
   };
 
+  menu: ?HTMLSpanElement;
+
   componentDidMount() {
     document.addEventListener('click', this.onDocumentClick);
   }
@@ -117,8 +119,6 @@ class UserMenu extends Component<*, StateType> {
       this.closeMenu();
     }
   };
-
-  menu: ?HTMLSpanElement;
 
   closeMenu() {
     this.setState({ menuOpen: false });
