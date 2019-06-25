@@ -49,6 +49,8 @@ const icon = (messageType: MessageTypeType): Node => {
 };
 
 class Toast extends Component<ToastPropsType> {
+  el: HTMLElement;
+
   constructor(props: ToastPropsType) {
     super(props);
 
@@ -79,8 +81,6 @@ class Toast extends Component<ToastPropsType> {
       removeMessage(id);
     }
   };
-
-  el: HTMLElement;
 
   messagesList(): Array<Node> {
     const { messages } = this.props;

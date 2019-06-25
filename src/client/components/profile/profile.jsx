@@ -59,6 +59,8 @@ type ChangeFnType = (value: string) => void;
 type AsyncFnType = () => Promise<*>;
 
 class Profile extends React.Component<PropsType, ProfileStateType> {
+  updateUserAsync: AsyncFnType;
+
   constructor(props: PropsType) {
     super(props);
 
@@ -143,8 +145,6 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
     const { errors } = this.state;
     return errors[field] || [];
   }
-
-  updateUserAsync: AsyncFnType;
 
   render(): Node {
     const {
