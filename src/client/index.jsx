@@ -4,8 +4,8 @@ import React from 'react';
 import type { Node } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import type { BrowserHistory } from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
+import type { BrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
 
 import type { StateType, StoreType } from './resources/types';
@@ -26,7 +26,7 @@ const initialState: StateType = {
   },
 };
 
-const history: BrowserHistory = createHistory();
+const history: BrowserHistory = createBrowserHistory();
 const store: StoreType = configureStore(initialState, history);
 
 const Root = (): Node => (

@@ -2,7 +2,9 @@
 
 import { combineReducers } from 'redux';
 import type { CombinedReducer } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
+import type { BrowserHistory } from 'history';
 import type { StateType, ActionType } from './types';
 
 import toast from './toast/toast.reducer';
@@ -21,6 +23,9 @@ const reducers: ReducersType = {
   toast,
 };
 
-const combinedReducer: CombinedReducer<StateType, ActionType> = combineReducers(reducers);
+const combinedReducer = (history: BrowserHistory): CombinedReducer<StateType, ActionType> => combineReducers({
+  router: connectRouter(history),
+  ...reducers,
+});
 
 export default combinedReducer;
