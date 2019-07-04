@@ -1,6 +1,6 @@
 {
   "name": "react-starter",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Koa react",
   "private": false,
   "main": "src/server/app.js",
