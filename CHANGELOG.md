@@ -1,3 +1,8 @@
+## v3.3.0 (2019-07-04)
+
+* Fix bug with updated history and connected-react-router packages
+* Update dependencies
+
 ## v3.2.0 (2019-06-20)
 
 * Update all packages (excluding `flow`) to the latest versions
