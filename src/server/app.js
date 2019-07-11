@@ -3,7 +3,7 @@
 // all options can be found here: https://gist.github.com/branneman/8048520
 require('app-module-path').addPath(__dirname);
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.APP_ENV = process.env.APP_ENV || 'development';
 global.logger = require('logger');
 
 const { logger } = global;
@@ -14,7 +14,7 @@ const app = new Koa();
 require('./config/koa')(app);
 
 app.listen(config.port, () => {
-  logger.warn(`Web application server listening on ${config.port}, in ${process.env.NODE_ENV} mode`);
+  logger.warn(`Web application server listening on ${config.port}, in ${process.env.APP_ENV} mode`);
 });
 
 module.exports = app;
