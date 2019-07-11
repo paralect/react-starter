@@ -1,32 +1,17 @@
-// @flow
-
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { FaSearch } from 'react-icons/fa';
 
 import styles from './search.styles.pcss';
 
-type PropsType = {
-  className: string,
-};
-
-type StateType = {
-  open: boolean,
-  active: boolean,
-  search: string,
-};
-
-class Search extends Component<PropsType, StateType> {
+class Search extends Component {
   state = {
     active: false,
     open: false,
     search: '',
   }
-
-  wrap: ?HTMLDivElement;
-
-  input: ?HTMLInputElement;
 
   componentDidMount() {
     document.addEventListener('click', this.onDocumentClick);
@@ -36,7 +21,7 @@ class Search extends Component<PropsType, StateType> {
     document.removeEventListener('click', this.onDocumentClick);
   }
 
-  onDocumentClick = (e: MouseEvent) => {
+  onDocumentClick = (e) => {
     const el = e.target;
     if (!(this.wrap && el instanceof Node && this.wrap.contains(el))) {
       this.onCloseSearch();
@@ -54,7 +39,7 @@ class Search extends Component<PropsType, StateType> {
     }
   }
 
-  onInputKeyDown = (e: SyntheticKeyboardEvent<*>) => {
+  onInputKeyDown = (e) => {
     const { active } = this.state;
 
     if (e.keyCode === 13) {
@@ -70,7 +55,7 @@ class Search extends Component<PropsType, StateType> {
     }
   }
 
-  onChangeSearchValue = (e: SyntheticInputEvent<HTMLInputElement>) => {
+  onChangeSearchValue = (e) => {
     this.setState({ search: e.target.value });
   }
 
@@ -99,7 +84,7 @@ class Search extends Component<PropsType, StateType> {
     }
   }
 
-  render(): React$Node {
+  render() {
     const { className } = this.props;
     const { active, open, search } = this.state;
 
@@ -109,13 +94,13 @@ class Search extends Component<PropsType, StateType> {
           [styles.active]: active,
           [styles.open]: open,
         }, className)}
-        ref={(wrap: ?HTMLDivElement) => { this.wrap = wrap; }}
+        ref={(wrap) => { this.wrap = wrap; }}
       >
         <div className={styles.inputWrap}>
           <input
             className={styles.input}
             type="search"
-            ref={(input: ?HTMLInputElement) => { this.input = input; }}
+            ref={(input) => { this.input = input; }}
             value={search}
             onChange={this.onChangeSearchValue}
             onKeyDown={this.onInputKeyDown}
@@ -133,5 +118,9 @@ class Search extends Component<PropsType, StateType> {
     );
   }
 }
+
+Search.propTypes = {
+  className: PropTypes.string.isRequired,
+};
 
 export default Search;

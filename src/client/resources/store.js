@@ -1,15 +1,11 @@
-// @flow
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
-import type { BrowserHistory } from 'history';
 
 import createRootReducer from './reducer';
-import type { StoreType, StateType } from './types';
 
-const configureStore = (initialState: StateType, history: BrowserHistory): StoreType => {
-  const store: StoreType = createStore(
+const configureStore = (initialState, history) => {
+  const store = createStore(
     createRootReducer(history),
     initialState,
     compose(
