@@ -3,3 +3,4 @@ src/client/static/main.*
 src/client/static/index.html
 src/client/static/*.map
 .idea/
+.vscode
