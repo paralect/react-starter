@@ -1,10 +1,5 @@
-// @flow
-
 import React, { Component } from 'react';
 import classnames from 'classnames';
-
-import type { IconBaseProps } from 'react-icon-base';
-import type { LocationShape } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 
@@ -23,18 +18,7 @@ import {
 
 import styles from './user-menu.styles.pcss';
 
-type StateType = {
-  menuOpen: boolean,
-};
-
-type LinkType = {
-  label: string,
-  to: LocationShape,
-  icon: React$ComponentType<IconBaseProps>,
-  routerLink: boolean,
-};
-
-const linksList: Array<LinkType> = [
+const linksList = [
   {
     label: 'Profile',
     to: profilePath(),
@@ -55,10 +39,10 @@ const linksList: Array<LinkType> = [
   },
 ];
 
-class UserMenu extends Component<*, StateType> {
-  static links(): Array<React$Node> {
-    return linksList.map((link: LinkType): React$Node => {
-      const linkContent: React$Node = (
+class UserMenu extends Component {
+  static links() {
+    return linksList.map((link) => {
+      const linkContent = (
         <>
           <link.icon size={16} />
           <span>
@@ -67,7 +51,7 @@ class UserMenu extends Component<*, StateType> {
         </>
       );
 
-      const linkEl: React$Node = link.routerLink
+      const linkEl = link.routerLink
         ? (
           <Link to={link.to} className={styles.link}>
             {linkContent}
@@ -91,8 +75,6 @@ class UserMenu extends Component<*, StateType> {
     menuOpen: false,
   };
 
-  menu: ?HTMLSpanElement;
-
   componentDidMount() {
     document.addEventListener('click', this.onDocumentClick);
   }
@@ -107,14 +89,14 @@ class UserMenu extends Component<*, StateType> {
     this.setState({ menuOpen: !menuOpen });
   };
 
-  onDocumentClick = (e: MouseEvent) => {
+  onDocumentClick = (e) => {
     const el = e.target;
     if (!(this.menu && el instanceof Node && this.menu.contains(el))) {
       this.setState({ menuOpen: false });
     }
   };
 
-  onEnterDown = (e: SyntheticKeyboardEvent<HTMLSpanElement>) => {
+  onEnterDown = (e) => {
     if (e.keyCode === 13) {
       this.closeMenu();
     }
@@ -124,7 +106,7 @@ class UserMenu extends Component<*, StateType> {
     this.setState({ menuOpen: false });
   }
 
-  render(): React$Node {
+  render() {
     const { menuOpen } = this.state;
 
     return (
@@ -135,7 +117,7 @@ class UserMenu extends Component<*, StateType> {
           tabIndex="0"
           onClick={this.onToggleMenu}
           onKeyDown={this.onEnterDown}
-          ref={(menu: ?HTMLSpanElement) => {
+          ref={(menu) => {
             this.menu = menu;
           }}
         >

@@ -1,14 +1,8 @@
-// @flow
-
 import React from 'react';
-import type { Node } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import type { BrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
-
-import type { StateType, StoreType } from './resources/types';
 
 import routes from './routes';
 import configureStore from './resources/store';
@@ -16,20 +10,20 @@ import configureStore from './resources/store';
 import styles from './styles.pcss';
 import Layout from './components/layout';
 
-const minLoadingTime: number = 1500;
-const now: number = Date.now();
+const minLoadingTime = 1500;
+const now = Date.now();
 
-const initialState: StateType = {
+const initialState = {
   user: window.user,
   toast: {
     messages: [],
   },
 };
 
-const history: BrowserHistory = createBrowserHistory();
-const store: StoreType = configureStore(initialState, history);
+const history = createBrowserHistory();
+const store = configureStore(initialState, history);
 
-const Root = (): Node => (
+const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Layout>

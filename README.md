@@ -21,7 +21,6 @@ Koa React starter is what we think an ideal starting point for the most React.JS
 - webpack
 - postcss
 - eslint
-- flow
 - koa
 
 Application structured in a way, which we find most efficient in both short and long term projects. The main intention of the current structure is to keep logical components close to each other and define clear structure for the common things, such as routers, store, api wrappers, reducers, action creators, store selectors.
@@ -34,12 +33,10 @@ Application structured in a way, which we find most efficient in both short and 
 4. **[src/client/resources](./src/client/resources/user)** - a folder consist of all redux/api related things. Typically resource maps 1 to 1 to the api endpoint, but not limited to only api endpoints. Every resource is responsible for management certain part of the redux store. If you need keep something client specific in the redux store, you can create separate resource for it. For example: navigation resource may contain some history of the all opened pages without 1 to 1 connection to the rest api. Main moving parts of resource:
     - **[src/client/resources/store.js](./src/client/resources/store.js)** - initialization logic for the redux store. Adds redux middlewares.
     - **[src/client/resources/reducer.js](./src/client/resources/reducer.js)** - combines all reducers.
-    - **[src/client/resources/types.js](./src/client/resources/types.js)** - flow type definitions for store and actions.
     - **[src/client/resources/\*/\*.actions.js](./src/client/resources/user/user.actions.js)** - consist redux action creators for the given resource. Also here you can find validation schema created using [yup](https://github.com/jquense/yup) which is similar to the Joi schema validation.
     - **[src/client/resources/\*/\*.api.js](./src/client/resources/user/user.api.js)** - consist all api methods of the given resource. Optional.
     - **[src/client/resources/\*/\*.reducer.js](./src/client/resources/user/user.reducer.js)** - consist reducer for the give resource. All reducers combined together in the [reducer.js](./src/client/resources/reducer.js).
     - **[src/client/resource/\*/\*.selectors.js](./src/client/resources/user/user.selectors.js)** - consist selectors for the given resource. You should never access store directly, but always use selectors instead. That would simplify things when structure of the store data changes.
-    - **[src/client/resources/\*/\*.types.js](./src/client/resources/user/user.types.js)** - flow type definitions for state and actions for the particular resource.
 5. **[src/client/services](./src/client/services)** - folder should consist the logic for the the third party service integrations (such as Intercom, Segment, etc). Not limited only to the third party services, but could consist some standalone application related services.
 
 ### Important things to keep in mind
@@ -50,7 +47,7 @@ Application structured in a way, which we find most efficient in both short and 
 ### Conventions
 
 1. Name of all files for components should start from lowercase letter and words should be separated by a dash (`date-range`, `multi-action-button`).
-2. Code style (eslint, flow).
+2. Code style (eslint).
 
 ### List of planned improvements
 
