@@ -1,13 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
 import createRootReducer from './reducer';
 
-const configureStore = (initialState, history) => {
+const initialState = {
+  user: window.user,
+  toast: {
+    messages: [],
+  },
+};
+
+const configureStore = (initState, history) => {
   const store = createStore(
     createRootReducer(history),
-    initialState,
+    initState,
     compose(
       applyMiddleware(routerMiddleware(history), thunk),
       window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f, // eslint-disable-line
@@ -23,4 +31,5 @@ const configureStore = (initialState, history) => {
   return store;
 };
 
-export default configureStore;
+export const history = createBrowserHistory();
+export const store = configureStore(initialState, history);

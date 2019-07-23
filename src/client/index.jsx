@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
 
 import routes from './routes';
-import configureStore from './resources/store';
+import { store, history } from './resources/store';
 
 import styles from './styles.pcss';
 import Layout from './components/layout';
@@ -13,15 +12,7 @@ import Layout from './components/layout';
 const minLoadingTime = 1500;
 const now = Date.now();
 
-const initialState = {
-  user: window.user,
-  toast: {
-    messages: [],
-  },
-};
-
-const history = createBrowserHistory();
-const store = configureStore(initialState, history);
+require('resources/user/user.socket-handler');
 
 const Root = () => (
   <Provider store={store}>

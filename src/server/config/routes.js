@@ -24,6 +24,7 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
     isDev: config.isDev,
     config: {
       apiUrl: config.apiUrl,
+      webSocketUrl: config.webSocketUrl,
     },
     user: {},
     token: '',
