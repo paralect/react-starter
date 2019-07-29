@@ -18,6 +18,10 @@ indexRouter.get('/logout', async (ctx) => {
   ctx.body = {};
 });
 
+indexRouter.get('/health', async (ctx) => {
+  ctx.status = 200;
+});
+
 // match all routes but not files (i.e. routes with dots)
 indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
   const data = {
