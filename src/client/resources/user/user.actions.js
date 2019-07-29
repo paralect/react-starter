@@ -23,8 +23,8 @@ export const UPDATE_USER = 'updateUser';
 
 export const fetchUser = id => (dispatch) => {
   return api.fetchUser(id).then((payload) => {
-    dispatch({ type: FETCH_USER, payload });
-    return payload;
+    dispatch({ type: FETCH_USER, payload: payload.data });
+    return payload.data;
   });
 };
 
@@ -49,8 +49,8 @@ export const updateUser = (id, data) => (dispatch) => {
   return api.updateUser(id, data).then((payload) => {
     dispatch({
       type: UPDATE_USER,
-      payload,
+      payload: payload.data,
     });
-    return payload;
+    return payload.data;
   });
 };

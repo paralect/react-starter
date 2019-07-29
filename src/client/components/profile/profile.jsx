@@ -43,6 +43,15 @@ class Profile extends React.Component {
     this.feathUserData();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { firstName, lastName, email } = nextProps.user;
+    this.setState({
+      firstName,
+      lastName,
+      email,
+    });
+  }
+
   onFieldChange = field => (value) => {
     this.setState({ [field]: value });
   };
