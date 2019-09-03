@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-
 import { Link } from 'react-router-dom';
+
+import config from 'config';
+import { apiClient } from 'helpers/api';
+import { API_LOGOUT_PATH } from 'constants';
 
 import {
   FaAngleDown,
@@ -13,7 +16,6 @@ import UserCircleO from 'components/common/icons/user-circle-o';
 import {
   profilePath,
   changePasswordPath,
-  logoutPath,
 } from 'components/layout/layout.paths';
 
 import styles from './user-menu.styles.pcss';
@@ -31,44 +33,27 @@ const linksList = [
     icon: FaUnlockAlt,
     routerLink: true,
   },
-  {
-    label: 'Log Out',
-    to: logoutPath(),
-    icon: FaSignOutAlt,
-    routerLink: false,
-  },
 ];
+
+const getLinkContent = link => (
+  <>
+    <link.icon size={16} />
+    <span>
+      {link.label}
+    </span>
+  </>
+);
+
 
 class UserMenu extends Component {
   static links() {
-    return linksList.map((link) => {
-      const linkContent = (
-        <>
-          <link.icon size={16} />
-          <span>
-            {link.label}
-          </span>
-        </>
-      );
-
-      const linkEl = link.routerLink
-        ? (
-          <Link to={link.to} className={styles.link}>
-            {linkContent}
-          </Link>
-        )
-        : (
-          <a href={link.to.pathname} className={styles.link}>
-            {linkContent}
-          </a>
-        );
-
-      return (
-        <li key={link.label}>
-          {linkEl}
-        </li>
-      );
-    });
+    return linksList.map(link => (
+      <li key={link.label}>
+        <Link to={link.to} className={styles.link}>
+          {getLinkContent(link)}
+        </Link>
+      </li>
+    ));
   }
 
   state = {
@@ -101,6 +86,11 @@ class UserMenu extends Component {
       this.closeMenu();
     }
   };
+
+  logout = async () => {
+    await apiClient.post(API_LOGOUT_PATH);
+    window.location.href = config.landingLoginUrl;
+  }
 
   closeMenu() {
     this.setState({ menuOpen: false });
@@ -135,6 +125,11 @@ class UserMenu extends Component {
         >
           <ul className={styles.list}>
             {UserMenu.links()}
+            <li>
+              <a href="#0" className={styles.link} onClick={this.logout}>
+                {getLinkContent({ label: 'Log Out', icon: FaSignOutAlt })}
+              </a>
+            </li>
           </ul>
         </div>
       </span>

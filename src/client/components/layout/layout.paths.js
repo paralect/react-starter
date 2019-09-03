@@ -13,11 +13,6 @@ export const changePasswordPath = (options = {}) => ({
   pathname: '/change-password',
 });
 
-export const logoutPath = (options = {}) => ({
-  ...options,
-  pathname: '/logout',
-});
-
 export const reportsPath = (options = {}) => ({
   ...options,
   pathname: '/reports',
