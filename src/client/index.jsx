@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import App from 'app';
 
-import routes from './routes';
-import { store, history } from './resources/store';
+import store from 'resources/store';
+import history from 'resources/browserHistory';
 
 import styles from './styles.pcss';
-import Layout from './components/layout';
 
 const minLoadingTime = 1500;
 const now = Date.now();
@@ -17,9 +17,7 @@ require('resources/user/user.socket-handler');
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Layout>
-        {routes()}
-      </Layout>
+      <App />
     </ConnectedRouter>
   </Provider>
 );

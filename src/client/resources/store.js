@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
 
-import createRootReducer from './reducer';
+import reducer from './reducer';
+import history from './browserHistory';
 
 const initialState = {
   user: window.user,
@@ -12,24 +12,19 @@ const initialState = {
   },
 };
 
-const configureStore = (initState, history) => {
-  const store = createStore(
-    createRootReducer(history),
-    initState,
-    compose(
-      applyMiddleware(routerMiddleware(history), thunk),
-      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f, // eslint-disable-line
-    ),
-  );
+const store = createStore(
+  reducer,
+  initialState,
+  compose(
+    applyMiddleware(routerMiddleware(history), thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f, // eslint-disable-line
+  ),
+);
 
-  if (module.hot) {
-    module.hot.accept('./reducer', () => {
-      store.replaceReducer(createRootReducer(history));
-    });
-  }
+if (module.hot) {
+  module.hot.accept('./reducer', () => {
+    store.replaceReducer(reducer);
+  });
+}
 
-  return store;
-};
-
-export const history = createBrowserHistory();
-export const store = configureStore(initialState, history);
+export default store;
