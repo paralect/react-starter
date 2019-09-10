@@ -1,6 +1,6 @@
 import axios from 'axios';
+import config from 'config';
 import ApiError from './api.error';
-
 
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(
@@ -27,7 +27,7 @@ const httpRequest = method => async (url, data) => {
   const options = {
     headers: { Authorization: `Bearer ${window.token}` },
     method,
-    url: `${window.config.apiUrl}${urlWithSlash}`,
+    url: `${config.apiUrl}${urlWithSlash}`,
   };
 
   if (data) {

@@ -26,10 +26,6 @@ indexRouter.get('/health', async (ctx) => {
 indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
   const data = {
     isDev: config.isDev,
-    config: {
-      apiUrl: config.apiUrl,
-      webSocketUrl: config.webSocketUrl,
-    },
     user: {},
     token: '',
   };

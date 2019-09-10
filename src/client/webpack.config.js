@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const incstr = require('incstr');
+const { apiUrl, webSocketUrl } = require('config');
 
 const createUniqueIdGenerator = () => {
   const index = {};
@@ -133,6 +134,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         BABEL_ENV: JSON.stringify('production'),
+      },
+      APP_CONFIG: {
+        apiUrl: JSON.stringify(apiUrl),
+        webSocketUrl: JSON.stringify(webSocketUrl),
       },
     }),
     new HtmlWebpackPlugin({

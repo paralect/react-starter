@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const { apiUrl, webSocketUrl } = require('config');
 
 module.exports = {
   mode: 'development',
@@ -58,5 +59,13 @@ module.exports = {
     },
   },
 
-  plugins: [new webpack.NoEmitOnErrorsPlugin()],
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      APP_CONFIG: {
+        apiUrl: JSON.stringify(apiUrl),
+        webSocketUrl: JSON.stringify(webSocketUrl),
+      },
+    }),
+  ],
 };
