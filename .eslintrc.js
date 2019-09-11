@@ -43,5 +43,8 @@ module.exports = {
         "paths": ["src/client"]
       },
     },
+  },
+  "globals": {
+    "APP_CONFIG": true,
   }
 };

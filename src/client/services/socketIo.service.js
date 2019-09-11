@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
+import config from 'config';
 
-export const socket = io(window.config.webSocketUrl, { transports: ['websocket'], query: { token: window.token } });
+export const socket = io(config.webSocketUrl, { transports: ['websocket'], query: { token: window.token } });
 
 socket.on('connect', () => {
   console.log('WS connected'); //eslint-disable-line
