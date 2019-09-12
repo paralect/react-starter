@@ -1,8 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import { urlsMapper } from 'constants';
 import HomeAsync from './components/home/home.async';
 import ProfileAsync from './components/profile/profile.async';
+import NotFound from './components/not-found';
 
 const key = (title) => {
   return module.hot ? Math.random().toString() : title;
@@ -14,6 +16,8 @@ const routes = () => (
   <Switch>
     <Route exact path="/" component={HomeAsync} key={key('index')} />
     <Route path="/profile" component={ProfileAsync} key={key('profile')} />
+    <Route path={urlsMapper.notFound} component={NotFound} />
+    <Route path="*" component={NotFound} />
   </Switch>
 );
 

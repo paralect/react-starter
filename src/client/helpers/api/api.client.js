@@ -1,5 +1,7 @@
 import axios from 'axios';
 import config from 'config';
+import { urlsMapper } from 'constants';
+import history from 'resources/browserHistory';
 import ApiError from './api.error';
 
 // Do not throw errors on 'bad' server response codes
@@ -59,6 +61,12 @@ const httpRequest = method => async (url, data) => {
 
   if (response.status === 400) {
     throwApiError(response);
+  }
+
+  if (response.status === 404 || response.status === 403) {
+    history.push(urlsMapper.notFound);
+
+    return null;
   }
 
   response.data.errors = response.data.errors || generalError;

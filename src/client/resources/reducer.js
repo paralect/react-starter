@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
+import history from './browserHistory';
 import toast from './toast/toast.reducer';
 import user from './user/user.reducer';
 
@@ -9,9 +10,9 @@ const reducers = {
   toast,
 };
 
-const combinedReducer = history => combineReducers({
+const rootReducer = combineReducers({
   router: connectRouter(history),
   ...reducers,
 });
 
-export default combinedReducer;
+export default rootReducer;

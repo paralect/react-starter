@@ -15,8 +15,10 @@ class Layout extends Component {
       <div className={styles.page}>
         <Header />
 
-        <div className={styles.content}>
-          {children}
+        <div className={styles.main}>
+          <div className={styles.content}>
+            {children}
+          </div>
         </div>
 
         <Footer />
