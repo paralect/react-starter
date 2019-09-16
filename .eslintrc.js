@@ -46,5 +46,6 @@ module.exports = {
   },
   "globals": {
     "APP_CONFIG": true,
+    "APP_CONSTANTS": true
   }
 };

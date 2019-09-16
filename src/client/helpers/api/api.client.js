@@ -1,11 +1,18 @@
 import axios from 'axios';
 import config from 'config';
-import { urlsMapper } from 'constants';
+import { URLS, API_LOGOUT_PATH } from 'constants';
 import history from 'resources/browserHistory';
 import ApiError from './api.error';
+import { getAccessToken } from '../token';
+
+const api = axios.create({
+  baseURL: config.apiUrl,
+  withCredentials: true,
+  responseType: 'json',
+});
 
 // Do not throw errors on 'bad' server response codes
-axios.interceptors.response.use(
+api.interceptors.response.use(
   axiosConfig => axiosConfig,
   error => error.response || {},
 );
@@ -19,7 +26,70 @@ const throwApiError = ({ data = {}, status = 500 }) => {
   throw new ApiError(data, status);
 };
 
+const refreshToken = () => api.post('/account/refresh-token');
+
+const isOkStatus = status => status >= 200 && status < 300;
+
+const refreshTokenIfNeeded = async () => {
+  if (getAccessToken()) {
+    return;
+  }
+
+  const tokenResponse = await refreshToken();
+
+  if (!isOkStatus(tokenResponse.status)) {
+    throwApiError({ data: { errors: generalError }, status: tokenResponse.status });
+  }
+};
+
+const redirectToLogin = () => {
+  window.location.href = config.landingLoginUrl;
+};
+
+const handleResponse = async (response, { skipUnauthorized = false } = {}) => {
+  if (!response) {
+    throwApiError({ data: { errors: generalError }, status: 500 });
+    return response;
+  }
+
+  if (isOkStatus(response.status)) {
+    return response;
+  }
+
+  if (response.status === 401) {
+    if (skipUnauthorized) {
+      return response;
+    }
+  }
+
+  if (response.status === 418) {
+    await api.post(API_LOGOUT_PATH);
+
+    redirectToLogin();
+  }
+
+  if (response.status === 404 || response.status === 403) {
+    history.push(URLS.NOT_FOUND);
+
+    return null;
+  }
+
+  const errorData = {
+    status: response.status,
+    data: {
+      ...response.data,
+      errors: response.data && response.data.errors ? response.data.errors : generalError,
+    },
+  };
+
+  throwApiError(errorData);
+
+  return response;
+};
+
 const httpRequest = method => async (url, data) => {
+  await refreshTokenIfNeeded();
+
   let urlWithSlash = url;
 
   if (urlWithSlash[0] !== '/') {
@@ -27,9 +97,8 @@ const httpRequest = method => async (url, data) => {
   }
 
   const options = {
-    headers: { Authorization: `Bearer ${window.token}` },
     method,
-    url: `${config.apiUrl}${urlWithSlash}`,
+    url: urlWithSlash,
   };
 
   if (data) {
@@ -40,38 +109,21 @@ const httpRequest = method => async (url, data) => {
     }
   }
 
-  const response = await axios(options);
-  if (!response) {
-    throwApiError({
-      data: { errors: generalError },
-      status: 500,
-    });
-    return null;
+  let response = await handleResponse(await api(options), { skipUnauthorized: true });
+
+  if (response.status === 401) {
+    // try to refresh token and if it will be successful
+    // then send the request again
+    const tokenResponse = await refreshToken();
+
+    if (!isOkStatus(tokenResponse.status)) {
+      return redirectToLogin();
+    }
+
+    response = await handleResponse(await api(options));
   }
 
-  response.data = response.data || {};
-
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-
-  if (response.status === 418) {
-    window.location = '/logout';
-  }
-
-  if (response.status === 400) {
-    throwApiError(response);
-  }
-
-  if (response.status === 404 || response.status === 403) {
-    history.push(urlsMapper.notFound);
-
-    return null;
-  }
-
-  response.data.errors = response.data.errors || generalError;
-  throwApiError(response);
-  return null;
+  return response;
 };
 
 export const getRequest = httpRequest('get');

@@ -6,13 +6,12 @@ import App from 'app';
 
 import store from 'resources/store';
 import history from 'resources/browserHistory';
+import { getCurrent } from 'resources/user/user.api';
 
 import styles from './styles.pcss';
 
 const minLoadingTime = 1500;
 const now = Date.now();
-
-require('resources/user/user.socket-handler');
 
 const Root = () => (
   <Provider store={store}>
@@ -22,17 +21,25 @@ const Root = () => (
   </Provider>
 );
 
-const renderApp = () => {
+async function renderApp() {
   const rootEl = document.getElementById('root');
+
   if (!(rootEl instanceof Element)) {
     throw new Error('invalid type');
   }
+
+  const { data: user } = await getCurrent();
+
+  window.user = user;
+
+  // we need to init application only after user has been loaded
+  require('resources/user/user.socket-handler'); // eslint-disable-line global-require
 
   ReactDOM.render(
     <Root />,
     rootEl,
   );
-};
+}
 
 const hidePoster = () => {
   const poster = document.getElementById('poster');

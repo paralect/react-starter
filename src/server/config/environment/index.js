@@ -9,24 +9,13 @@ let base = {
   port: process.env.PORT || 3002,
   isDev: env === 'development',
   isTest: env === 'test',
-  session: {
-    secret: 'dev_secret',
-    ttl: 3600 * 10000,
-    store: {
-      host: 'redis',
-      port: 6379,
-    },
-  },
-  jwt: {
-    secret: 'jwt_secret',
-    audience: 'api',
-    issuer: 'api',
-  },
 };
 
 const envConfig = require(`./${env}.js`); // eslint-disable-line
 
 base = _.merge(base, envConfig || {});
+
+base.landingLoginUrl = `${base.landingUrl}/signin`;
 
 const loadLocalConfig = (name) => {
   const localConfigPath = path.join(__dirname, name);
