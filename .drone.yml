@@ -1,10 +1,17 @@
-pipeline:
-  run-koa-react-starter-tests:
+kind: pipeline
+name: default
+
+steps:
+  - name: run-koa-react-starter-tests
     image: node:10.16.0
     commands:
       - ./bin/run.sh
     when:
-      status: [ failure, success ]
-      event: [ pull_request ]
-
-branches: [ master, "*:master" ]
+      status:
+        - failure
+        - success
+      event:
+        - pull_request
+      branch:
+        - master
+        - "*:master"
