@@ -11,7 +11,7 @@ let base = {
   isTest: env === 'test',
 };
 
-const envConfig = require(`./${env}.js`); // eslint-disable-line
+const envConfig = require(`./${env}.json`); // eslint-disable-line
 
 base = _.merge(base, envConfig || {});
 
