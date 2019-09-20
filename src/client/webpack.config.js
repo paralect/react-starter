@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const incstr = require('incstr');
-const config = require('config');
+const config = require('../server/config');
 const constants = require('../server/constants');
 
 const createUniqueIdGenerator = () => {
