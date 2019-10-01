@@ -17,7 +17,6 @@ import styles from './profile.styles.pcss';
 class Profile extends Component {
   static propTypes = {
     updateCurrentUser: PropTypes.func.isRequired,
-    fetchCurrentUser: PropTypes.func.isRequired,
     user: PropTypes.shape({
       _id: PropTypes.string,
       firstName: PropTypes.string,
@@ -164,7 +163,6 @@ export default connect(state => ({
   user: fromUser.getUser(state),
 }), {
   updateCurrentUser: userActions.updateCurrentUser,
-  fetchCurrentUser: userActions.fetchCurrentUser,
   addErrorMessage: toastActions.addErrorMessage,
   addSuccessMessage: toastActions.addSuccessMessage,
 })(Profile);

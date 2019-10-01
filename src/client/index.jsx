@@ -30,13 +30,17 @@ async function renderApp() {
     throw new Error('invalid type');
   }
 
+  try {
+    await store.dispatch(userActions.fetchCurrentUser());
+    socketService.connect();
+  } catch (error) {
+    console.log(error); // eslint-disable-line
+  }
+
   ReactDOM.render(
     <Root />,
     rootEl,
   );
-
-  await store.dispatch(userActions.fetchCurrentUser());
-  socketService.connect();
 }
 
 const hidePoster = () => {
