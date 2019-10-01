@@ -5,3 +5,7 @@ export function getUser({ user }) {
 export function getUsername({ user }) {
   return `${user.firstName || ''} ${user.lastName || ''}`.trim();
 }
+
+export function getUserId({ user }) {
+  return user._id;
+}

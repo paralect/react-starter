@@ -1,7 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+
 const config = require('config');
+
 const constants = require('../server/constants');
+
 
 module.exports = {
   mode: 'development',
@@ -27,7 +31,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        loader: 'babel-loader',
+        options: {
+          plugins: ['lodash'],
+        },
       },
       {
         test: /\.pcss$/,
@@ -49,18 +56,15 @@ module.exports = {
     ],
   },
 
-  devtool: 'eval',
+  devtool: 'source-map',
 
   resolve: {
     modules: ['./', 'node_modules'],
     extensions: ['.mjs', '.js', '.jsx', '.pcss'],
-    alias: {
-      // temp solution [issue](https://github.com/jquense/yup/issues/273)
-      '@babel/runtime/helpers/builtin': path.resolve('./node_modules/@babel/runtime/helpers'),
-    },
   },
 
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       APP_CONFIG: {

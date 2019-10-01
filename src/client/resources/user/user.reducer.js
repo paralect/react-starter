@@ -1,4 +1,8 @@
-import { FETCH_USER, UPDATE_USER } from './user.actions';
+import {
+  FETCH_CURRENT_USER,
+  UPDATE_CURRENT_USER,
+} from './user.actions';
+
 
 const initialState = {
   _id: '',
@@ -10,12 +14,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_USER:
+    case FETCH_CURRENT_USER:
       return {
         ...action.payload,
       };
 
-    case UPDATE_USER:
+    case UPDATE_CURRENT_USER:
       return {
         ...state,
         ...action.payload,

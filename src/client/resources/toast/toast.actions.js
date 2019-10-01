@@ -1,17 +1,14 @@
 import uuidv4 from 'uuid/v4';
 
+
 export const ADD_MESSAGE = 'add toast message';
 export const REMOVE_MESSAGE = 'remove toast message';
 
 const displayTime = 3000;
 
-
 const hideAfterTimeout = (dispatch, id) => {
   setTimeout(() => {
-    dispatch({
-      type: REMOVE_MESSAGE,
-      id,
-    });
+    dispatch({ type: REMOVE_MESSAGE, id });
   }, displayTime);
 };
 
@@ -20,13 +17,7 @@ const addMessage = (dispatch, data) => {
 
   hideAfterTimeout(dispatch, id);
 
-  dispatch({
-    type: ADD_MESSAGE,
-    message: {
-      ...data,
-      id,
-    },
-  });
+  dispatch({ type: ADD_MESSAGE, message: { ...data, id } });
 };
 
 export const addErrorMessage = (title, text, isHTML = false) => (dispatch) => {
@@ -47,7 +38,6 @@ export const addSuccessMessage = (title, text, isHTML = false) => (dispatch) => 
   });
 };
 
-export const removeMessage = id => ({
-  type: REMOVE_MESSAGE,
-  id,
-});
+export const removeMessage = (id) => {
+  return { type: REMOVE_MESSAGE, id };
+};

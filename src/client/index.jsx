@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import App from 'app';
 
+import Layout from 'layout';
 import store from 'resources/store';
-import history from 'resources/browserHistory';
-import { getCurrent } from 'resources/user/user.api';
+import history from 'services/history.service';
+import * as userActions from 'resources/user/user.actions';
+import * as socketService from 'services/socket.service';
 
-import styles from './styles.pcss';
+import styles from './index.styles';
+
 
 const minLoadingTime = 1500;
 const now = Date.now();
@@ -16,7 +18,7 @@ const now = Date.now();
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <Layout />
     </ConnectedRouter>
   </Provider>
 );
@@ -28,17 +30,13 @@ async function renderApp() {
     throw new Error('invalid type');
   }
 
-  const { data: user } = await getCurrent();
-
-  window.user = user;
-
-  // we need to init application only after user has been loaded
-  require('resources/user/user.socket-handler'); // eslint-disable-line global-require
-
   ReactDOM.render(
     <Root />,
     rootEl,
   );
+
+  await store.dispatch(userActions.fetchCurrentUser());
+  socketService.connect();
 }
 
 const hidePoster = () => {
