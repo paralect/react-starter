@@ -2,7 +2,7 @@
 
 [![Stack](https://raw.githubusercontent.com/paralect/stack/master/stack-component-template/stack.png)](https://github.com/paralect/stack)
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Build Status](http://product-stack-ci.paralect.com/api/badges/paralect/koa-react-starter/status.svg)](http://product-stack-ci.paralect.com/paralect/koa-react-starter)
@@ -75,6 +75,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://paralect.com"><img src="https://avatars3.githubusercontent.com/u/681396?v=4" width="100px;" alt="Andrew Orsich"/><br /><sub><b>Andrew Orsich</b></sub></a><br /><a href="https://github.com/paralect/koa-react-starter/commits?author=anorsich" title="Documentation">📖</a> <a href="#ideas-anorsich" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-anorsich" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/umitskevich"><img src="https://avatars2.githubusercontent.com/u/2989199?v=4" width="100px;" alt="Uladzimir Mitskevich"/><br /><sub><b>Uladzimir Mitskevich</b></sub></a><br /><a href="#ideas-umitskevich" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-umitskevich" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/NesterenkoNikita"><img src="https://avatars1.githubusercontent.com/u/12069883?v=4" width="100px;" alt="NesterenkoNikita"/><br /><sub><b>NesterenkoNikita</b></sub></a><br /><a href="https://github.com/paralect/koa-react-starter/commits?author=NesterenkoNikita" title="Code">💻</a> <a href="#review-NesterenkoNikita" title="Reviewed Pull Requests">👀</a> <a href="#ideas-NesterenkoNikita" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/SobakaSlava"><img src="https://avatars1.githubusercontent.com/u/23057064?v=4" width="100px;" alt="Nikita Solosnuk"/><br /><sub><b>Nikita Solosnuk</b></sub></a><br /><a href="https://github.com/paralect/koa-react-starter/commits?author=SobakaSlava" title="Code">💻</a> <a href="#review-SobakaSlava" title="Reviewed Pull Requests">👀</a> <a href="#ideas-SobakaSlava" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
