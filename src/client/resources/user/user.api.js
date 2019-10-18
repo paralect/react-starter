@@ -1,13 +1,10 @@
-import { apiClient } from 'helpers/api';
+import { apiClient } from 'services/api';
 
-export const fetchUser = (id = '') => {
-  return apiClient.get(`/users/${id}`);
+
+export const updateCurrent = (data) => {
+  return apiClient.put('/users/current', data);
 };
 
-export const updateUser = (id = '', data) => {
-  return apiClient.put(`/users/${id}`, data);
-};
-
-export const getCurrent = () => {
+export const fetchCurrent = () => {
   return apiClient.get('/users/current');
 };

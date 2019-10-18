@@ -1,6 +1,5 @@
-import { reach } from 'yup';
-import _get from 'lodash/get';
-import _set from 'lodash/set';
+import * as yup from 'yup';
+import _ from 'lodash';
 
 
 const yupOptions = {
@@ -17,11 +16,11 @@ const parseErrors = (error, defaultPath = '') => {
   error.inner.forEach((err) => {
     const path = err.path || defaultPath;
 
-    let pathErrors = _get(errors, path);
+    let pathErrors = _.get(errors, path);
     pathErrors = pathErrors || [];
     pathErrors.push(err.message);
 
-    _set(errors, path, pathErrors);
+    _.set(errors, path, pathErrors);
   });
 
   return errors;
@@ -57,10 +56,10 @@ export const validate = async (obj, schema) => {
  * @return {object}
  */
 export const validateField = async (obj, field, schema) => {
-  const newSchema = reach(schema, field);
+  const newSchema = yup.reach(schema, field);
 
   try {
-    const value = await newSchema.validate(_get(obj, field), yupOptions);
+    const value = await newSchema.validate(_.get(obj, field), yupOptions);
     return {
       errors: {},
       value,

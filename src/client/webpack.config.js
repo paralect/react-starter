@@ -3,8 +3,11 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const incstr = require('incstr');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+
 const config = require('../server/config');
 const constants = require('../server/constants');
+
 
 const createUniqueIdGenerator = () => {
   const index = {};
@@ -74,6 +77,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           plugins: [
+            'lodash',
             [
               'react-css-modules',
               {
@@ -114,7 +118,7 @@ module.exports = {
     ],
   },
 
-  devtool: 'source-map',
+  devtool: 'eval',
 
   resolve: {
     modules: ['./', 'node_modules'],
@@ -126,6 +130,7 @@ module.exports = {
   },
 
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: 'main.[hash].css',
       chunkFilename: 'main.[id].[hash].css',
@@ -146,7 +151,7 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'views/index.html'),
+      template: path.join(__dirname, 'views/index-template.html'),
       filename: 'index.html',
       inject: 'body',
     }),

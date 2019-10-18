@@ -1,6 +1,8 @@
 const Router = require('koa-router');
+
 const config = require('config');
 const { ACCESS_TOKEN_COOKIE_NAME } = require('../constants');
+
 
 const indexRouter = new Router();
 
@@ -14,7 +16,7 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
     ctx.redirect(config.landingLoginUrl);
   }
 
-  return ctx.render('index', { isDev: config.isDev });
+  return ctx.render(config.isDev ? 'index-template' : 'index', { isDev: config.isDev });
 });
 
 module.exports = indexRouter.routes();

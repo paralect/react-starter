@@ -6,11 +6,12 @@ const views = require('koa-views');
 const handlebars = require('handlebars');
 
 const config = require('config');
-
-const { logger } = global;
+const hmr = require('hmr');
 
 const routes = require('./routes');
-const hmr = require('../hmr');
+
+
+const { logger } = global;
 
 const pathToViews = path.join(__dirname, './../../client/views');
 const pathToStatic = path.join(__dirname, './../../client/static');
@@ -18,6 +19,7 @@ handlebars.registerHelper('json', context => JSON.stringify(context));
 
 module.exports = async (app) => {
   app.use(requestLogger());
+  app.use(mount('/static', serve(pathToStatic)));
   app.use(views(config.isDev ? pathToViews : pathToStatic, {
     default: 'html',
     map: { html: 'handlebars' },
@@ -31,8 +33,6 @@ module.exports = async (app) => {
   if (config.isDev) {
     const middleware = await hmr();
     app.use(middleware);
-  } else {
-    app.use(mount('/static', serve(pathToStatic)));
   }
 
   app.use(async (ctx, next) => {

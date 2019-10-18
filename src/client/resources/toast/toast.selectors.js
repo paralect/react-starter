@@ -1,5 +1,5 @@
-import * as fromToast from './toast.reducer';
-
-export const getToasterMessages = (state, filter) => {
-  return fromToast.getToasterMessages(state.toast, filter);
+export const getToasterMessages = ({ toast }, filter) => {
+  return toast.messages.filter((message) => {
+    return filter === 'all' || filter === message.type;
+  });
 };
