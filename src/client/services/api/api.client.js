@@ -69,7 +69,7 @@ api.interceptors.response.use(
   },
 );
 
-const httpRequest = (method) => async (url, data) => {
+const httpRequest = (method) => async (url, data, extraOptions = {}) => {
   let urlWithSlash = url;
 
   if (urlWithSlash[0] !== '/') {
@@ -77,6 +77,7 @@ const httpRequest = (method) => async (url, data) => {
   }
 
   const options = {
+    ...extraOptions,
     method,
     url: urlWithSlash,
   };
