@@ -11,7 +11,7 @@ import config from 'config';
 import { apiClient } from 'services/api';
 import { API_LOGOUT_PATH } from 'helpers/constants';
 import UserCircleO from 'components/icons/user-circle-o';
-import routes from 'routes';
+import routes from 'routesList';
 
 import styles from './user-menu.styles';
 

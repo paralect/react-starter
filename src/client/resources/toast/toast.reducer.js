@@ -1,7 +1,7 @@
 import {
   ADD_MESSAGE,
   REMOVE_MESSAGE,
-} from './toast.actions';
+} from './toast.actions-list';
 
 
 const defaultState = {

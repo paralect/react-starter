@@ -1,8 +1,9 @@
 import * as api from './user.api';
+import {
+  FETCH_CURRENT_USER,
+  UPDATE_CURRENT_USER,
+} from './user.actions-list';
 
-
-export const FETCH_CURRENT_USER = 'fetchCurrentUser';
-export const UPDATE_CURRENT_USER = 'updateCurrentUser';
 
 export const fetchCurrentUser = () => async (dispatch) => {
   const { data } = await api.fetchCurrent();

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 
-import routes from 'routes';
+import routes from 'routesList';
 import Logo from 'static/images/logo.svg';
 
 import Menu from './components/menu';

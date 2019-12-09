@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from 'config';
 import { API_LOGOUT_PATH } from 'helpers/constants';
 import history from 'services/history.service';
-import routes from 'routes';
+import routes from 'routesList';
 
 import ApiError from './api.error';
 

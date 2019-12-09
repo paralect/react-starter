@@ -1,7 +1,7 @@
 import {
   FETCH_CURRENT_USER,
   UPDATE_CURRENT_USER,
-} from './user.actions';
+} from './user.actions-list';
 
 
 const initialState = {

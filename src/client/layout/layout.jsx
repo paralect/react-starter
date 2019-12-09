@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { RoutesComponent } from 'routes';
+import Routes from 'routes';
 import Toast from 'components/toast';
 
 import Header from './components/header';
@@ -16,7 +16,7 @@ class Layout extends PureComponent {
 
         <div className={styles.main}>
           <div className={styles.content}>
-            <RoutesComponent />
+            <Routes />
           </div>
         </div>
 

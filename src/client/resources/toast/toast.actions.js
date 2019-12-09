@@ -1,15 +1,17 @@
 import uuidv4 from 'uuid/v4';
 
+import {
+  ADD_MESSAGE,
+  REMOVE_MESSAGE,
+} from './toast.actions-list';
 
-export const ADD_MESSAGE = 'add toast message';
-export const REMOVE_MESSAGE = 'remove toast message';
 
-const displayTime = 3000;
+const DISPLAY_TIME = 3000;
 
 const hideAfterTimeout = (dispatch, id) => {
   setTimeout(() => {
     dispatch({ type: REMOVE_MESSAGE, id });
-  }, displayTime);
+  }, DISPLAY_TIME);
 };
 
 const addMessage = (dispatch, data) => {
