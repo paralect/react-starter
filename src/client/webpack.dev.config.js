@@ -53,6 +53,26 @@ module.exports = {
           { loader: 'postcss-loader' },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]',
+              },
+              localsConvention: 'camelCase',
+              importLoaders: 1,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
+      },
     ],
   },
 
