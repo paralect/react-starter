@@ -112,6 +112,25 @@ module.exports = {
         ],
       },
       {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]',
+                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
+                  return generateScopedName(localName, resourcePath);
+                },
+              },
+              localsConvention: 'camelCase',
+            },
+          },
+        ],
+      },
+      {
         test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
       },
