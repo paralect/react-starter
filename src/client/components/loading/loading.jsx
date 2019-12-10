@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './loading.styles.pcss';
+import styles from './loading.styles';
 
 
 const Loading = () => {

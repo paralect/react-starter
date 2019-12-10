@@ -6,7 +6,7 @@ class ApiError extends Error {
 
     // a workaround to make `instanceof ApiError` work in ES5 with babel
     this.constructor = ApiError;
-    this.__proto__ = ApiError.prototype; // eslint-disable-line
+    this.__proto__ = ApiError.prototype; // eslint-disable-line no-proto
 
     this.data = data;
     this.status = status;

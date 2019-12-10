@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
 import routes from 'routes';
 
-import styles from './menu.styles.pcss';
+import styles from './menu.styles';
 
 
 const links = [
@@ -19,7 +19,7 @@ const links = [
   },
 ];
 
-class Menu extends Component {
+class Menu extends PureComponent {
   static item(link) {
     return (
       <li key={link.label} className={styles.item}>

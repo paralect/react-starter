@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 
-import styles from './search.styles.pcss';
+import styles from './search.styles';
 
 
-class Search extends Component {
-  state = {
-    active: false,
-    open: false,
-    search: '',
+class Search extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      active: false,
+      open: false,
+      search: '',
+    };
   }
+
 
   componentDidMount() {
     document.addEventListener('click', this.onDocumentClick);

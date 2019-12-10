@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/button/button';
 
-import styles from './link.styles.pcss';
+import styles from './link.styles';
 
 
 const noop = () => {};
 
-class ButtonLink extends Component {
+class ButtonLink extends PureComponent {
   onKeyDown = (e) => {
     const { onClick } = this.props;
     if (e.keyCode === 13 && onClick) {

@@ -25,7 +25,6 @@ const Root = () => (
 
 async function renderApp() {
   const rootEl = document.getElementById('root');
-
   if (!(rootEl instanceof Element)) {
     throw new Error('invalid type');
   }
@@ -34,7 +33,7 @@ async function renderApp() {
     await store.dispatch(userActions.fetchCurrentUser());
     socketService.connect();
   } catch (error) {
-    console.log(error); // eslint-disable-line
+    console.log(error); // eslint-disable-line no-console
   }
 
   ReactDOM.render(

@@ -30,7 +30,7 @@ const key = (title) => {
 };
 
 export const RoutesComponent = () => {
-  const routes = routesList.map(route => (
+  const routes = routesList.map((route) => (
     <Route
       key={key(route.name)}
       exact={route.exact}

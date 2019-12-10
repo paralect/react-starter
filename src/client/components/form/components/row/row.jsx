@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import styles from './row.styles.pcss';
+import styles from './row.styles';
 
 
 const Row = ({ children, className }) => (

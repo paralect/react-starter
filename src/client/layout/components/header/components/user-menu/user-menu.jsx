@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import {
@@ -13,7 +13,7 @@ import { API_LOGOUT_PATH } from 'helpers/constants';
 import UserCircleO from 'components/icons/user-circle-o';
 import routes from 'routes';
 
-import styles from './user-menu.styles.pcss';
+import styles from './user-menu.styles';
 
 
 const linksList = [
@@ -31,7 +31,7 @@ const linksList = [
   },
 ];
 
-const getLinkContent = link => (
+const getLinkContent = (link) => (
   <>
     <link.icon size={16} />
     <span>
@@ -41,9 +41,9 @@ const getLinkContent = link => (
 );
 
 
-class UserMenu extends Component {
+class UserMenu extends PureComponent {
   static links() {
-    return linksList.map(link => (
+    return linksList.map((link) => (
       <li key={link.label}>
         <Link to={link.to} className={styles.link}>
           {getLinkContent(link)}
@@ -52,9 +52,13 @@ class UserMenu extends Component {
     ));
   }
 
-  state = {
-    menuOpen: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      menuOpen: false,
+    };
+  }
 
   componentDidMount() {
     document.addEventListener('click', this.onDocumentClick);

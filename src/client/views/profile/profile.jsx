@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,22 +11,10 @@ import * as userActions from 'resources/user/user.actions';
 import * as userValidators from 'resources/user/user.validators';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './profile.styles.pcss';
+import styles from './profile.styles';
 
 
-class Profile extends Component {
-  static propTypes = {
-    updateCurrentUser: PropTypes.func.isRequired,
-    user: PropTypes.shape({
-      _id: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      email: PropTypes.string,
-    }).isRequired,
-    addErrorMessage: PropTypes.func.isRequired,
-    addSuccessMessage: PropTypes.func.isRequired,
-  }
-
+class Profile extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -38,11 +26,11 @@ class Profile extends Component {
     };
   }
 
-  onFieldChange = field => (value) => {
+  onFieldChange = (field) => (value) => {
     this.setState({ [field]: value });
   };
 
-  validateField = field => async () => {
+  validateField = (field) => async () => {
     const userData = _.omit(this.state, ['errors', 'prevProps']);
     const result = await userValidators.validateUserField(userData, field);
 
@@ -159,7 +147,19 @@ class Profile extends Component {
   }
 }
 
-export default connect(state => ({
+Profile.propTypes = {
+  updateCurrentUser: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
+  addErrorMessage: PropTypes.func.isRequired,
+  addSuccessMessage: PropTypes.func.isRequired,
+};
+
+export default connect((state) => ({
   user: fromUser.getUser(state),
 }), {
   updateCurrentUser: userActions.updateCurrentUser,
