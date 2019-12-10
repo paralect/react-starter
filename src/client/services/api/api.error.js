@@ -8,8 +8,19 @@ class ApiError extends Error {
     this.constructor = ApiError;
     this.__proto__ = ApiError.prototype; // eslint-disable-line
 
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ApiError);
+    }
+
     this.data = data;
     this.status = status;
+
+    // replaces '[object object]'
+    this.message = `API Error. Status: ${status} ${JSON.stringify(data)}`;
+  }
+
+  inspect() {
+    return this.stack;
   }
 }
 
