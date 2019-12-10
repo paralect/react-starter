@@ -17,7 +17,7 @@ export default (state = defaultState, action) => {
 
     case REMOVE_MESSAGE:
       return {
-        messages: state.messages.filter(message => message.id !== action.id),
+        messages: state.messages.filter((message) => message.id !== action.id),
       };
 
     default:

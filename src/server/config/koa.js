@@ -15,7 +15,7 @@ const { logger } = global;
 
 const pathToViews = path.join(__dirname, './../../client/views');
 const pathToStatic = path.join(__dirname, './../../client/static');
-handlebars.registerHelper('json', context => JSON.stringify(context));
+handlebars.registerHelper('json', (context) => JSON.stringify(context));
 
 module.exports = async (app) => {
   app.use(requestLogger());
@@ -25,7 +25,7 @@ module.exports = async (app) => {
     map: { html: 'handlebars' },
     options: {
       helpers: {
-        json: ctx => JSON.stringify(ctx),
+        json: (ctx) => JSON.stringify(ctx),
       },
     },
   }));

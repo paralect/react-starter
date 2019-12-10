@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
 
-import styles from './input.styles.pcss';
+import styles from './input.styles';
 
 
-export default class Input extends Component {
+export default class Input extends PureComponent {
   onChange = (e) => {
     const { onChange } = this.props;
     onChange(e.target.value);
@@ -36,7 +36,7 @@ export default class Input extends Component {
             [styles.error]: errors.length,
           })}
           onChange={this.onChange}
-          {...props}
+          {...props /* eslint-disable-line react/jsx-props-no-spreading */}
         />
 
         {this.errors()}

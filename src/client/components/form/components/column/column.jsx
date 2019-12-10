@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import styles from './column.styles.pcss';
+import styles from './column.styles';
 
 
 const Column = ({ children, className }) => (

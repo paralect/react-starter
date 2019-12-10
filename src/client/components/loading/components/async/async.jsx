@@ -7,14 +7,14 @@ import Loading from 'components/loading/loading';
 const AsyncLoading = ({ error, pastDelay }) => {
   if (error) {
     return (
-      <div>
-        {'Error!'}
-      </div>
+      <div>Error!</div>
     );
   }
+
   if (pastDelay) {
     return <Loading />;
   }
+
   return null;
 };
 

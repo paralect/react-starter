@@ -8,7 +8,7 @@ import Logo from 'static/images/logo.svg';
 import Menu from './components/menu';
 import Search from './components/search';
 import UserMenu from './components/user-menu';
-import styles from './header.styles.pcss';
+import styles from './header.styles';
 
 
 const Header = () => {

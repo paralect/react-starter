@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FaClock } from 'react-icons/fa';
 
-import styles from './home.styles.pcss';
+import styles from './home.styles';
 
 
 const meetingsList = [
@@ -31,7 +31,7 @@ const meetingsList = [
   },
 ];
 
-class Home extends Component {
+class Home extends PureComponent {
   static participantsList(participants) {
     return participants.map((participator) => {
       return (

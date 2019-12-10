@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './footer.styles.pcss';
+import styles from './footer.styles';
 
 
 const Footer = () => {

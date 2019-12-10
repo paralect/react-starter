@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ import {
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './toast.styles.pcss';
+import styles from './toast.styles';
 
 
 const icon = (messageType) => {
@@ -32,7 +32,7 @@ const icon = (messageType) => {
 };
 
 
-class Toast extends Component {
+class Toast extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -52,12 +52,12 @@ class Toast extends Component {
     }
   }
 
-  onMessageClick = id => () => {
+  onMessageClick = (id) => () => {
     const { removeMessage } = this.props;
     removeMessage(id);
   };
 
-  onMessageKeyDown = id => (e) => {
+  onMessageKeyDown = (id) => (e) => {
     if (e.keyCode === 13) {
       const { removeMessage } = this.props;
       removeMessage(id);
@@ -114,7 +114,7 @@ Toast.propTypes = {
   removeMessage: PropTypes.func.isRequired,
 };
 
-export default connect(state => ({
+export default connect((state) => ({
   messages: toastSelectors.getToasterMessages(state, 'all'),
 }), {
   removeMessage: toastActions.removeMessage,

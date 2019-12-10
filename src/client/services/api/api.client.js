@@ -34,7 +34,7 @@ const redirectToLogin = () => {
 };
 
 api.interceptors.response.use(
-  response => response,
+  (response) => response,
   async ({ config: requestConfig, response = {}, data }) => {
     const errorData = {
       status: response.status,
@@ -69,7 +69,7 @@ api.interceptors.response.use(
   },
 );
 
-const httpRequest = method => async (url, data) => {
+const httpRequest = (method) => async (url, data) => {
   let urlWithSlash = url;
 
   if (urlWithSlash[0] !== '/') {

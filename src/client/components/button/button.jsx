@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import styles from './button.styles.pcss';
+import styles from './button.styles';
 
 
 const colors = {
@@ -13,7 +13,7 @@ const colors = {
 
 const noop = () => {};
 
-class Button extends Component {
+class Button extends PureComponent {
   onEnterDown = (e) => {
     const { onClick } = this.props;
     if (e.keyCode === 13 && onClick) {

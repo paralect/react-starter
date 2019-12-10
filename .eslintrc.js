@@ -1,51 +1,45 @@
 module.exports = {
-  "extends": "@paralect/eslint-config",
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "es6": true,
+    "node": true,
+  },
   "plugins": [
     "react",
   ],
   "rules": {
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
-        "**/webpack.config.js",
-        "**/webpack.config.*.js",
-      ],
+    "arrow-body-style": 0,
+    "linebreak-style": 0,
+    "no-underscore-dangle": 0,
+    "import/prefer-default-export": 0,
+    "import/extensions": ["error", "ignorePackages", {
+      "js": "never",
+      "jsx": "never",
+      "pcss": "never",
     }],
-    "jsx-a11y/anchor-is-valid": [ "error", {
-      "components": [ "Link" ],
-      "specialLink": [ "to" ],
-    }],
-    "max-len": ["error", 100, 2, {
-      ignoreUrls: true,
-      ignoreComments: false,
-      ignoreRegExpLiterals: true,
-      ignoreStrings: true,
-      ignoreTemplateLiterals: true,
-      // ignore function with specified types for parameters and return type
-      ignorePattern: '.+=.*\\(.+:.+\\):\\s.+'
-    }],
-    "react/require-default-props": [
-      2,
-      { forbidDefaultForRequired: false }
-    ],
-    "react/default-props-match-prop-types": [
-      2,
-      { allowRequiredDefaults: true }
-    ],
   },
   "settings": {
     "import/resolver": {
       "node": {
+        "extensions": [".js", ".jsx", ".pcss", ".css"],
         "moduleDirectory": [
           "src",
           "node_modules",
-          "server"
+          "server",
         ],
-        "paths": ["src/client"]
+        "paths": ["src/client"],
       },
     },
   },
   "globals": {
     "APP_CONFIG": true,
-    "APP_CONSTANTS": true
-  }
+    "APP_CONSTANTS": true,
+  },
 };

@@ -14,13 +14,13 @@ export const connect = () => {
   });
 
   socket.on('connect', () => {
-    console.log('WS connected'); //eslint-disable-line
+    console.log('WS connected'); // eslint-disable-line no-console
     const userId = fromUser.getUserId(store.getState());
     socket.emit('subscribe', `user-${userId}`);
   });
 
   socket.on('disconnect', () => {
-    console.log('WS disconnected'); //eslint-disable-line
+    console.log('WS disconnected'); // eslint-disable-line no-console
   });
 
   userHandler(socket);
