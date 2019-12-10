@@ -35,12 +35,12 @@ const redirectToLogin = () => {
 
 api.interceptors.response.use(
   (response) => response,
-  async ({ config: requestConfig, response = {}, data }) => {
+  async ({ config: requestConfig, response = {} }) => {
     const errorData = {
       status: response.status,
       data: {
-        ...data,
-        errors: data && data.errors ? data.errors : generalError,
+        ...response.data,
+        errors: response.data && response.data.errors ? response.data.errors : generalError,
       },
     };
 
