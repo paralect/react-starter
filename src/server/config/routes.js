@@ -16,7 +16,14 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
     ctx.redirect(config.landingLoginUrl);
   }
 
-  return ctx.render(config.isDev ? 'index-template' : 'index', { isDev: config.isDev });
+  return ctx.render(config.isDev ? 'index-template' : 'index', {
+    isDev: config.isDev,
+    config: {
+      apiUrl: config.apiUrl,
+      landingUrl: config.landingUrl,
+      webSocketUrl: config.webSocketUrl,
+    },
+  });
 });
 
 module.exports = indexRouter.routes();

@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const incstr = require('incstr');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const config = require('../server/config');
 const constants = require('../server/constants');
 
 
@@ -159,11 +158,6 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         BABEL_ENV: JSON.stringify('production'),
-      },
-      APP_CONFIG: {
-        apiUrl: JSON.stringify(config.apiUrl),
-        webSocketUrl: JSON.stringify(config.webSocketUrl),
-        landingLoginUrl: JSON.stringify(config.landingLoginUrl),
       },
       APP_CONSTANTS: {
         ACCESS_TOKEN_COOKIE_NAME: JSON.stringify(constants.ACCESS_TOKEN_COOKIE_NAME),
