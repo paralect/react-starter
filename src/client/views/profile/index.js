@@ -1,4 +1,1 @@
-import Async from 'components/async';
-
-
-export default Async(() => import('./profile'));
+export { default } from './profile';

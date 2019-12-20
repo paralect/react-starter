@@ -1,10 +1,13 @@
 import React from 'react';
 import { Switch, Route, generatePath } from 'react-router-dom';
 
+import Loading from 'components/loading';
+import { ErrorBoundary } from 'components/error-boundary';
+
 import Home from 'views/home';
-import Profile from 'views/profile';
 import NotFound from 'views/not-found';
 
+const Profile = React.lazy(() => import('./views/profile'));
 
 const routesList = [{
   name: 'home',
@@ -23,16 +26,10 @@ const routesList = [{
   component: NotFound,
 }];
 
-// key={Math.random()} - is a workaround for work of the hmr with react-loadable
-// https://medium.com/@giang.nguyen.dev/hot-loader-with-react-loadable-c8f70c8ce1a6
-const key = (title) => {
-  return module.hot ? Math.random().toString() : title;
-};
-
 export const RoutesComponent = () => {
   const routes = routesList.map((route) => (
     <Route
-      key={key(route.name)}
+      key={route.name}
       exact={route.exact}
       path={route.path}
       component={route.component}
@@ -40,10 +37,14 @@ export const RoutesComponent = () => {
   ));
 
   return (
-    <Switch>
-      {routes}
-      <Route path="*" component={NotFound} />
-    </Switch>
+    <ErrorBoundary fallback={<h1>Error!</h1>}>
+      <React.Suspense fallback={<Loading />}>
+        <Switch>
+          {routes}
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </React.Suspense>
+    </ErrorBoundary>
   );
 };
 
