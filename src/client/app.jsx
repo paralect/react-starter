@@ -7,14 +7,14 @@ import Layout from 'layout';
 import store from 'resources/store';
 import history from 'services/history.service';
 
+import Loading from 'components/loading';
+import { ErrorBoundary } from 'components/error-boundary';
+
 import { routes } from 'routes';
 import Home from 'views/home';
-import Profile from 'views/profile';
 import NotFound from 'views/not-found';
 
-const key = (title) => {
-  return module.hot ? Math.random().toString() : title;
-};
+const Profile = React.lazy(() => import('./views/profile'));
 
 const view = {
   [routes.home.name]: Home,
@@ -26,19 +26,23 @@ export function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Layout>
-          <Switch>
-            {Object.values(routes).map((route) => (
-              <Route
-                key={key(route.name)}
-                exact={route.exact}
-                path={route.path}
-                component={view[route.name]}
-              />
-            ))}
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </Layout>
+        <ErrorBoundary fallback={<h1>Error!</h1>}>
+          <Layout>
+            <React.Suspense fallback={<Loading />}>
+              <Switch>
+                {Object.values(routes).map((route) => (
+                  <Route
+                    key={route.name}
+                    exact={route.exact}
+                    path={route.path}
+                    component={view[route.name]}
+                  />
+                ))}
+                <Route path="*" component={NotFound} />
+              </Switch>
+            </React.Suspense>
+          </Layout>
+        </ErrorBoundary>
       </ConnectedRouter>
     </Provider>
   );

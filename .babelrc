@@ -13,7 +13,6 @@
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-proposal-class-properties",
     "react-hot-loader/babel",
-    "react-loadable/babel",
     [
       "module-resolver", {
         "root": ["./src/client"]
