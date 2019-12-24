@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from 'config';
 import { API_LOGOUT_PATH } from 'helpers/constants';
 import history from 'services/history.service';
-import routes from 'routesList';
+import { routes } from 'routes';
 
 import ApiError from './api.error';
 
@@ -62,7 +62,7 @@ api.interceptors.response.use(
     }
 
     if (response.status === 404 || response.status === 403) {
-      return history.push(routes.notFound());
+      return history.push(routes.notFound.url());
     }
 
     return throwApiError(errorData);

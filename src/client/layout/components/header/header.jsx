@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 
-import routes from 'routesList';
+import { routes } from 'routes';
 import Logo from 'static/images/logo.svg';
 
 import Menu from './components/menu';
@@ -14,7 +14,7 @@ import styles from './header.styles';
 const Header = () => {
   return (
     <div className={styles.header}>
-      <Link className={styles.title} to={routes.home()}>
+      <Link className={styles.title} to={routes.home.url()}>
         <Logo />
       </Link>
 
