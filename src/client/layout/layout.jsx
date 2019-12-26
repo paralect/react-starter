@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-import { RoutesComponent } from 'routes';
 import Toast from 'components/toast';
 
 import Header from './components/header';
@@ -10,13 +10,15 @@ import styles from './layout.styles';
 
 class Layout extends PureComponent {
   render() {
+    const { children } = this.props;
+
     return (
       <div className={styles.page}>
         <Header />
 
         <div className={styles.main}>
           <div className={styles.content}>
-            <RoutesComponent />
+            {children}
           </div>
         </div>
 
@@ -27,5 +29,9 @@ class Layout extends PureComponent {
     );
   }
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Layout;

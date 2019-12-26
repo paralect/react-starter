@@ -11,7 +11,7 @@ import config from 'config';
 import { apiClient } from 'services/api';
 import { API_LOGOUT_PATH } from 'helpers/constants';
 import UserCircleO from 'components/icons/user-circle-o';
-import routes from 'routes';
+import { routes } from 'routes';
 
 import styles from './user-menu.styles';
 
@@ -19,13 +19,13 @@ import styles from './user-menu.styles';
 const linksList = [
   {
     label: 'Profile',
-    to: routes.profile(),
+    to: routes.profile.url(),
     icon: UserCircleO,
     routerLink: true,
   },
   {
     label: 'Change Password',
-    to: routes.notFound(),
+    to: routes.notFound.url(),
     icon: FaUnlockAlt,
     routerLink: true,
   },

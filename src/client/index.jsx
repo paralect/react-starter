@@ -1,27 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
 
-import Layout from 'layout';
 import store from 'resources/store';
-import history from 'services/history.service';
 import * as userActions from 'resources/user/user.actions';
 import * as socketService from 'services/socket.service';
 
-import styles from './index.styles';
+import { App } from './app';
 
+import styles from './index.styles';
 
 const minLoadingTime = 1500;
 const now = Date.now();
-
-const Root = () => (
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Layout />
-    </ConnectedRouter>
-  </Provider>
-);
 
 async function renderApp() {
   const rootEl = document.getElementById('root');
@@ -37,7 +26,7 @@ async function renderApp() {
   }
 
   ReactDOM.render(
-    <Root />,
+    <App />,
     rootEl,
   );
 }

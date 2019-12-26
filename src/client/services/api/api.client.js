@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from 'config';
 import { API_LOGOUT_PATH } from 'helpers/constants';
 import history from 'services/history.service';
-import routes from 'routes';
+import { routes } from 'routes';
 
 import ApiError from './api.error';
 
@@ -35,12 +35,12 @@ const redirectToLogin = () => {
 
 api.interceptors.response.use(
   (response) => response,
-  async ({ config: requestConfig, response = {}, data }) => {
+  async ({ config: requestConfig, response = {} }) => {
     const errorData = {
       status: response.status,
       data: {
-        ...data,
-        errors: data && data.errors ? data.errors : generalError,
+        ...response.data,
+        errors: response.data && response.data.errors ? response.data.errors : generalError,
       },
     };
 
@@ -62,14 +62,14 @@ api.interceptors.response.use(
     }
 
     if (response.status === 404 || response.status === 403) {
-      return history.push(routes.notFound());
+      return history.push(routes.notFound.url());
     }
 
     return throwApiError(errorData);
   },
 );
 
-const httpRequest = (method) => async (url, data) => {
+const httpRequest = (method) => async (url, data, extraOptions = {}) => {
   let urlWithSlash = url;
 
   if (urlWithSlash[0] !== '/') {
@@ -77,6 +77,7 @@ const httpRequest = (method) => async (url, data) => {
   }
 
   const options = {
+    ...extraOptions,
     method,
     url: urlWithSlash,
   };

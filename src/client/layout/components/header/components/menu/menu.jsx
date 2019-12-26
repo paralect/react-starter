@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-import routes from 'routes';
+import { routes } from 'routes';
 
 import styles from './menu.styles';
 
@@ -11,11 +11,11 @@ import styles from './menu.styles';
 const links = [
   {
     label: 'Dashboard',
-    to: routes.home(),
+    to: routes.home.url(),
   },
   {
     label: 'Reports',
-    to: routes.notFound(),
+    to: routes.notFound.url(),
   },
 ];
 

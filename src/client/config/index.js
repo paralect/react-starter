@@ -1,1 +1,5 @@
-export default APP_CONFIG;
+const { config } = window;
+delete window.config;
+
+
+export default config;
