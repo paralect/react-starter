@@ -9,3 +9,7 @@ export function getUsername({ user }) {
 export function getUserId({ user }) {
   return user._id;
 }
+
+export function getAuthenticated({ user }) {
+  return user !== null;
+}

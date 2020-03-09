@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import cn from 'classnames';
 
 import styles from './button.styles';
 
@@ -11,50 +11,24 @@ const colors = {
   red: 'red',
 };
 
-const noop = () => {};
-
-class Button extends PureComponent {
-  onEnterDown = (e) => {
-    const { onClick } = this.props;
-    if (e.keyCode === 13 && onClick) {
-      onClick(e);
-    }
-  };
-
-  render() {
-    const {
-      children, tabIndex, onClick, onKeyDown, color, className,
-    } = this.props;
-
-    return (
-      <div
-        className={classnames(styles.button, styles[color], className)}
-        role="button"
-        tabIndex={tabIndex}
-        onClick={onClick}
-        onKeyDown={onKeyDown || this.onEnterDown}
-      >
-        {children}
-      </div>
-    );
-  }
+/* eslint-disable react/button-has-type, react/jsx-props-no-spreading */
+function Button({ color, className, ...props }) {
+  return (
+    <button
+      className={cn(styles.button, styles[color], className)}
+      {...props}
+    />
+  );
 }
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  color: PropTypes.oneOf([colors.green, colors.blue, colors.red]),
+  color: PropTypes.oneOf(Object.values(colors)),
   className: PropTypes.string,
 };
 
 Button.defaultProps = {
-  onClick: noop,
-  onKeyDown: noop,
-  tabIndex: 0,
   color: colors.blue,
-  className: '',
+  className: null,
 };
 
 export default Button;
