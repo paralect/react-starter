@@ -1,29 +1,22 @@
 class ApiError extends Error {
-  constructor(data, status) {
-    super(data);
+  constructor(status = 500, statusText = 'Internal Server Error', data) {
+    super(`${status} ${statusText}`);
 
-    this.name = this.constructor.name;
-
-    // a workaround to make `instanceof ApiError` work in ES5 with babel
     this.constructor = ApiError;
     this.__proto__ = ApiError.prototype; // eslint-disable-line no-proto
 
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, ApiError);
-    }
-
+    this.name = this.constructor.name;
     this.data = data;
     this.status = status;
 
-    // replaces '[object object]'
-    this.message = `API Error. Status: ${status} ${JSON.stringify(data)}`;
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 
   inspect() {
     return this.stack;
   }
 }
-
-ApiError.prototype = Error.prototype;
 
 export default ApiError;
