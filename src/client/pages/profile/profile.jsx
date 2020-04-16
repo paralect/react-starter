@@ -11,9 +11,6 @@ import * as userActions from 'resources/user/user.actions';
 import * as userValidators from 'resources/user/user.validators';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import { routes } from 'routes';
-import history from '../../services/history.service';
-
 import styles from './profile.styles';
 
 class Profile extends PureComponent {
@@ -26,6 +23,8 @@ class Profile extends PureComponent {
       email: props.user.email,
       errors: {},
     };
+
+    this.initialState = _.cloneDeep(this.state);
   }
 
   onFieldChange = (field) => (value) => {
@@ -74,7 +73,7 @@ class Profile extends PureComponent {
   }
 
   cancel = () => {
-    history.push(routes.home.path);
+    this.setState(this.initialState);
   }
 
   error = (field) => {
