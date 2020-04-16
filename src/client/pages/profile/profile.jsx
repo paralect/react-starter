@@ -11,8 +11,10 @@ import * as userActions from 'resources/user/user.actions';
 import * as userValidators from 'resources/user/user.validators';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './profile.styles';
+import { routes } from 'routes';
+import history from '../../services/history.service';
 
+import styles from './profile.styles';
 
 class Profile extends PureComponent {
   constructor(props) {
@@ -71,6 +73,10 @@ class Profile extends PureComponent {
     }
   }
 
+  cancel = () => {
+    history.push(routes.home.path);
+  }
+
   error = (field) => {
     const { errors } = this.state;
     return errors[field] || [];
@@ -127,7 +133,12 @@ class Profile extends PureComponent {
           </Row>
           <Row>
             <Column>
-              <Button className={styles.button} tabIndex={-1} color={buttonColors.red}>
+              <Button
+                className={styles.button}
+                onClick={this.cancel}
+                tabIndex={-1}
+                color={buttonColors.red}
+              >
                 Cancel
               </Button>
 
