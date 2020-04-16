@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import store from 'resources/store';
 import history from 'services/history.service';
+import { getAccessToken } from 'helpers/token.helper';
 
 import * as userActions from 'resources/user/user.actions';
 
@@ -54,7 +55,9 @@ export function App() {
   React.useEffect(() => {
     async function init() {
       try {
-        await store.dispatch(userActions.getCurrentUser());
+        if (getAccessToken()) {
+          await store.dispatch(userActions.getCurrentUser());
+        }
       } catch (error) {
         console.log(error); // eslint-disable-line no-console
       } finally {
