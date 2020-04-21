@@ -7,6 +7,14 @@ import * as userHandlers from 'resources/user/user.handlers';
 
 let socket; // eslint-disable-line import/no-mutable-exports
 
+export const emit = (event, ...args) => {
+  socket.emit(event, args);
+};
+
+export const on = (event, callback) => {
+  socket.on(event, callback);
+};
+
 export const connect = () => {
   socket = io(config.webSocketUrl, {
     transports: ['websocket'],
@@ -15,7 +23,7 @@ export const connect = () => {
 
   socket.on('connect', () => {
     console.log('WS connected'); // eslint-disable-line no-console
-    userHandlers.attachSocketEvents(socket);
+    userHandlers.attachSocketEvents({ on, emit });
   });
 
   socket.on('disconnect', () => {
@@ -34,8 +42,4 @@ export const disconnected = () => {
 
 export const connected = () => {
   return socket && socket.connected;
-};
-
-export {
-  socket,
 };
