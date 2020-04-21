@@ -1,6 +1,13 @@
+// If you use this starter with .NET back-end then
+// follow the instructions below, otherwise delete this file.
+
+// 1. Uninstall `socket.io-client` and delete `socketIo.service.js`
+// 2. Install `@microsoft/signalr`
+// 3. Change imports from `socketIo.service` to `signalR.service`
+
 import config from 'config';
 import * as userHandlers from 'resources/user/user.handlers';
-import * as signalR from '@microsoft/signalr';
+import * as signalR from '@microsoft/signalr'; // eslint-disable-line import/no-unresolved
 
 let connection;
 
