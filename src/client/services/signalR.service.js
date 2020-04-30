@@ -12,30 +12,30 @@ import * as signalR from '@microsoft/signalr'; // eslint-disable-line import/no-
 let connection;
 
 export const emit = (event, ...args) => {
+  if (!connection) return;
   connection.invoke(event, ...args);
 };
 
 export const on = (event, callback) => {
+  if (!connection) return;
   connection.on(event, callback);
 };
 
-export const connect = () => {
+export const connect = async () => {
   connection = new signalR.HubConnectionBuilder()
     .withUrl(config.webSocketUrl)
     .withAutomaticReconnect()
     .build();
 
-  connection.start()
-    .then(() => {
-      console.log('WS connected!'); // eslint-disable-line no-console
-      userHandlers.attachSocketEvents({ on, emit });
-    });
+  await connection.start();
+
+  console.log('WS connected!'); // eslint-disable-line no-console
+  userHandlers.attachSocketEvents({ on, emit });
 };
 
 export const disconnect = () => {
-  if (connection) {
-    connection.stop();
-  }
+  if (!connection) return;
+  connection.stop();
 };
 
 export const connected = () => {
