@@ -13,7 +13,6 @@ import * as toastActions from 'resources/toast/toast.actions';
 
 import styles from './profile.styles';
 
-
 class Profile extends PureComponent {
   constructor(props) {
     super(props);
@@ -24,6 +23,8 @@ class Profile extends PureComponent {
       email: props.user.email,
       errors: {},
     };
+
+    this.initialState = _.cloneDeep(this.state);
   }
 
   onFieldChange = (field) => (value) => {
@@ -69,6 +70,10 @@ class Profile extends PureComponent {
     } catch (error) {
       this.showErrors(error.data.errors);
     }
+  }
+
+  cancel = () => {
+    this.setState(this.initialState);
   }
 
   error = (field) => {
@@ -127,7 +132,12 @@ class Profile extends PureComponent {
           </Row>
           <Row>
             <Column>
-              <Button className={styles.button} tabIndex={-1} color={buttonColors.red}>
+              <Button
+                className={styles.button}
+                onClick={this.cancel}
+                tabIndex={-1}
+                color={buttonColors.red}
+              >
                 Cancel
               </Button>
 
