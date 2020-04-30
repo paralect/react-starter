@@ -9,7 +9,7 @@ let socket; // eslint-disable-line import/no-mutable-exports
 
 export const emit = (event, ...args) => {
   if (!socket) return;
-  socket.emit(event, args);
+  socket.emit(event, ...args);
 };
 
 export const on = (event, callback) => {
