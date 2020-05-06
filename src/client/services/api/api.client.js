@@ -18,12 +18,20 @@ class ApiClient {
     this._api.interceptors.response.use(
       (response) => response,
       (error) => {
+        // Axios Network Error & Timeout error dont have 'response' field
+        // https://github.com/axios/axios/issues/383
+        const errorResponse = error.response || {
+          status: error.code,
+          statusText: error.message,
+          data: error.data,
+        }
+
         const errorHandlers = this._handlers.get('error') || [];
         errorHandlers.forEach((handler) => {
-          handler(error.response);
+          handler(errorResponse);
         });
 
-        return throwApiError(error.response);
+        return throwApiError(errorResponse);
       },
     );
   }
