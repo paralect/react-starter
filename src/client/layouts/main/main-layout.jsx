@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { routes } from 'routes';
 
 import * as loaderService from 'services/loader.service';
-import * as socketService from 'services/socket.service';
+import * as socketService from 'services/socketIo.service';
 
 import * as userSelectors from 'resources/user/user.selectors';
 
