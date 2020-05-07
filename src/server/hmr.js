@@ -12,6 +12,7 @@ module.exports = () => {
     hotClient: {
       host,
       port: 8081,
+      validTargets: ['node'],
     },
     devMiddleware: {
       publicPath: webpackConfig.output.publicPath,
