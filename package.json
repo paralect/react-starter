@@ -91,6 +91,7 @@
     "@babel/polyfill": "7.4.4",
     "@babel/preset-env": "7.5.4",
     "@babel/preset-react": "7.0.0",
+    "@hot-loader/react-dom": "16.8.6",
     "all-contributors-cli": "6.8.0",
     "babel-eslint": "10.0.3",
     "babel-loader": "8.0.6",
