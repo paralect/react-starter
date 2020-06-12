@@ -3,13 +3,14 @@
     [
       "@babel/preset-env",
       {
-        "modules": false
+        "corejs": 3,
+        "useBuiltIns": "entry"
       }
     ],
     "@babel/preset-react"
   ],
   "plugins": [
-    "@babel/plugin-syntax-dynamic-import",
+    "lodash",
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-proposal-class-properties",
     "react-hot-loader/babel",
@@ -30,6 +31,5 @@
         }
       }
     ]
-  ],
-  "retainLines": true
+  ]
 }

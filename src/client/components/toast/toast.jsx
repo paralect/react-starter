@@ -3,34 +3,11 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import {
-  FaExclamationCircle,
-  FaExclamationTriangle,
-  FaCheckCircle,
-} from 'react-icons/fa';
 
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './toast.styles';
-
-
-const icon = (messageType) => {
-  switch (messageType) {
-    case 'error':
-      return <FaExclamationCircle className={styles.icon} size={25} />;
-
-    case 'warning':
-      return <FaExclamationTriangle className={styles.icon} size={25} />;
-
-    case 'success':
-      return <FaCheckCircle className={styles.icon} size={25} />;
-
-    default:
-      return null;
-  }
-};
-
+import styles from './toast.styles.pcss';
 
 class Toast extends PureComponent {
   constructor(props) {
@@ -81,7 +58,6 @@ class Toast extends PureComponent {
           onClick={this.onMessageClick(message.id)}
           onKeyDown={this.onMessageKeyDown(message.id)}
         >
-          {icon(message.type)}
           <div>
             {
               message.title && (

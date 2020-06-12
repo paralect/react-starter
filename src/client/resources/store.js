@@ -1,20 +1,16 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import * as redux from 'redux';
 import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router';
 
 import history from 'services/history.service';
 
 import reducer from './reducer';
 
+const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux.compose;
 
-const initialState = {};
-
-const store = createStore(
+const store = redux.createStore(
   reducer,
-  initialState,
   compose(
-    applyMiddleware(routerMiddleware(history), thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
+    redux.applyMiddleware(thunk.withExtraArgument({ history })),
   ),
 );
 

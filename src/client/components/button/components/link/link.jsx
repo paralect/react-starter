@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Button from 'components/button/button';
 
-import styles from './link.styles';
+import styles from './link.styles.pcss';
 
 
 const noop = () => {};

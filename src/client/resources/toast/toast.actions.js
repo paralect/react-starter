@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import { nanoid } from 'nanoid';
 
 
 const DISPLAY_TIME = 3000;
@@ -10,7 +10,7 @@ const hideAfterTimeout = (dispatch, id) => {
 };
 
 const addMessage = (dispatch, data) => {
-  const id = uuidv4();
+  const id = nanoid();
 
   hideAfterTimeout(dispatch, id);
 

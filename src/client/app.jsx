@@ -1,8 +1,8 @@
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { Router } from 'react-router';
 import { Switch, Route } from 'react-router-dom';
+import { hot } from 'react-hot-loader/root';
 
 import store from 'resources/store';
 import history from 'services/history.service';
@@ -22,7 +22,7 @@ import Reset from 'pages/reset';
 import Home from 'pages/home';
 import NotFound from 'pages/not-found';
 
-import 'styles/global';
+import 'styles/global.pcss';
 
 const Profile = React.lazy(() => import('./pages/profile'));
 
@@ -70,7 +70,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <Router history={history}>
         <ErrorBoundary fallback={<h1>Error!</h1>}>
           <Switch>
             {spaces.map((space) => (
@@ -98,7 +98,7 @@ function App() {
             <Route path="*" component={NotFound} />
           </Switch>
         </ErrorBoundary>
-      </ConnectedRouter>
+      </Router>
     </Provider>
   );
 }

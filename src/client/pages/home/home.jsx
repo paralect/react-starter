@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import { FaClock } from 'react-icons/fa';
 
-import styles from './home.styles';
+import styles from './home.styles.pcss';
 
 
 const meetingsList = [
@@ -50,7 +49,6 @@ class Home extends PureComponent {
           className={styles.meeting}
         >
           <div className={styles.time}>
-            <FaClock size={15} />
             <span>
               {meeting.time}
             </span>

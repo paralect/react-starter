@@ -6,7 +6,7 @@ import Logo from 'static/images/logo.svg';
 
 import Menu from './components/menu';
 import UserMenu from './components/user-menu';
-import styles from './header.styles';
+import styles from './header.styles.pcss';
 
 
 function Header() {

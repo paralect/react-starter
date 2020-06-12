@@ -1,5 +1,3 @@
-import history from 'services/history.service';
-
 import { routes } from 'routes';
 
 import * as api from './user.api';
@@ -7,7 +5,7 @@ import * as api from './user.api';
 export const signIn = ({
   email,
   password,
-}) => async (dispatch) => {
+}) => async (dispatch, _, ctx) => {
   const { data: user } = await api.signIn({
     email,
     password,
@@ -15,7 +13,7 @@ export const signIn = ({
   dispatch({ type: 'user:set', payload: { user } });
 
   const searchParams = new URLSearchParams(window.location.search);
-  history.push(searchParams.get('to') || routes.home.path);
+  ctx.history.push(searchParams.get('to') || routes.home.path);
 };
 
 export const signUp = ({
@@ -40,11 +38,9 @@ export const forgot = ({ email }) => async () => {
   await api.forgot({ email });
 };
 
-export const reset = ({ password, token }) => async (dispatch) => {
-  const { data: user } = await api.reset({ password, token });
-  dispatch({ type: 'user:set', payload: { user } });
-
-  history.push(routes.home.path);
+export const reset = ({ password, token }) => async (dispatch, _, ctx) => {
+  await api.reset({ password, token });
+  ctx.history.push(routes.signIn.path);
 };
 
 export const signOut = () => async (dispatch) => {

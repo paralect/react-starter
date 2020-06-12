@@ -2,61 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const incstr = require('incstr');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const constants = require('../server/constants');
-
-
-const createUniqueIdGenerator = () => {
-  const index = {};
-
-  const generateNextId = incstr.idGenerator({
-    // Removed "d" letter to avoid accidental "ad" construct.
-    // @see https://medium.com/@mbrevda/just-make-sure-ad-isnt-being-used-as-a-class-name-prefix-or-you-might-suffer-the-wrath-of-the-558d65502793
-    alphabet: 'abcefghijklmnopqrstuvwxyz0123456789',
-  });
-
-  return (name) => {
-    if (index[name]) {
-      return index[name];
-    }
-
-    let nextId;
-
-    do {
-      // Class name cannot start with a number.
-      nextId = generateNextId();
-    } while (/^[0-9]/.test(nextId));
-
-    index[name] = nextId;
-
-    return index[name];
-  };
-};
-
-const uniqueIdGenerator = createUniqueIdGenerator();
-
-const getComponentName = (resourcePath, separator) => {
-  return resourcePath.split(separator).slice(-5, -1).join(separator);
-};
-
-const generateScopedName = (localName, resourcePath) => {
-  const componentUnixName = getComponentName(resourcePath, '/');
-  const componentWindowsName = getComponentName(resourcePath, '\\');
-
-  const componentName = componentUnixName > componentWindowsName
-    ? componentUnixName
-    : componentWindowsName;
-
-  return `${uniqueIdGenerator(componentName)}_${uniqueIdGenerator(localName)}`;
-};
 
 module.exports = {
   mode: 'production',
 
   entry: {
-    main: ['@babel/polyfill', './index.jsx'],
+    main: ['./index.jsx'],
   },
 
   output: {
@@ -74,18 +28,6 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          plugins: [
-            'lodash',
-            [
-              'react-css-modules',
-              {
-                generateScopedName,
-                webpackHotModuleReloading: false,
-              },
-            ],
-          ],
-        },
       },
       {
         test: /\.pcss$/,
@@ -96,12 +38,8 @@ module.exports = {
             options: {
               importLoaders: 1,
               modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                  return generateScopedName(localName, resourcePath);
-                },
+                localIdentName: '[sha1:contenthash:hex:8]',
               },
-              localsConvention: 'camelCase',
             },
           },
           {
@@ -114,24 +52,20 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                  return generateScopedName(localName, resourcePath);
-                },
-              },
-              localsConvention: 'camelCase',
-            },
-          },
+          'css-loader',
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
+        test: /\.(png|jpe?g|gif|woff|woff2)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: '[name].[contenthash].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
@@ -150,8 +84,8 @@ module.exports = {
   plugins: [
     new LodashModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'main.[hash].css',
-      chunkFilename: 'main.[id].[hash].css',
+      filename: 'main.[contenthash].css',
+      chunkFilename: 'main.[id].[contenthash].css',
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({

@@ -1,12 +1,15 @@
-FROM node:10.16.3
-
-EXPOSE 3002 8081
-COPY ["./package.json", "./package-lock.json", "./.eslintrc.js", "./.eslintignore", "./.babelrc", "./browserslist", "./.stylelintrc", "/app/"]
+FROM node:12
 
 WORKDIR /app
 
-VOLUME "/app/src"
+COPY ./package.json ./package-lock.json ./
+RUN npm i --quiet
+COPY . .
+
+VOLUME "./src:/app/src"
 
 RUN npm i --quiet
+
+EXPOSE 3002 8081
 
 CMD npm run development

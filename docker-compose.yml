@@ -4,8 +4,6 @@ services:
     build:
       context: "./"
       dockerfile: Dockerfile.dev
-    volumes:
-      - "./src:/app/src"
     networks:
       - ship
     environment:

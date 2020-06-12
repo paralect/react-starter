@@ -1,10 +1,10 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import 'react-hot-loader';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './app';
 
-function render() {
-  ReactDOM.render(<App />, document.querySelector('#root'));
-}
-
-render();
+ReactDOM.render(<App />, document.querySelector('#root'));

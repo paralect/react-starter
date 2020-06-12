@@ -4,16 +4,11 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const constants = require('../server/constants');
 
-
 module.exports = {
   mode: 'development',
 
   entry: {
-    main: [
-      '@babel/polyfill',
-      'react-hot-loader/patch',
-      './index.jsx',
-    ],
+    main: ['./index.jsx'],
   },
 
   output: {
@@ -30,9 +25,6 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          plugins: ['lodash'],
-        },
       },
       {
         test: /\.pcss$/,
@@ -41,11 +33,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-              },
-              localsConvention: 'camelCase',
               importLoaders: 1,
+              modules: {
+                localIdentName: '[local]_[contenthash:base64:5]',
+              },
             },
           },
           { loader: 'postcss-loader' },
@@ -53,23 +44,19 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|woff|woff2)$/i,
         use: [
-          { loader: 'style-loader' },
           {
-            loader: 'css-loader',
+            loader: 'url-loader',
             options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-              },
-              localsConvention: 'camelCase',
-              importLoaders: 1,
+              limit: 8192,
+              name: '[name].[contenthash].[ext]',
             },
           },
         ],
-      },
-      {
-        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
       },
     ],
   },
@@ -79,7 +66,7 @@ module.exports = {
   resolve: {
     alias: { 'react-dom': '@hot-loader/react-dom' },
     modules: ['./', 'node_modules'],
-    extensions: ['.mjs', '.js', '.jsx', '.pcss'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
 
   plugins: [

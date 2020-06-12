@@ -1,14 +1,12 @@
-FROM node:10.16.3
-
-EXPOSE 3002
-COPY ["./package.json", "./package-lock.json", "./.eslintrc.js", "./.eslintignore", "./.babelrc", "./browserslist", "./.stylelintrc", "/app/"]
+FROM node:12
 
 WORKDIR /app
 
+COPY ./package.json ./package-lock.json ./
 RUN npm i --quiet
+COPY . .
+RUN npm run build
 
-COPY ./src /app/src
-
-RUN npm run build-client
+EXPOSE 3002
 
 CMD npm start
