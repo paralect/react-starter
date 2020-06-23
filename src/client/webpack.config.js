@@ -76,22 +76,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                  return generateScopedName(localName, resourcePath);
-                },
-              },
-              localsConvention: 'camelCase',
-            },
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
