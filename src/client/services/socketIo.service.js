@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 
 import config from 'config';
-import { getAccessToken } from 'helpers/token.helper';
 import * as userHandlers from 'resources/user/user.handlers';
 
 

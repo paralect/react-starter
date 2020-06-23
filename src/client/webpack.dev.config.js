@@ -17,7 +17,7 @@ module.exports = {
   output: {
     path: `${__dirname}/static/`,
     publicPath: '/static/',
-    filename: '[name].js',
+    filename: 'main.js',
   },
 
   context: path.resolve(__dirname, './'),
@@ -30,6 +30,8 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           plugins: ['lodash'],
+          cacheDirectory: true,
+          cacheCompression: false,
         },
       },
       {
