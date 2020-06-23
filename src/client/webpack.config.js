@@ -2,53 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const incstr = require('incstr');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 
-const createUniqueIdGenerator = () => {
-  const index = {};
-
-  const generateNextId = incstr.idGenerator({
-    // Removed "d" letter to avoid accidental "ad" construct.
-    // @see https://medium.com/@mbrevda/just-make-sure-ad-isnt-being-used-as-a-class-name-prefix-or-you-might-suffer-the-wrath-of-the-558d65502793
-    alphabet: 'abcefghijklmnopqrstuvwxyz0123456789',
-  });
-
-  return (name) => {
-    if (index[name]) {
-      return index[name];
-    }
-
-    let nextId;
-
-    do {
-      // Class name cannot start with a number.
-      nextId = generateNextId();
-    } while (/^[0-9]/.test(nextId));
-
-    index[name] = nextId;
-
-    return index[name];
-  };
-};
-
-const uniqueIdGenerator = createUniqueIdGenerator();
-
-const getComponentName = (resourcePath, separator) => {
-  return resourcePath.split(separator).slice(-5, -1).join(separator);
-};
-
-const generateScopedName = (localName, resourcePath) => {
-  const componentUnixName = getComponentName(resourcePath, '/');
-  const componentWindowsName = getComponentName(resourcePath, '\\');
-
-  const componentName = componentUnixName > componentWindowsName
-    ? componentUnixName
-    : componentWindowsName;
-
-  return `${uniqueIdGenerator(componentName)}_${uniqueIdGenerator(localName)}`;
-};
+// for Sentry.io and similar tools set to true
+const BUILD_SOURCE_MAP = false;
 
 module.exports = {
   mode: 'production',
@@ -60,8 +18,12 @@ module.exports = {
   output: {
     path: `${__dirname}/static/`,
     publicPath: '/static/',
-    filename: 'main.[hash].js',
-    chunkFilename: 'main.[id].[hash].js',
+    // Unfortunately Webpack have issues with contenthash currently
+    // It changes on repeated builds even if content not changed
+    // https://github.com/webpack/webpack/issues/9520
+    // anyway it is still very useful for long term caching
+    filename: 'main.[contenthash].js',
+    chunkFilename: 'main.[id].[contenthash].js',
   },
 
   context: path.resolve(__dirname, './'),
@@ -75,14 +37,12 @@ module.exports = {
         options: {
           plugins: [
             'lodash',
-            [
-              'react-css-modules',
-              {
-                generateScopedName,
-                webpackHotModuleReloading: false,
-              },
-            ],
+            ['react-css-modules', {
+              generateScopedName: '[hash:8]',
+            }],
           ],
+          cacheDirectory: true,
+          cacheCompression: false,
         },
       },
       {
@@ -93,13 +53,10 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                  return generateScopedName(localName, resourcePath);
-                },
-              },
               localsConvention: 'camelCase',
+              modules: {
+                localIdentName: '[hash:8]',
+              },
             },
           },
           {
@@ -110,22 +67,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                  return generateScopedName(localName, resourcePath);
-                },
-              },
-              localsConvention: 'camelCase',
-            },
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -134,7 +76,7 @@ module.exports = {
     ],
   },
 
-  devtool: 'eval',
+  devtool: BUILD_SOURCE_MAP && 'hidden-source-map',
 
   resolve: {
     modules: ['./', 'node_modules'],
@@ -143,13 +85,44 @@ module.exports = {
 
   optimization: {
     minimize: true,
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+
+  stats: {
+    children: false,
+    chunks: true,
+    chunkModules: false,
+    colors: true,
+    entrypoints: false,
+    env: true,
+    errors: true,
+    errorDetails: true,
+    publicPath: true,
+    performance: false,
+    modules: false,
+    timings: true,
+    warnings: true,
+  },
+
+  performance: {
+    hints: false,
   },
 
   plugins: [
     new LodashModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'main.[hash].css',
-      chunkFilename: 'main.[id].[hash].css',
+      filename: 'main.[contenthash].css',
+      chunkFilename: 'main.[id].[contenthash].css',
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({

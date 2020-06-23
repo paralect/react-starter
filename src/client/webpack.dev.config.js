@@ -17,7 +17,7 @@ module.exports = {
   output: {
     path: `${__dirname}/static/`,
     publicPath: '/static/',
-    filename: '[name].js',
+    filename: 'main.js',
   },
 
   context: path.resolve(__dirname, './'),
@@ -29,7 +29,13 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          plugins: ['lodash'],
+          plugins: [
+            ['react-css-modules', {
+              generateScopedName: '[name]__[local]_[hash:8]',
+            }],
+          ],
+          cacheDirectory: true,
+          cacheCompression: false,
         },
       },
       {
@@ -39,11 +45,11 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-              },
-              localsConvention: 'camelCase',
               importLoaders: 1,
+              localsConvention: 'camelCase',
+              modules: {
+                localIdentName: '[name]__[local]_[hash:8]',
+              },
             },
           },
           { loader: 'postcss-loader' },
@@ -51,19 +57,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-              },
-              localsConvention: 'camelCase',
-              importLoaders: 1,
-            },
-          },
-        ],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
