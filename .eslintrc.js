@@ -1,5 +1,5 @@
 module.exports = {
-  "extends": "airbnb",
+  "extends": ["airbnb", "airbnb/hooks"],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
