@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import _ from 'lodash';
 
-
 const yupOptions = {
   abortEarly: false,
 };

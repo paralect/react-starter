@@ -51,7 +51,6 @@ const spaces = [
 function App() {
   const [loading, setLoading] = React.useState(true);
 
-
   React.useEffect(() => {
     async function init() {
       try {

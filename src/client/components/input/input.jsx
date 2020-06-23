@@ -5,7 +5,6 @@ import _ from 'lodash';
 
 import styles from './input.styles';
 
-
 export default class Input extends PureComponent {
   onChange = (e) => {
     const { onChange } = this.props;

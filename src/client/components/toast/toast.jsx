@@ -14,7 +14,6 @@ import * as toastActions from 'resources/toast/toast.actions';
 
 import styles from './toast.styles';
 
-
 const icon = (messageType) => {
   switch (messageType) {
     case 'error':
@@ -30,7 +29,6 @@ const icon = (messageType) => {
       return null;
   }
 };
-
 
 class Toast extends PureComponent {
   constructor(props) {

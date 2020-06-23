@@ -9,7 +9,6 @@ import * as userActions from 'resources/user/user.actions';
 
 import styles from './user-menu.styles';
 
-
 const linksList = [
   {
     label: 'Profile',

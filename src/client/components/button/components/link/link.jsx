@@ -6,7 +6,6 @@ import Button from 'components/button/button';
 
 import styles from './link.styles';
 
-
 const noop = () => {};
 
 class ButtonLink extends PureComponent {

@@ -8,7 +8,6 @@ import Menu from './components/menu';
 import UserMenu from './components/user-menu';
 import styles from './header.styles';
 
-
 function Header() {
   return (
     <div className={styles.header}>

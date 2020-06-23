@@ -3,7 +3,6 @@ import { FaClock } from 'react-icons/fa';
 
 import styles from './home.styles';
 
-
 const meetingsList = [
   {
     time: '08:00 AM',
@@ -33,42 +32,38 @@ const meetingsList = [
 
 class Home extends PureComponent {
   static participantsList(participants) {
-    return participants.map((participator) => {
-      return (
-        <li key={participator}>
-          {participator}
-        </li>
-      );
-    });
+    return participants.map((participator) => (
+      <li key={participator}>
+        {participator}
+      </li>
+    ));
   }
 
   static meetings() {
-    return meetingsList.map((meeting) => {
-      return (
-        <div
-          key={meeting.description}
-          className={styles.meeting}
-        >
-          <div className={styles.time}>
-            <FaClock size={15} />
-            <span>
-              {meeting.time}
-            </span>
-          </div>
-
-          <div className={styles.description}>
-            {meeting.description}
-          </div>
-
-          <h3 className={styles.participantsTitle}>
-            Participants:
-          </h3>
-          <ul className={styles.participantsList}>
-            {Home.participantsList(meeting.participants)}
-          </ul>
+    return meetingsList.map((meeting) => (
+      <div
+        key={meeting.description}
+        className={styles.meeting}
+      >
+        <div className={styles.time}>
+          <FaClock size={15} />
+          <span>
+            {meeting.time}
+          </span>
         </div>
-      );
-    });
+
+        <div className={styles.description}>
+          {meeting.description}
+        </div>
+
+        <h3 className={styles.participantsTitle}>
+          Participants:
+        </h3>
+        <ul className={styles.participantsList}>
+          {Home.participantsList(meeting.participants)}
+        </ul>
+      </div>
+    ));
   }
 
   render() {

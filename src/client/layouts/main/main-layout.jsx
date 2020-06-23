@@ -17,7 +17,6 @@ import Footer from './footer';
 
 import styles from './main-layout.pcss';
 
-
 function MainLayout({ children }) {
   const authenticated = useSelector(userSelectors.getAuthenticated);
 

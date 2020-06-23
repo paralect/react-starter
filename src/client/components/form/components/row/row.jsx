@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import styles from './row.styles';
 
-
 const Row = ({ children, className }) => (
   <div className={classnames(styles.row, className)}>
     {children}

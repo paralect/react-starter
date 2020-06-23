@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 import { validate, validateField } from 'helpers/validation';
 
-
 const schema = yup.object({
   firstName: yup.string()
     .trim()

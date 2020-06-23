@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import styles from './column.styles';
 
-
 const Column = ({ children, className }) => (
   <div className={classnames(styles.column, className)}>
     {children}

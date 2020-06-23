@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from './loading.styles';
 
-
 const Loading = () => {
   return (
     <div className={styles.cubeWrapper}>

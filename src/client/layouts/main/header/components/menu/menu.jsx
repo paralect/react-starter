@@ -5,7 +5,6 @@ import { routes } from 'routes';
 
 import styles from './menu.styles';
 
-
 const links = [
   {
     label: 'Dashboard',

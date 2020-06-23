@@ -8,7 +8,6 @@ import * as socketService from 'services/socketIo.service';
 
 import styles from './notFound.styles';
 
-
 function NotFound() {
   React.useEffect(() => {
     loaderService.hide();

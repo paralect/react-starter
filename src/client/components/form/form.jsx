@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import styles from './form.styles';
 
-
 const Form = ({ className, children }) => {
   return (
     <div className={classnames(styles.form, className)}>

@@ -6,7 +6,6 @@ import history from 'services/history.service';
 
 import reducer from './reducer';
 
-
 const initialState = {};
 
 const store = createStore(

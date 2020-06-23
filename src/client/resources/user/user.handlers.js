@@ -5,7 +5,6 @@ import { apiClient } from 'services/api';
 import * as selectors from './user.selectors';
 import * as actions from './user.actions';
 
-
 apiClient.on('error', (error) => {
   if (error.status === 401) {
     store.dispatch(actions.signOut());
