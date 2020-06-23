@@ -29,7 +29,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          plugins: ['lodash'],
+          plugins: [
+            ['react-css-modules', {
+              generateScopedName: '[name]__[local]_[hash:8]',
+            }],
+          ],
           cacheDirectory: true,
           cacheCompression: false,
         },
@@ -41,11 +45,11 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-              },
-              localsConvention: 'camelCase',
               importLoaders: 1,
+              localsConvention: 'camelCase',
+              modules: {
+                localIdentName: '[name]__[local]_[hash:8]',
+              },
             },
           },
           { loader: 'postcss-loader' },

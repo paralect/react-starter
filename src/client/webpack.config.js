@@ -4,8 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const generateScopedName = require('./generateScopedName');
-
 
 // for Sentry.io and similar tools set to true
 const BUILD_SOURCE_MAP = false;
@@ -39,13 +37,9 @@ module.exports = {
         options: {
           plugins: [
             'lodash',
-            [
-              'react-css-modules',
-              {
-                generateScopedName,
-                webpackHotModuleReloading: false,
-              },
-            ],
+            ['react-css-modules', {
+              generateScopedName: '[hash:8]',
+            }],
           ],
           cacheDirectory: true,
           cacheCompression: false,
@@ -59,13 +53,10 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]',
-                getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
-                  return generateScopedName(localName, resourcePath);
-                },
-              },
               localsConvention: 'camelCase',
+              modules: {
+                localIdentName: '[hash:8]',
+              },
             },
           },
           {
