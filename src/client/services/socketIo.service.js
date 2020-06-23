@@ -20,7 +20,6 @@ export const on = (event, callback) => {
 export const connect = async () => {
   socket = io(config.webSocketUrl, {
     transports: ['websocket'],
-    query: { accessToken: getAccessToken() },
   });
 
   socket.on('connect', () => {

@@ -2,8 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const constants = require('../server/constants');
-
 
 module.exports = {
   mode: 'development',
@@ -85,10 +83,5 @@ module.exports = {
   plugins: [
     new LodashModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      APP_CONSTANTS: {
-        ACCESS_TOKEN_COOKIE_NAME: JSON.stringify(constants.ACCESS_TOKEN_COOKIE_NAME),
-      },
-    }),
   ],
 };
