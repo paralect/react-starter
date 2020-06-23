@@ -11,7 +11,7 @@ import * as userActions from 'resources/user/user.actions';
 import * as userValidators from 'resources/user/user.validators';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './profile.styles';
+import styles from './profile.styles.pcss';
 
 class Profile extends PureComponent {
   constructor(props) {

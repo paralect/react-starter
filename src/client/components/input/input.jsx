@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
 
-import styles from './input.styles';
+import styles from './input.styles.pcss';
 
 export default class Input extends PureComponent {
   onChange = (e) => {

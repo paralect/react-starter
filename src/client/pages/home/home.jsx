@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FaClock } from 'react-icons/fa';
 
-import styles from './home.styles';
+import styles from './home.styles.pcss';
 
 const meetingsList = [
   {

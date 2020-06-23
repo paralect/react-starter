@@ -18,11 +18,6 @@ module.exports = {
     'arrow-body-style': 0,
     'no-underscore-dangle': 0,
     'import/prefer-default-export': 0,
-    'import/extensions': ['error', 'ignorePackages', {
-      js: 'never',
-      jsx: 'never',
-      pcss: 'never',
-    }],
     'import/no-extraneous-dependencies': ['error', {
       devDependencies: ['**/*.config.js'],
     }],
@@ -30,7 +25,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.pcss', '.css'],
+        extensions: ['.js', '.jsx'],
         moduleDirectory: [
           'src',
           'node_modules',

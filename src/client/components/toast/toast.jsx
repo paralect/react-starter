@@ -12,7 +12,7 @@ import {
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './toast.styles';
+import styles from './toast.styles.pcss';
 
 const icon = (messageType) => {
   switch (messageType) {

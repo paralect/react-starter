@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './footer.styles';
+import styles from './footer.styles.pcss';
 
 const Footer = () => {
   const year = new Date().getFullYear();

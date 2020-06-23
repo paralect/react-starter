@@ -22,7 +22,7 @@ import Reset from 'pages/reset';
 import Home from 'pages/home';
 import NotFound from 'pages/not-found';
 
-import 'styles/global';
+import 'styles/global.pcss';
 
 const Profile = React.lazy(() => import('./pages/profile'));
 

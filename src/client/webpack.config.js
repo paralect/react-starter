@@ -87,7 +87,7 @@ module.exports = {
 
   resolve: {
     modules: ['./', 'node_modules'],
-    extensions: ['.mjs', '.js', '.jsx', '.pcss'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
 
   optimization: {
