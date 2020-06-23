@@ -1,32 +1,30 @@
-@import 'variables.pcss';
-
 .input {
-  border: 1px solid var(--grey-700);
-  height: var(--text-height-700);
-  line-height: var(--text-height-700);
-  border-radius: var(--border-radius-300);
+  border: 1px solid #616161;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 var(--distance-400);
+  padding: 0 5px;
 
   &:hover,
   &:focus {
-    border-color: var(--light-blue-800);
+    border-color: #0277bd;
   }
 
   &.error {
-    border-color: var(--red-500);
+    border-color: #f44336;
 
     &:hover,
     &:focus {
-      border-color: var(--red-800);
+      border-color: #c62828;
     }
   }
 }
 
 .errors {
-  font-size: var(--text-400);
-  color: var(--red-500);
-  margin-top: var(--distance-400);
+  font-size: 14px;
+  color: #f44336;
+  margin-top: 5px;
 }
