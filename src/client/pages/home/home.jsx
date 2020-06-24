@@ -1,9 +1,8 @@
-import React, { PureComponent } from 'react';
-import { FaClock } from 'react-icons/fa';
+import React from 'react';
 
 import styles from './home.styles.pcss';
 
-const meetingsList = [
+const meetings = [
   {
     time: '08:00 AM',
     description: 'Discussion of the attack strategy',
@@ -30,51 +29,40 @@ const meetingsList = [
   },
 ];
 
-class Home extends PureComponent {
-  static participantsList(participants) {
-    return participants.map((participator) => (
-      <li key={participator}>
-        {participator}
-      </li>
-    ));
-  }
+function Home() {
+  return (
+    <>
+      <h1 className={styles.title}>Meetings</h1>
 
-  static meetings() {
-    return meetingsList.map((meeting) => (
-      <div
-        key={meeting.description}
-        className={styles.meeting}
-      >
-        <div className={styles.time}>
-          <FaClock size={15} />
-          <span>
-            {meeting.time}
-          </span>
-        </div>
+      <div>
+        {meetings.map((meeting) => (
+          <div
+            key={meeting.description}
+            className={styles.meeting}
+          >
+            <div className={styles.time}>
+              {meeting.time}
+            </div>
 
-        <div className={styles.description}>
-          {meeting.description}
-        </div>
+            <div className={styles.description}>
+              {meeting.description}
+            </div>
 
-        <h3 className={styles.participantsTitle}>
-          Participants:
-        </h3>
-        <ul className={styles.participantsList}>
-          {Home.participantsList(meeting.participants)}
-        </ul>
+            <h3 className={styles.participantsTitle}>
+              Participants:
+            </h3>
+            <ul className={styles.participantsList}>
+              {meeting.participants.map((participator) => (
+                <li key={participator}>
+                  {participator}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    ));
-  }
-
-  render() {
-    return (
-      <>
-        <h1 className={styles.title}>Meetings</h1>
-
-        <div>{Home.meetings()}</div>
-      </>
-    );
-  }
+    </>
+  );
 }
 
-export default Home;
+export default React.memo(Home);
