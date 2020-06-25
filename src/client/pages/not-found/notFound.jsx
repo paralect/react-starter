@@ -6,8 +6,7 @@ import { routes } from 'routes';
 import * as loaderService from 'services/loader.service';
 import * as socketService from 'services/socketIo.service';
 
-import styles from './notFound.styles';
-
+import styles from './notFound.styles.pcss';
 
 function NotFound() {
   React.useEffect(() => {

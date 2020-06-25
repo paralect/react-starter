@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import styles from './menu.styles';
-
+import styles from './menu.styles.pcss';
 
 const links = [
   {

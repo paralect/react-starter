@@ -7,8 +7,7 @@ import { routes } from 'routes';
 
 import * as userActions from 'resources/user/user.actions';
 
-import styles from './user-menu.styles';
-
+import styles from './user-menu.styles.pcss';
 
 const linksList = [
   {

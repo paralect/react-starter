@@ -22,7 +22,7 @@ import Reset from 'pages/reset';
 import Home from 'pages/home';
 import NotFound from 'pages/not-found';
 
-import 'styles/global';
+import 'styles/main.pcss';
 
 const Profile = React.lazy(() => import('./pages/profile'));
 
@@ -50,7 +50,6 @@ const spaces = [
 
 function App() {
   const [loading, setLoading] = React.useState(true);
-
 
   React.useEffect(() => {
     async function init() {

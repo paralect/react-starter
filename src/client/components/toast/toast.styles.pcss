@@ -1,5 +1,3 @@
-@import 'variables.pcss';
-
 .wrap {
   position: fixed;
   top: 80px;
@@ -7,41 +5,41 @@
 }
 
 .message {
-  padding: var(--distance-500) var(--distance-600);
-  color: var(--white);
-  border-radius: var(--border-radius-500);
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 4px;
   display: flex;
   align-items: flex-start;
   width: 300px;
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.35);
-  margin-bottom: var(--distance-700);
+  margin-bottom: 20px;
   cursor: pointer;
 
   &.success {
-    background: var(--green-500);
+    background: #59ca79;
   }
 
   &.error {
-    background: var(--red-500);
+    background: #f44336;
+
+    &.warning {
+      background: #ff9800;
+    }
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      line-height: 24px;
+    }
   }
 
-  &.warning {
-    background: var(--orange-500);
+  .title {
+    margin-bottom: 2px;
   }
 
-  & > div {
-    display: flex;
-    flex-direction: column;
-    line-height: var(--text-800);
+  .icon {
+    color: #fff;
+    margin-right: 10px;
+    flex-shrink: 0;
   }
-}
-
-.title {
-  margin-bottom: var(--distance-200);
-}
-
-.icon {
-  color: var(--white);
-  margin-right: var(--distance-500);
-  flex-shrink: 0;
 }

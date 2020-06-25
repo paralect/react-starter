@@ -1,72 +1,42 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import classnames from 'classnames';
-import {
-  FaExclamationCircle,
-  FaExclamationTriangle,
-  FaCheckCircle,
-} from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import cn from 'classnames';
 
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import * as toastActions from 'resources/toast/toast.actions';
 
-import styles from './toast.styles';
+import styles from './toast.styles.pcss';
 
+function Toast() {
+  const dispatch = useDispatch();
+  const messages = useSelector(toastSelectors.getToasterMessages);
 
-const icon = (messageType) => {
-  switch (messageType) {
-    case 'error':
-      return <FaExclamationCircle className={styles.icon} size={25} />;
+  const element = React.useRef(document.createElement('div'));
+  React.useEffect(() => {
+    const node = element.current;
+    node.classList.add(styles.wrap);
+    document.body.appendChild(node);
+    return () => document.body.removeChild(node);
+  }, []);
 
-    case 'warning':
-      return <FaExclamationTriangle className={styles.icon} size={25} />;
+  const remove = React.useCallback((id) => {
+    dispatch(toastActions.removeMessage(id));
+  }, [dispatch]);
 
-    case 'success':
-      return <FaCheckCircle className={styles.icon} size={25} />;
+  const handleClick = React.useCallback((id) => {
+    return () => remove(id);
+  }, [remove]);
 
-    default:
-      return null;
-  }
-};
+  const handleKeyDown = React.useCallback((id) => {
+    return (event) => {
+      if (event.keyCode === 13) {
+        remove(id);
+      }
+    };
+  }, [remove]);
 
-
-class Toast extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.el = document.createElement('div');
-    this.el.classList.add(styles.wrap);
-  }
-
-  componentDidMount() {
-    if (document.body) {
-      document.body.appendChild(this.el);
-    }
-  }
-
-  componentWillUnmount() {
-    if (document.body) {
-      document.body.removeChild(this.el);
-    }
-  }
-
-  onMessageClick = (id) => () => {
-    const { removeMessage } = this.props;
-    removeMessage(id);
-  };
-
-  onMessageKeyDown = (id) => (e) => {
-    if (e.keyCode === 13) {
-      const { removeMessage } = this.props;
-      removeMessage(id);
-    }
-  };
-
-  messagesList() {
-    const { messages } = this.props;
-
+  const toasts = React.useMemo(() => {
     return messages.map((message, index) => {
       const text = !message.text || typeof message.text === 'string'
         ? message.text
@@ -77,19 +47,16 @@ class Toast extends PureComponent {
           key={message.id}
           role="button"
           tabIndex={index}
-          className={classnames(styles.message, styles[message.type])}
-          onClick={this.onMessageClick(message.id)}
-          onKeyDown={this.onMessageKeyDown(message.id)}
+          className={cn(styles.message, styles[message.type])}
+          onClick={handleClick(message.id)}
+          onKeyDown={handleKeyDown(message.id)}
         >
-          {icon(message.type)}
           <div>
-            {
-              message.title && (
-                <div className={styles.title}>
-                  {message.title}
-                </div>
-              )
-            }
+            {message.title && (
+              <div className={styles.title}>
+                {message.title}
+              </div>
+            )}
             <div>
               {text}
             </div>
@@ -97,25 +64,9 @@ class Toast extends PureComponent {
         </div>
       );
     });
-  }
+  }, [handleClick, handleKeyDown, messages]);
 
-  render() {
-    return ReactDOM.createPortal(this.messagesList(), this.el);
-  }
+  return ReactDOM.createPortal(toasts, element.current);
 }
 
-Toast.propTypes = {
-  messages: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    type: PropTypes.oneOf(['error', 'success', 'warning']),
-    text: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    isHTML: PropTypes.bool,
-  })).isRequired,
-  removeMessage: PropTypes.func.isRequired,
-};
-
-export default connect((state) => ({
-  messages: toastSelectors.getToasterMessages(state, 'all'),
-}), {
-  removeMessage: toastActions.removeMessage,
-})(Toast);
+export default React.memo(Toast);

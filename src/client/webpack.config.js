@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-
 // for Sentry.io and similar tools set to true
 const BUILD_SOURCE_MAP = false;
 
@@ -12,7 +11,7 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    main: ['@babel/polyfill', './index.jsx'],
+    main: ['./index.jsx'],
   },
 
   output: {
@@ -70,8 +69,16 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
+        test: /\.(png|jpe?g|gif|woff|woff2)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: '[name].[contenthash].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
@@ -80,7 +87,7 @@ module.exports = {
 
   resolve: {
     modules: ['./', 'node_modules'],
-    extensions: ['.mjs', '.js', '.jsx', '.pcss'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
 
   optimization: {

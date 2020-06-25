@@ -10,7 +10,6 @@ const hmr = require('hmr');
 
 const routes = require('./routes');
 
-
 const { logger } = global;
 
 const pathToViews = path.join(__dirname, './../../client/views');

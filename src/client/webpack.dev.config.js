@@ -2,13 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-
 module.exports = {
   mode: 'development',
 
   entry: {
     main: [
-      '@babel/polyfill',
       'react-hot-loader/patch',
       './index.jsx',
     ],
@@ -60,8 +58,16 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
+        test: /\.(png|jpe?g|gif|woff|woff2)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: '[name].[contenthash].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
@@ -71,7 +77,7 @@ module.exports = {
   resolve: {
     alias: { 'react-dom': '@hot-loader/react-dom' },
     modules: ['./', 'node_modules'],
-    extensions: ['.mjs', '.js', '.jsx', '.pcss'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
 
   plugins: [

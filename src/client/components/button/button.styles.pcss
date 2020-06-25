@@ -1,38 +1,36 @@
-@import 'variables.pcss';
-
 .button {
   border: 0;
   display: inline-block;
-  border-radius: var(--border-radius-500);
-  padding: var(--distance-500) var(--distance-600);
+  border-radius: 4px;
+  padding: 10px 15px;
   transition: all 0.5s;
-  color: var(--white);
+  color: #fff;
   cursor: pointer;
   text-transform: uppercase;
-  box-shadow: 0 3px 7px var(--shadow-default);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
   outline: none;
 
   &.green {
-    background: var(--green-600);
+    background: #33a152;
 
     &:hover {
-      background: var(--green-800);
+      background: #25743c;
     }
   }
 
   &.blue {
-    background: var(--light-blue-600);
+    background: #039be5;
 
     &:hover {
-      background: var(--light-blue-800);
+      background: #0277bd;
     }
   }
 
   &.red {
-    background: var(--red-600);
+    background: #e53935;
 
     &:hover {
-      background: var(--red-800);
+      background: #c62828;
     }
   }
 }

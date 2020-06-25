@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 import config from 'config';
 import * as userHandlers from 'resources/user/user.handlers';
 
-
 let socket; // eslint-disable-line import/no-mutable-exports
 
 export const emit = (event, ...args) => {

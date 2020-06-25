@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import styles from './button.styles';
-
+import styles from './button.styles.pcss';
 
 const colors = {
   green: 'green',

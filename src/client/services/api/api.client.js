@@ -24,7 +24,7 @@ class ApiClient {
           status: error.code,
           statusText: error.message,
           data: error.data,
-        }
+        };
 
         const errorHandlers = this._handlers.get('error') || [];
         errorHandlers.forEach((handler) => {
