@@ -38,11 +38,9 @@ export const forgot = ({ email }) => async () => {
   await api.forgot({ email });
 };
 
-export const reset = ({ password, token }) => async (dispatch) => {
-  const user = await api.reset({ password, token });
-  dispatch({ type: 'user:set', payload: { user } });
-
-  history.push(routes.home.path);
+export const reset = ({ password, token }) => async () => {
+  await api.reset({ password, token });
+  history.push(routes.signIn.path);
 };
 
 export const signOut = () => async (dispatch) => {

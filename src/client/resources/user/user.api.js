@@ -29,7 +29,7 @@ export const forgot = ({ email }) => {
 };
 
 export const reset = ({ password, token }) => {
-  return apiClient.post('/account/resetPassword', { password, token });
+  return apiClient.put('/account/resetPassword', { password, token });
 };
 
 export const signOut = () => {
