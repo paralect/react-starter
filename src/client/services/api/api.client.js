@@ -16,7 +16,7 @@ class ApiClient {
 
     this._api = axios.create(axiosConfig);
     this._api.interceptors.response.use(
-      (response) => response,
+      (response) => response.data,
       (error) => {
         // Axios Network Error & Timeout error dont have 'response' field
         // https://github.com/axios/axios/issues/383
