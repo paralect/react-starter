@@ -8,7 +8,7 @@ export const signIn = ({
   email,
   password,
 }) => async (dispatch) => {
-  const { data: user } = await api.signIn({
+  const user = await api.signIn({
     email,
     password,
   });
@@ -24,16 +24,14 @@ export const signUp = ({
   email,
   password,
 }) => async () => {
-  const { data } = await api.signUp({
+  const { signupToken } = await api.signUp({
     firstName,
     lastName,
     email,
     password,
   });
 
-  return {
-    signupToken: data.signupToken,
-  };
+  return { signupToken };
 };
 
 export const forgot = ({ email }) => async () => {
@@ -41,7 +39,7 @@ export const forgot = ({ email }) => async () => {
 };
 
 export const reset = ({ password, token }) => async (dispatch) => {
-  const { data: user } = await api.reset({ password, token });
+  const user = await api.reset({ password, token });
   dispatch({ type: 'user:set', payload: { user } });
 
   history.push(routes.home.path);
@@ -53,11 +51,11 @@ export const signOut = () => async (dispatch) => {
 };
 
 export const getCurrentUser = () => async (dispatch) => {
-  const { data: user } = await api.getCurrentUser();
+  const user = await api.getCurrentUser();
   dispatch({ type: 'user:set', payload: { user } });
 };
 
 export const updateCurrentUser = (data) => async (dispatch) => {
-  const { data: user } = await api.updateCurrentUser(data);
+  const user = await api.updateCurrentUser(data);
   dispatch({ type: 'user:set', payload: { user } });
 };
