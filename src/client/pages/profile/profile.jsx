@@ -44,6 +44,7 @@ function Profile() {
     try {
       await dispatch(userActions.updateCurrentUser(data));
       dispatch(toastActions.addSuccessMessage('User info updated!'));
+      setErrors({});
     } catch (error) {
       showErrors(error.data.errors);
     }

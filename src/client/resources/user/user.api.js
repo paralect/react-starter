@@ -25,11 +25,11 @@ export const signUp = ({
 };
 
 export const forgot = ({ email }) => {
-  return apiClient.post('/account/forgotPassword', { email });
+  return apiClient.post('/account/forgot-password', { email });
 };
 
 export const reset = ({ password, token }) => {
-  return apiClient.put('/account/resetPassword', { password, token });
+  return apiClient.put('/account/reset-password', { password, token });
 };
 
 export const signOut = () => {
