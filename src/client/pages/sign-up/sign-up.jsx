@@ -65,7 +65,7 @@ function SignUp() {
             <div className={styles.row}>
               You look like a cool developer.
               {' '}
-              <a href={`${config.apiUrl}/account/verifyEmail/${signupToken}`}>
+              <a href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </a>
             </div>

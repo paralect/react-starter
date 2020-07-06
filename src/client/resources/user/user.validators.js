@@ -6,10 +6,10 @@ import { validate, validateField } from 'helpers/validation';
 const schema = yup.object({
   firstName: yup.string()
     .trim()
-    .required('Your first name must be longer than 1 letter'),
+    .required('First name is required'),
   lastName: yup.string()
     .trim()
-    .required('Your last name must be longer than 1 letter'),
+    .required('Last name is required'),
   email: yup.string()
     .trim()
     .lowercase()
@@ -26,10 +26,7 @@ export const validateUser = async (data) => {
   const isValid = _.isEmpty(result.errors);
 
   return {
-    errors: {
-      ...result.errors,
-      _global: ['Validation Error.'],
-    },
+    errors: result.errors,
     isValid,
   };
 };
