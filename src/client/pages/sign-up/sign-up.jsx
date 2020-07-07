@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 import config from 'config';
 import { routes } from 'routes';
 
 import * as userActions from 'resources/user/user.actions';
+import * as userSelectors from 'resources/user/user.selectors';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,6 +15,8 @@ import styles from './sign-up.pcss';
 
 function SignUp() {
   const dispatch = useDispatch();
+
+  const authenticated = useSelector(userSelectors.getAuthenticated);
 
   const [pending, setPending] = React.useState(false);
   const [registered, setRegistered] = React.useState(false);
@@ -43,6 +46,10 @@ function SignUp() {
     } finally {
       setPending(false);
     }
+  }
+
+  if (authenticated) {
+    return <Redirect to={routes.home.url()} />;
   }
 
   if (registered) {

@@ -1,10 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
 import * as userActions from 'resources/user/user.actions';
+import * as userSelectors from 'resources/user/user.selectors';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -12,6 +13,8 @@ import Button from 'components/button';
 import styles from './sign-in.pcss';
 
 function SignIn() {
+  const authenticated = useSelector(userSelectors.getAuthenticated);
+
   const dispatch = useDispatch();
 
   const [pending, setPending] = React.useState(false);
@@ -31,6 +34,10 @@ function SignIn() {
     } finally {
       setPending(false);
     }
+  }
+
+  if (authenticated) {
+    return <Redirect to={routes.home.url()} />;
   }
 
   return (

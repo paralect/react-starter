@@ -1,10 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
 import * as userActions from 'resources/user/user.actions';
+import * as userSelectors from 'resources/user/user.selectors';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -13,6 +14,8 @@ import styles from './reset.pcss';
 
 function Reset() {
   const dispatch = useDispatch();
+
+  const authenticated = useSelector(userSelectors.getAuthenticated);
 
   const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
@@ -39,6 +42,10 @@ function Reset() {
     return (
       <Redirect to={routes.notFound.url()} />
     );
+  }
+
+  if (authenticated) {
+    return <Redirect to={routes.home.url()} />;
   }
 
   return (
