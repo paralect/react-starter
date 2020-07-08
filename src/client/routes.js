@@ -1,5 +1,16 @@
 import { generatePath } from 'react-router-dom';
 
+export const scope = {
+  PUBLIC: 'public',
+  PRIVATE: 'private',
+};
+
+export const layout = {
+  AUTH: 'auth',
+  MAIN: 'main',
+  NONE: null,
+};
+
 const defaults = {
   url(options = {}) {
     return {
@@ -15,35 +26,40 @@ export const routes = {
     name: 'signIn',
     path: '/signin',
     exact: false,
-    private: false,
+    scope: scope.PUBLIC,
+    layout: layout.AUTH,
   },
   signUp: {
     ...defaults,
     name: 'signUp',
     path: '/signup',
     exact: false,
-    private: false,
+    scope: scope.PUBLIC,
+    layout: layout.AUTH,
   },
   forgot: {
     ...defaults,
     name: 'forgot',
     path: '/forgot',
     exact: false,
-    private: false,
+    scope: scope.PUBLIC,
+    layout: layout.AUTH,
   },
   reset: {
     ...defaults,
     name: 'reset',
     path: '/reset',
     exact: false,
-    private: false,
+    scope: scope.PUBLIC,
+    layout: layout.AUTH,
   },
   home: {
     ...defaults,
     name: 'home',
     path: '/',
     exact: true,
-    private: true,
+    scope: scope.PRIVATE,
+    layout: layout.MAIN,
   },
   profile: {
     ...defaults,
@@ -51,10 +67,14 @@ export const routes = {
     path: '/profile',
     exact: false,
     private: true,
+    scope: scope.PRIVATE,
+    layout: layout.MAIN,
   },
   notFound: {
     ...defaults,
     name: 'notFound',
     path: '/404',
+    scope: scope.PUBLIC,
+    layout: layout.NONE,
   },
 };

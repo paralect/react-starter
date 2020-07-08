@@ -1,18 +1,21 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import history from 'services/history.service';
+import * as loaderService from 'services/loader.service';
+import * as socketService from 'services/socketIo.service';
 
 import store from 'resources/store';
-import history from 'services/history.service';
-
 import * as userActions from 'resources/user/user.actions';
+import * as userSelectors from 'resources/user/user.selectors';
 
 import Loading from 'components/loading';
 import { ErrorBoundary } from 'components/error-boundary';
 
-import { routes } from 'routes';
+import { routes, scope, layout } from 'routes';
 import AuthLayout from 'layouts/auth';
 import MainLayout from 'layouts/main';
 import SignIn from 'pages/sign-in';
@@ -26,27 +29,60 @@ import 'styles/main.pcss';
 
 const Profile = React.lazy(() => import('./pages/profile'));
 
-const pages = {
+function PrivateScope({ children }) {
+  const authenticated = useSelector(userSelectors.getAuthenticated);
+
+  React.useEffect(() => {
+    if (socketService.disconnected()) socketService.connect();
+  }, []);
+
+  if (!authenticated) {
+    const searchParams = new URLSearchParams({ to: window.location.pathname });
+    return (
+      <Redirect
+        to={routes.signIn.url({
+          search: searchParams.toString(),
+        })}
+      />
+    );
+  }
+
+  return children;
+}
+
+const routeToComponent = {
   [routes.signIn.name]: SignIn,
   [routes.signUp.name]: SignUp,
   [routes.forgot.name]: Forgot,
   [routes.reset.name]: Reset,
   [routes.home.name]: Home,
   [routes.profile.name]: Profile,
+  [routes.notFound.name]: NotFound,
 };
 
-const spaces = [
-  {
-    name: 'public',
-    layout: AuthLayout,
-    routes: Object.values(routes).filter((r) => r.private === false),
-  },
-  {
-    name: 'private',
-    layout: MainLayout,
-    routes: Object.values(routes).filter((r) => r.private === true),
-  },
-];
+const scopeToComponent = {
+  [scope.PRIVATE]: PrivateScope,
+  [scope.PUBLIC]: ({ children }) => children,
+};
+
+const layoutToComponent = {
+  [layout.MAIN]: MainLayout,
+  [layout.AUTH]: AuthLayout,
+  [layout.NONE]: ({ children }) => children,
+};
+
+const spaces = [];
+
+Object.values(scope).forEach((s, scopeIndex) => {
+  Object.values(layout).forEach((l, layoutIndex) => {
+    spaces.push({
+      id: `scope-${scopeIndex}-layout-${layoutIndex}`,
+      scope: scopeToComponent[s],
+      layout: layoutToComponent[l],
+      routes: Object.values(routes).filter((r) => r.scope === s && r.layout === l),
+    });
+  });
+});
 
 function App() {
   const [loading, setLoading] = React.useState(true);
@@ -59,6 +95,7 @@ function App() {
         console.log(error); // eslint-disable-line no-console
       } finally {
         setLoading(false);
+        loaderService.hide();
       }
     }
 
@@ -71,31 +108,29 @@ function App() {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <ErrorBoundary fallback={<h1>Error!</h1>}>
-          <Switch>
-            {spaces.map((space) => (
-              <Route
-                key={space.name}
-                exact
-                path={space.routes.map((r) => r.path)}
-              >
-                <space.layout>
-                  <React.Suspense fallback={<Loading />}>
-                    <Switch>
-                      {space.routes.map((route) => (
-                        <Route
-                          key={route.name}
-                          exact={route.exact}
-                          path={route.path}
-                          component={pages[route.name]}
-                        />
-                      ))}
-                    </Switch>
-                  </React.Suspense>
-                </space.layout>
-              </Route>
-            ))}
-            <Route path="*" component={NotFound} />
-          </Switch>
+          <React.Suspense fallback={<Loading />}>
+            <Switch>
+              {spaces.map((space) => (
+                <Route key={space.id} exact path={space.routes.map((r) => r.path)}>
+                  <space.scope>
+                    <space.layout>
+                      <Switch>
+                        {space.routes.map((r) => (
+                          <Route
+                            key={r.name}
+                            exact={r.exact}
+                            path={r.path}
+                            component={routeToComponent[r.name]}
+                          />
+                        ))}
+                      </Switch>
+                    </space.layout>
+                  </space.scope>
+                </Route>
+              ))}
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </React.Suspense>
         </ErrorBoundary>
       </ConnectedRouter>
     </Provider>
