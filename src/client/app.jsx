@@ -18,9 +18,16 @@ import { ErrorBoundary } from 'components/error-boundary';
 import { routes, scope, layout } from 'routes';
 import AuthLayout from 'layouts/auth';
 import MainLayout from 'layouts/main';
+import SignIn from 'pages/sign-in';
+import SignUp from 'pages/sign-up';
+import Forgot from 'pages/forgot';
+import Reset from 'pages/reset';
+import Home from 'pages/home';
 import NotFound from 'pages/not-found';
 
 import 'styles/main.pcss';
+
+const Profile = React.lazy(() => import('./pages/profile'));
 
 function PrivateScope({ children }) {
   const authenticated = useSelector(userSelectors.getAuthenticated);
@@ -42,6 +49,16 @@ function PrivateScope({ children }) {
 
   return children;
 }
+
+const routeToComponent = {
+  [routes.signIn.name]: SignIn,
+  [routes.signUp.name]: SignUp,
+  [routes.forgot.name]: Forgot,
+  [routes.reset.name]: Reset,
+  [routes.home.name]: Home,
+  [routes.profile.name]: Profile,
+  [routes.notFound.name]: NotFound,
+};
 
 const scopeToComponent = {
   [scope.PRIVATE]: PrivateScope,
@@ -103,7 +120,7 @@ function App() {
                             key={r.name}
                             exact={r.exact}
                             path={r.path}
-                            component={r.component}
+                            component={routeToComponent[r.name]}
                           />
                         ))}
                       </Switch>

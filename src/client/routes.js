@@ -1,16 +1,4 @@
-import React from 'react';
 import { generatePath } from 'react-router-dom';
-
-import SignIn from 'pages/sign-in';
-import SignUp from 'pages/sign-up';
-import Forgot from 'pages/forgot';
-import Reset from 'pages/reset';
-import Home from 'pages/home';
-import NotFound from 'pages/not-found';
-
-import 'styles/main.pcss';
-
-const Profile = React.lazy(() => import('./pages/profile'));
 
 export const scope = {
   PUBLIC: 'public',
@@ -40,7 +28,6 @@ export const routes = {
     exact: false,
     scope: scope.PUBLIC,
     layout: layout.AUTH,
-    component: SignIn,
   },
   signUp: {
     ...defaults,
@@ -49,7 +36,6 @@ export const routes = {
     exact: false,
     scope: scope.PUBLIC,
     layout: layout.AUTH,
-    component: SignUp,
   },
   forgot: {
     ...defaults,
@@ -58,7 +44,6 @@ export const routes = {
     exact: false,
     scope: scope.PUBLIC,
     layout: layout.AUTH,
-    component: Forgot,
   },
   reset: {
     ...defaults,
@@ -67,7 +52,6 @@ export const routes = {
     exact: false,
     scope: scope.PUBLIC,
     layout: layout.AUTH,
-    component: Reset,
   },
   home: {
     ...defaults,
@@ -76,7 +60,6 @@ export const routes = {
     exact: true,
     scope: scope.PRIVATE,
     layout: layout.MAIN,
-    component: Home,
   },
   profile: {
     ...defaults,
@@ -86,7 +69,6 @@ export const routes = {
     private: true,
     scope: scope.PRIVATE,
     layout: layout.MAIN,
-    component: Profile,
   },
   notFound: {
     ...defaults,
@@ -94,6 +76,5 @@ export const routes = {
     path: '/404',
     scope: scope.PUBLIC,
     layout: layout.NONE,
-    component: NotFound,
   },
 };
