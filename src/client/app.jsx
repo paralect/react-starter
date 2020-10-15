@@ -6,7 +6,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import history from 'services/history.service';
 import * as loaderService from 'services/loader.service';
-import * as socketService from 'services/socketIo.service';
+import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
 import * as userActions from 'resources/user/user.actions';
@@ -24,6 +24,8 @@ import Forgot from 'pages/forgot';
 import Reset from 'pages/reset';
 import Home from 'pages/home';
 import NotFound from 'pages/not-found';
+
+import 'resources/user/user.handlers';
 
 import 'styles/main.pcss';
 
@@ -92,7 +94,7 @@ function App() {
       try {
         await store.dispatch(userActions.getCurrentUser());
       } catch (error) {
-        console.log(error); // eslint-disable-line no-console
+        // @todo: add something like sentry
       } finally {
         setLoading(false);
         loaderService.hide();

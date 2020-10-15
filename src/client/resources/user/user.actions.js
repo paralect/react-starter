@@ -1,3 +1,4 @@
+import * as socketService from 'services/socket.service';
 import history from 'services/history.service';
 
 import { routes } from 'routes';
@@ -46,6 +47,7 @@ export const reset = ({ password, token }) => async () => {
 export const signOut = () => async (dispatch) => {
   await api.signOut();
   dispatch({ type: 'user:delete' });
+  socketService.disconnect();
 };
 
 export const getCurrentUser = () => async (dispatch) => {
