@@ -1,6 +1,7 @@
-import store from 'resources/store';
-
 import { apiClient } from 'services/api';
+import * as socketService from 'services/socket.service';
+
+import store from 'resources/store';
 
 import * as selectors from './user.selectors';
 import * as actions from './user.actions';
@@ -11,11 +12,11 @@ apiClient.on('error', (error) => {
   }
 });
 
-export function attachSocketEvents(socket) {
+socketService.on('connect', () => {
   const userId = selectors.getUserId(store.getState());
-  socket.emit('subscribe', `user-${userId}`);
+  socketService.send('subscribe', `user-${userId}`);
+});
 
-  socket.on('user:updated', (user) => {
-    store.dispatch({ type: 'user:set', payload: { user } });
-  });
-}
+socketService.on('user:updated', (user) => {
+  store.dispatch({ type: 'user:set', payload: { user } });
+});
