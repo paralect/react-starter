@@ -1,12 +1,6 @@
-FROM node:10.16.3
-
-EXPOSE 3002 8081
-COPY ["./package.json", "./package-lock.json", "./.eslintrc.js", "./.eslintignore", "./.babelrc", "./browserslist", "./.stylelintrc", "/app/"]
-
+FROM node:14.14
 WORKDIR /app
-
-VOLUME "/app/src"
-
-RUN npm i --quiet
-
-CMD npm run development
+COPY ["./package*.json", "/app/"]
+RUN npm install --silent
+COPY . ./
+CMD npm start

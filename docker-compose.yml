@@ -8,12 +8,8 @@ services:
       - "./src:/app/src"
     networks:
       - ship
-    environment:
-      NODE_ENV: development
-      HRM_HOST: "0.0.0.0"
     ports:
       - "3002:3002"
-      - "8081:8081"
 
 networks:
   ship:
