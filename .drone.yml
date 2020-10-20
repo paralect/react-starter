@@ -3,9 +3,9 @@ name: default
 
 steps:
   - name: run-koa-react-starter-tests
-    image: node:10.16.0
+    image: node:14.14
     commands:
-      - ./bin/run.sh
+      - ./bin/test.sh
     when:
       status:
         - failure
