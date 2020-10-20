@@ -14,7 +14,7 @@ api.on('error', (error) => {
 
 socketService.on('connect', () => {
   const user = selectors.getUser(store.getState());
-  socketService.send('subscribe', `user-${user._id}`);
+  socketService.emit('subscribe', `user-${user._id}`);
 });
 
 socketService.on('user:updated', (user) => {

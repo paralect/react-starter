@@ -35,7 +35,8 @@ function PrivateScope({ children }) {
   const authenticated = useSelector(userSelectors.getAuthenticated);
 
   React.useEffect(() => {
-    if (socketService.disconnected()) socketService.connect();
+    socketService.connect();
+    return () => socketService.disconnect();
   }, []);
 
   if (!authenticated) {

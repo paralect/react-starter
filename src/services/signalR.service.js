@@ -23,12 +23,16 @@ export const disconnect = () => {
   connection.stop();
 };
 
-export const send = (event, ...args) => {
+export const emit = (event, ...args) => {
   connection.send(event, ...args);
 };
 
 export const on = (event, callback) => {
   connection.on(event, callback);
+};
+
+export const off = (event, callback) => {
+  connection.off(event, callback);
 };
 
 export const connected = () => {
