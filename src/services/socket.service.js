@@ -15,12 +15,16 @@ export const disconnect = () => {
   socket.disconnect();
 };
 
-export const send = (event, ...args) => {
-  socket.send(event, ...args);
+export const emit = (event, ...args) => {
+  socket.emit(event, ...args);
 };
 
 export const on = (event, callback) => {
   socket.on(event, callback);
+};
+
+export const off = (event, callback) => {
+  socket.off(event, callback);
 };
 
 export const connected = () => {
