@@ -11,7 +11,6 @@ export default {
   },
 };
 
-// eslint-disable-next-line react/jsx-props-no-spreading
 const Template = (args) => <Button {...args}>{args.children}</Button>;
 
 export const Green = Template.bind({});

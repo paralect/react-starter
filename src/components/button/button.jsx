@@ -10,10 +10,10 @@ const colors = {
   red: 'red',
 };
 
-/* eslint-disable react/button-has-type, react/jsx-props-no-spreading */
 function Button({ color, className, ...props }) {
   return (
     <button
+      type="button"
       className={cn(styles.button, styles[color], className)}
       {...props}
     />

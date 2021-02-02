@@ -18,7 +18,7 @@ function Input({
           [styles.error]: errors.length,
         })}
         onChange={handleChange}
-        {...props /* eslint-disable-line react/jsx-props-no-spreading */}
+        {...props}
       />
 
       {errors.length > 0 && (
