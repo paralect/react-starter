@@ -37,7 +37,9 @@ function SignIn() {
   }
 
   if (authenticated) {
-    return <Redirect to={routes.home.url()} />;
+    const redirectPath = new URLSearchParams(window.location.search).get('to');
+
+    return <Redirect to={redirectPath || routes.home.url()} />;
   }
 
   return (

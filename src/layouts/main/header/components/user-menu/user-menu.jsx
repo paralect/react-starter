@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { routes } from 'routes';
@@ -18,6 +18,7 @@ const linksList = [
 
 function UserMenu() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [isOpen, setIsOpen] = React.useState(false);
   function toggleIsOpen() {
@@ -36,6 +37,7 @@ function UserMenu() {
 
   async function logout() {
     await dispatch(userActions.signOut());
+    history.push(routes.signIn.path);
   }
 
   return (

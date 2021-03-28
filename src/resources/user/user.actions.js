@@ -4,15 +4,12 @@ import { routes } from 'routes';
 
 import * as api from './user.api';
 
-export const signIn = ({ email, password }) => async (dispatch, _getState, ctx) => {
+export const signIn = ({ email, password }) => async (dispatch) => {
   const user = await api.signIn({
     email,
     password,
   });
   dispatch({ type: 'user:set', payload: { user } });
-
-  const searchParams = new URLSearchParams(window.location.search);
-  ctx.history.push(searchParams.get('to') || routes.home.path);
 };
 
 export const signUp = ({

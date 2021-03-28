@@ -41,13 +41,9 @@ function PrivateScope({ children }) {
 
   if (!authenticated) {
     const searchParams = new URLSearchParams({ to: window.location.pathname });
-    return (
-      <Redirect
-        to={routes.signIn.url({
-          search: searchParams.toString(),
-        })}
-      />
-    );
+    const search = window.location.pathname === '/' ? null : searchParams.toString();
+
+    return <Redirect to={routes.signIn.url({ search })} />;
   }
 
   return children;
