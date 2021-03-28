@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import { signIn, selectUser } from 'resources/user/user.slice';
+import { userSelectors, userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -12,7 +12,7 @@ import Button from 'components/button';
 import styles from './sign-in.pcss';
 
 function SignIn() {
-  const user = useSelector(selectUser);
+  const user = useSelector(userSelectors.selectUser);
 
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ function SignIn() {
 
     try {
       setPending(true);
-      await dispatch(signIn({ email, password }));
+      await dispatch(userActions.signIn({ email, password }));
     } catch (error) {
       setErrors(error.data.errors);
     } finally {

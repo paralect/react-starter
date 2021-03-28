@@ -8,7 +8,7 @@ import * as api from './user.api';
 
 const initialState = null;
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -17,9 +17,9 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, removeUser } = userSlice.actions;
+const { setUser, removeUser } = userSlice.actions;
 
-export const signIn = ({ email, password }) => async (dispatch) => {
+const signIn = ({ email, password }) => async (dispatch) => {
   const user = await api.signIn({
     email,
     password,
@@ -27,7 +27,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
   dispatch(setUser({ user }));
 };
 
-export const signUp = ({
+const signUp = ({
   firstName,
   lastName,
   email,
@@ -43,31 +43,47 @@ export const signUp = ({
   return { signupToken };
 };
 
-export const forgot = ({ email }) => async () => {
+const forgot = ({ email }) => async () => {
   await api.forgot({ email });
 };
 
-export const reset = ({ password, token }) => async (_dispatch, _getState, ctx) => {
+const reset = ({ password, token }) => async (_dispatch, _getState, ctx) => {
   await api.reset({ password, token });
   ctx.history.push(routes.signIn.path);
 };
 
-export const signOut = () => async (dispatch) => {
+const signOut = () => async (dispatch) => {
   await api.signOut();
   dispatch(removeUser());
   socketService.disconnect();
 };
 
-export const getCurrentUser = () => async (dispatch) => {
+const getCurrentUser = () => async (dispatch) => {
   const user = await api.getCurrentUser();
   dispatch(setUser({ user }));
 };
 
-export const updateCurrentUser = (data) => async (dispatch) => {
+const updateCurrentUser = (data) => async (dispatch) => {
   const user = await api.updateCurrentUser(data);
   dispatch(setUser({ user }));
 };
 
-export const selectUser = ({ user }) => user;
+export const userActions = {
+  setUser,
+  removeUser,
+  signIn,
+  signUp,
+  forgot,
+  reset,
+  signOut,
+  getCurrentUser,
+  updateCurrentUser,
+};
+
+const selectUser = ({ user }) => user;
+
+export const userSelectors = {
+  selectUser,
+};
 
 export default userSlice.reducer;

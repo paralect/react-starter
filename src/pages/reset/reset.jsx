@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import { selectUser, reset } from 'resources/user/user.slice';
+import { userSelectors, userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,7 +14,7 @@ import styles from './reset.pcss';
 function Reset() {
   const dispatch = useDispatch();
 
-  const user = useSelector(selectUser);
+  const user = useSelector(userSelectors.selectUser);
 
   const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
@@ -29,7 +29,7 @@ function Reset() {
 
     try {
       setPending(true);
-      await dispatch(reset({ password, token }));
+      await dispatch(userActions.reset({ password, token }));
     } catch (error) {
       setErrors(error.data.errors);
     } finally {

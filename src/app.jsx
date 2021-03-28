@@ -9,7 +9,7 @@ import * as loaderService from 'services/loader.service';
 import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
-import { selectUser, getCurrentUser } from 'resources/user/user.slice';
+import { userSelectors, userActions } from 'resources/user/user.slice';
 
 import Loading from 'components/loading';
 import { ErrorBoundary } from 'components/error-boundary';
@@ -31,7 +31,7 @@ import 'styles/main.pcss';
 const Profile = React.lazy(() => import('./pages/profile'));
 
 function PrivateScope({ children }) {
-  const user = useSelector(selectUser);
+  const user = useSelector(userSelectors.selectUser);
 
   React.useEffect(() => {
     socketService.connect();
@@ -88,7 +88,7 @@ function App() {
   React.useEffect(() => {
     async function init() {
       try {
-        await store.dispatch(getCurrentUser());
+        await store.dispatch(userActions.getCurrentUser());
       } catch (error) {
         // @todo: add something like sentry
       } finally {

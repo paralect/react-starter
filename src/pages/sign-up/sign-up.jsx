@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import config from 'config';
 import { routes } from 'routes';
 
-import { selectUser, signUp } from 'resources/user/user.slice';
+import { userSelectors, userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -15,7 +15,7 @@ import styles from './sign-up.pcss';
 function SignUp() {
   const dispatch = useDispatch();
 
-  const user = useSelector(selectUser);
+  const user = useSelector(userSelectors.selectUser);
 
   const [pending, setPending] = React.useState(false);
   const [registered, setRegistered] = React.useState(false);
@@ -32,7 +32,7 @@ function SignUp() {
 
     try {
       setPending(true);
-      const response = await dispatch(signUp({
+      const response = await dispatch(userActions.signUp({
         firstName,
         lastName,
         email,

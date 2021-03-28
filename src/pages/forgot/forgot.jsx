@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { routes } from 'routes';
 
-import { selectUser, forgot } from 'resources/user/user.slice';
+import { userSelectors, userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -15,7 +15,7 @@ import styles from './forgot.pcss';
 function Forgot() {
   const dispatch = useDispatch();
 
-  const user = useSelector(selectUser);
+  const user = useSelector(userSelectors.selectUser);
 
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
@@ -28,7 +28,7 @@ function Forgot() {
 
     try {
       setPending(true);
-      await dispatch(forgot({ email }));
+      await dispatch(userActions.forgot({ email }));
       setSubmitted(true);
     } catch (error) {
       setErrors(error.data.errors);
