@@ -9,8 +9,7 @@ import * as loaderService from 'services/loader.service';
 import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
-import * as userActions from 'resources/user/user.actions';
-import * as userSelectors from 'resources/user/user.selectors';
+import { selectUser, getCurrentUser } from 'resources/user/user.slice';
 
 import Loading from 'components/loading';
 import { ErrorBoundary } from 'components/error-boundary';
@@ -32,14 +31,14 @@ import 'styles/main.pcss';
 const Profile = React.lazy(() => import('./pages/profile'));
 
 function PrivateScope({ children }) {
-  const authenticated = useSelector(userSelectors.getAuthenticated);
+  const user = useSelector(selectUser);
 
   React.useEffect(() => {
     socketService.connect();
     return () => socketService.disconnect();
   }, []);
 
-  if (!authenticated) {
+  if (!user) {
     const searchParams = new URLSearchParams({ to: window.location.pathname });
     const search = window.location.pathname === '/' ? null : searchParams.toString();
 
@@ -89,7 +88,7 @@ function App() {
   React.useEffect(() => {
     async function init() {
       try {
-        await store.dispatch(userActions.getCurrentUser());
+        await store.dispatch(getCurrentUser());
       } catch (error) {
         // @todo: add something like sentry
       } finally {

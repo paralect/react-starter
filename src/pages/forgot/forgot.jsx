@@ -1,12 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
 import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { routes } from 'routes';
 
-import * as userActions from 'resources/user/user.actions';
-import * as userSelectors from 'resources/user/user.selectors';
+import { selectUser, forgot } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -16,7 +15,7 @@ import styles from './forgot.pcss';
 function Forgot() {
   const dispatch = useDispatch();
 
-  const authenticated = useSelector(userSelectors.getAuthenticated);
+  const user = useSelector(selectUser);
 
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
@@ -29,7 +28,7 @@ function Forgot() {
 
     try {
       setPending(true);
-      await dispatch(userActions.forgot({ email }));
+      await dispatch(forgot({ email }));
       setSubmitted(true);
     } catch (error) {
       setErrors(error.data.errors);
@@ -38,7 +37,7 @@ function Forgot() {
     }
   }
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to={routes.home.url()} />;
   }
 

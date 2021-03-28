@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { routes } from 'routes';
 
-import * as userActions from 'resources/user/user.actions';
+import { signOut } from 'resources/user/user.slice';
 
 import styles from './user-menu.styles.pcss';
 
@@ -36,7 +36,7 @@ function UserMenu() {
   }, []);
 
   async function logout() {
-    await dispatch(userActions.signOut());
+    await dispatch(signOut());
     history.push(routes.signIn.path);
   }
 

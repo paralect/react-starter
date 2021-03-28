@@ -4,8 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import * as userActions from 'resources/user/user.actions';
-import * as userSelectors from 'resources/user/user.selectors';
+import { signIn, selectUser } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -13,7 +12,7 @@ import Button from 'components/button';
 import styles from './sign-in.pcss';
 
 function SignIn() {
-  const authenticated = useSelector(userSelectors.getAuthenticated);
+  const user = useSelector(selectUser);
 
   const dispatch = useDispatch();
 
@@ -23,12 +22,12 @@ function SignIn() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  async function signIn(event) {
+  async function submit(event) {
     event.preventDefault();
 
     try {
       setPending(true);
-      await dispatch(userActions.signIn({ email, password }));
+      await dispatch(signIn({ email, password }));
     } catch (error) {
       setErrors(error.data.errors);
     } finally {
@@ -36,7 +35,7 @@ function SignIn() {
     }
   }
 
-  if (authenticated) {
+  if (user) {
     const redirectPath = new URLSearchParams(window.location.search).get('to');
 
     return <Redirect to={redirectPath || routes.home.url()} />;
@@ -44,7 +43,7 @@ function SignIn() {
 
   return (
     <form
-      onSubmit={signIn}
+      onSubmit={submit}
       noValidate
       className={styles.container}
     >

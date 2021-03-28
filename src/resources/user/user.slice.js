@@ -1,15 +1,30 @@
+import { createSlice } from '@reduxjs/toolkit';
+
 import * as socketService from 'services/socket.service';
 
 import { routes } from 'routes';
 
 import * as api from './user.api';
 
+const initialState = null;
+
+export const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUser: (state, action) => action.payload.user,
+    removeUser: () => initialState,
+  },
+});
+
+export const { setUser, removeUser } = userSlice.actions;
+
 export const signIn = ({ email, password }) => async (dispatch) => {
   const user = await api.signIn({
     email,
     password,
   });
-  dispatch({ type: 'user:set', payload: { user } });
+  dispatch(setUser({ user }));
 };
 
 export const signUp = ({
@@ -39,16 +54,20 @@ export const reset = ({ password, token }) => async (_dispatch, _getState, ctx) 
 
 export const signOut = () => async (dispatch) => {
   await api.signOut();
-  dispatch({ type: 'user:delete' });
+  dispatch(removeUser());
   socketService.disconnect();
 };
 
 export const getCurrentUser = () => async (dispatch) => {
   const user = await api.getCurrentUser();
-  dispatch({ type: 'user:set', payload: { user } });
+  dispatch(setUser({ user }));
 };
 
 export const updateCurrentUser = (data) => async (dispatch) => {
   const user = await api.updateCurrentUser(data);
-  dispatch({ type: 'user:set', payload: { user } });
+  dispatch(setUser({ user }));
 };
+
+export const selectUser = ({ user }) => user;
+
+export default userSlice.reducer;

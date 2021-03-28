@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useToast } from 'hooks/use-toast';
 
-import * as userSelectors from 'resources/user/user.selectors';
-import * as userActions from 'resources/user/user.actions';
+import { selectUser, updateCurrentUser } from 'resources/user/user.slice';
 import * as userValidators from 'resources/user/user.validators';
 
 import Input from 'components/input';
@@ -16,7 +15,8 @@ import styles from './profile.styles.pcss';
 function Profile() {
   const toast = useToast();
   const dispatch = useDispatch();
-  const user = useSelector(userSelectors.getUser);
+
+  const user = useSelector(selectUser);
 
   const [firstName, setFirstName] = React.useState(user.firstName);
   const [lastName, setLastName] = React.useState(user.lastName);
@@ -42,7 +42,7 @@ function Profile() {
     }
 
     try {
-      await dispatch(userActions.updateCurrentUser(data));
+      await dispatch(updateCurrentUser(data));
       toast.success('User info updated!');
       setErrors({});
     } catch (error) {

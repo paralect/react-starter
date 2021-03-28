@@ -3,20 +3,19 @@ import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
 
-import * as selectors from './user.selectors';
-import * as actions from './user.actions';
+import { selectUser, setUser, signOut } from './user.slice';
 
 api.on('error', (error) => {
   if (error.status === 401) {
-    store.dispatch(actions.signOut());
+    store.dispatch(signOut());
   }
 });
 
 socketService.on('connect', () => {
-  const user = selectors.getUser(store.getState());
+  const user = selectUser(store.getState());
   socketService.emit('subscribe', `user-${user._id}`);
 });
 
 socketService.on('user:updated', (user) => {
-  store.dispatch({ type: 'user:set', payload: { user } });
+  store.dispatch(setUser({ user }));
 });
