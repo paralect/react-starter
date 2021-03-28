@@ -1,10 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useToast } from 'hooks/use-toast';
-
-import { userSelectors, userActions } from 'resources/user/user.slice';
 import * as userValidators from 'resources/user/user.validators';
+import { userSelectors, userActions } from 'resources/user/user.slice';
+import { toastActions } from 'resources/toast/toast.slice';
 
 import Input from 'components/input';
 import Button, { colors as buttonColors } from 'components/button';
@@ -13,7 +12,6 @@ import Form, { Row, Column } from 'components/form';
 import styles from './profile.styles.pcss';
 
 function Profile() {
-  const toast = useToast();
   const dispatch = useDispatch();
 
   const user = useSelector(userSelectors.selectUser);
@@ -25,8 +23,10 @@ function Profile() {
 
   const showErrors = React.useCallback((newErrors) => {
     setErrors(newErrors);
-    if (newErrors._global) toast.error(newErrors._global.join('. '));
-  }, [toast]);
+    if (newErrors._global) {
+      dispatch(toastActions.error(newErrors._global.join('. ')));
+    }
+  }, [dispatch]);
 
   const updateUser = React.useCallback(async () => {
     const data = {
@@ -43,12 +43,12 @@ function Profile() {
 
     try {
       await dispatch(userActions.updateCurrentUser(data));
-      toast.success('User info updated!');
+      dispatch(toastActions.success('User info updated!'));
       setErrors({});
     } catch (error) {
       showErrors(error.data.errors);
     }
-  }, [firstName, lastName, email, dispatch, toast, showErrors]);
+  }, [firstName, lastName, email, dispatch, showErrors]);
 
   const cancel = React.useCallback(() => {
     setFirstName(user.firstName);
