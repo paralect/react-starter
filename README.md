@@ -9,7 +9,7 @@ React starter is what we think an ideal starting point for the most React.JS fro
 - postcss
 - eslint
 
-Application structured in a way, which we find most efficient in both short and long term projects. The main intention of the current structure is to keep logical components close to each other and define clear structure for the common things, such as routers, store, api wrappers, slices.
+Application structured in a way, which we find most efficient in both short and long term projects. The main intention of the current structure is to keep logical components close to each other and define clear structure for the common things, such as routers, store, api wrappers, slices, selectors.
 
 ### Explanations of the files structure.
 
@@ -18,7 +18,9 @@ Application structured in a way, which we find most efficient in both short and 
 3. **[src/helpers](./src/helpers)** - this folder should consist of common helpers used in other components, such as date formatters, api wrappers, validation functions, common functions and all other files that does not fit current structure. If you don't know where to put certain file - put it into this folder and we will eventually figure out the right place for it.
 4. **[src/resources](./src/resources/user)** - a folder consist of all redux/api related things. Typically resource maps 1 to 1 to the api endpoint, but not limited to only api endpoints. Every resource is responsible for management certain part of the redux store. If you need keep something client specific in the redux store, you can create separate resource for it. For example: navigation resource may contain some history of the all opened pages without 1 to 1 connection to the rest api. Main moving parts of resource:
     - **[src/resources/store.js](./src/resources/store.js)** - initialization logic for the redux store. Adds redux middlewares and combines all reducers.
-    - **[src/resources/\*/\*.slice.js](./src/resources/user/user.slice.js)** - includes all redux staff (selectors, reducers, actions).
+    - **[src/resources/\*/\*.slice.js](./src/resources/user/user.slice.js)** - includes reducers, action creators, thunks.
+    - **[src/resource/\*/\*.selectors.js](./src/resources/user/user.selectors.js)** - consist selectors for the given resource. You should never access store directly, but always use selectors instead. That would simplify things when structure of the store data changes.
+
 Redux Toolkit has a ```createSlice``` API that will help us simplify our Redux reducer logic and actions. 
 
 ```createSlice``` does several important things for us:
