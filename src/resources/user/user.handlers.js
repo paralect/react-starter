@@ -3,7 +3,8 @@ import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
 
-import { userSelectors, userActions } from './user.slice';
+import * as userSelectors from 'resources/user/user.selectors';
+import { userActions } from 'resources/user/user.slice';
 
 api.on('error', (error) => {
   if (error.status === 401) {

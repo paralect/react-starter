@@ -2,7 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as userValidators from 'resources/user/user.validators';
-import { userSelectors, userActions } from 'resources/user/user.slice';
+import * as userSelectors from 'resources/user/user.selectors';
+import { userActions } from 'resources/user/user.slice';
 import { toastActions } from 'resources/toast/toast.slice';
 
 import Input from 'components/input';

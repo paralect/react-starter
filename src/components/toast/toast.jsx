@@ -3,7 +3,8 @@ import cn from 'classnames';
 import ReactDOM from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { toastSelectors, toastActions } from 'resources/toast/toast.slice';
+import * as toastSelectors from 'resources/toast/toast.selectors';
+import { toastActions } from 'resources/toast/toast.slice';
 
 import styles from './toast.pcss';
 

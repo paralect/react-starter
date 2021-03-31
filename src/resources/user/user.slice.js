@@ -80,10 +80,4 @@ export const userActions = {
   updateCurrentUser,
 };
 
-const selectUser = ({ user }) => user;
-
-export const userSelectors = {
-  selectUser,
-};
-
 export default userSlice.reducer;

@@ -8,7 +8,9 @@ import * as loaderService from 'services/loader.service';
 import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
-import { userSelectors, userActions } from 'resources/user/user.slice';
+
+import * as userSelectors from 'resources/user/user.selectors';
+import { userActions } from 'resources/user/user.slice';
 
 import Toast from 'components/toast';
 import Loading from 'components/loading';

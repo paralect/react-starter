@@ -5,7 +5,8 @@ import { Link, Redirect } from 'react-router-dom';
 import config from 'config';
 import { routes } from 'routes';
 
-import { userSelectors, userActions } from 'resources/user/user.slice';
+import * as userSelectors from 'resources/user/user.selectors';
+import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';

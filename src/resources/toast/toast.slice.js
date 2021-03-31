@@ -46,10 +46,4 @@ export const toastActions = {
   error,
 };
 
-const selectMessages = ({ toast }) => toast.messages;
-
-export const toastSelectors = {
-  selectMessages,
-};
-
 export default toastSlice.reducer;
