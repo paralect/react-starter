@@ -8,7 +8,6 @@ export default {
   decorators: [(Story) => <div style={{ 'max-width': '400px' }}><Story /></div>],
 };
 
-// eslint-disable-next-line react/jsx-props-no-spreading
 const Template = (args) => <Input {...args} />;
 
 export const PrimaryEmpty = Template.bind({});
