@@ -12,6 +12,10 @@
       "name": "lodash",
       "message": "Import individual methods from the Lodash module"
     }],
+    "no-param-reassign": ["error", {
+      "props": true,
+      "ignorePropertyModificationsFor": ["state"]
+    }],
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": ["**/*.config.js"]

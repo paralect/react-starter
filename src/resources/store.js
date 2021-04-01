@@ -1,13 +1,16 @@
-import * as redux from 'redux';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 
 import history from 'services/history.service';
 
-import reducer from './reducer';
+import user from './user/user.slice';
+import toast from './toast/toast.slice';
 
-const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux.compose;
-
-export default redux.createStore(
-  reducer,
-  compose(redux.applyMiddleware(thunk.withExtraArgument({ history }))),
-);
+export default configureStore({
+  reducer: {
+    user,
+    toast,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    thunk: { extraArgument: history },
+  }),
+});

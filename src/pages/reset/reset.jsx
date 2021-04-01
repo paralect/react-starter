@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import * as userActions from 'resources/user/user.actions';
 import * as userSelectors from 'resources/user/user.selectors';
+import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -15,7 +15,7 @@ import styles from './reset.pcss';
 function Reset() {
   const dispatch = useDispatch();
 
-  const authenticated = useSelector(userSelectors.getAuthenticated);
+  const user = useSelector(userSelectors.selectUser);
 
   const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
@@ -25,7 +25,7 @@ function Reset() {
 
   const [password, setPassword] = React.useState('');
 
-  async function sumbit(event) {
+  async function submit(event) {
     event.preventDefault();
 
     try {
@@ -44,13 +44,13 @@ function Reset() {
     );
   }
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to={routes.home.url()} />;
   }
 
   return (
     <form
-      onSubmit={sumbit}
+      onSubmit={submit}
       noValidate
       className={styles.container}
     >

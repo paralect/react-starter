@@ -5,8 +5,8 @@ import { Link, Redirect } from 'react-router-dom';
 import config from 'config';
 import { routes } from 'routes';
 
-import * as userActions from 'resources/user/user.actions';
 import * as userSelectors from 'resources/user/user.selectors';
+import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -16,7 +16,7 @@ import styles from './sign-up.pcss';
 function SignUp() {
   const dispatch = useDispatch();
 
-  const authenticated = useSelector(userSelectors.getAuthenticated);
+  const user = useSelector(userSelectors.selectUser);
 
   const [pending, setPending] = React.useState(false);
   const [registered, setRegistered] = React.useState(false);
@@ -28,7 +28,7 @@ function SignUp() {
   const [password, setPassword] = React.useState('');
   const [signupToken, setSignupToken] = React.useState();
 
-  async function signUp(event) {
+  async function submit(event) {
     event.preventDefault();
 
     try {
@@ -48,7 +48,7 @@ function SignUp() {
     }
   }
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to={routes.home.url()} />;
   }
 
@@ -84,7 +84,7 @@ function SignUp() {
 
   return (
     <form
-      onSubmit={signUp}
+      onSubmit={submit}
       noValidate
       className={styles.container}
     >

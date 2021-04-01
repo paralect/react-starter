@@ -1,7 +1,1 @@
-export function getUser({ user }) {
-  return user;
-}
-
-export function getAuthenticated({ user }) {
-  return user !== null;
-}
+export const selectUser = ({ user }) => user;
