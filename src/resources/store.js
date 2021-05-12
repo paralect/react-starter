@@ -11,6 +11,6 @@ export default configureStore({
     toast,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    thunk: { extraArgument: history },
+    thunk: { extraArgument: { history } },
   }),
 });

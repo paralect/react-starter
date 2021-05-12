@@ -33,7 +33,6 @@ function Reset() {
       await dispatch(userActions.reset({ password, token }));
     } catch (error) {
       setErrors(error.data.errors);
-    } finally {
       setPending(false);
     }
   }

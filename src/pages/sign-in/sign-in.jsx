@@ -31,7 +31,6 @@ function SignIn() {
       await dispatch(userActions.signIn({ email, password }));
     } catch (error) {
       setErrors(error.data.errors);
-    } finally {
       setPending(false);
     }
   }
