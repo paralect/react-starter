@@ -134,8 +134,9 @@ function SignUp() {
       <div className={styles.row}>
         <Button
           type="submit"
-          color="green"
-          disabled={pending || !firstName || !lastName || !email || !password}
+          color="success"
+          isLoading={pending}
+          disabled={!firstName || !lastName || !email || !password}
         >
           Sign up
         </Button>

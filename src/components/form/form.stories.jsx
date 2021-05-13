@@ -35,7 +35,7 @@ export const Template = () => (
       <Column>
         <Button
           tabIndex={-1}
-          color="red"
+          color="danger"
         >
           Cancel
         </Button>
@@ -43,7 +43,7 @@ export const Template = () => (
         <Button
           style={{ marginLeft: '20px' }}
           tabIndex={0}
-          color="green"
+          color="success"
         >
           Save
         </Button>

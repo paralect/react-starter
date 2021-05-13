@@ -78,8 +78,9 @@ function Forgot() {
             <div className={styles.row}>
               <Button
                 type="submit"
-                color="green"
-                disabled={pending || !email}
+                color="success"
+                isLoading={pending}
+                disabled={!email}
               >
                 Send reset link
               </Button>

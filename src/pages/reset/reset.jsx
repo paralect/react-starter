@@ -72,8 +72,9 @@ function Reset() {
       <div className={styles.row}>
         <Button
           type="submit"
-          color="green"
-          disabled={pending || !password}
+          color="success"
+          isLoading={pending}
+          disabled={!password}
         >
           Save New Password
         </Button>
