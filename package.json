@@ -15,26 +15,13 @@
     "node": ">= 14"
   },
   "scripts": {
-    "start": "webpack-dev-server --color --config webpack.dev.config.js",
+    "start": "webpack serve --color --config webpack.dev.config.js",
     "test": "run-s test:**",
     "test:eslint": "eslint --ext js --ext jsx ./src",
     "test:stylelint": "stylelint \"src/**/*.pcss\"",
     "build": "webpack -p",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --ext js --ext jsx --fix"
-    ],
-    "*.pcss": [
-      "stylelint --fix"
-    ]
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.5.1",
@@ -52,8 +39,8 @@
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "regenerator-runtime": "0.13.7",
-    "socket.io-client": "2.3.1",
-    "webpack": "4.43.0",
+    "socket.io-client": "4.1.1",
+    "webpack": "5.37.0",
     "yup": "0.32.9"
   },
   "devDependencies": {
@@ -70,30 +57,28 @@
     "@svgr/webpack": "5.5.0",
     "babel-loader": "8.2.2",
     "babel-plugin-module-resolver": "4.1.0",
-    "copy-webpack-plugin": "6.2.1",
-    "css-loader": "4.3.0",
-    "cssnano": "4.1.10",
+    "copy-webpack-plugin": "8.1.1",
+    "css-loader": "5.2.4",
+    "cssnano": "5.0.2",
     "eslint": "7.26.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.23.2",
     "eslint-plugin-react-hooks": "4.2.0",
-    "html-webpack-plugin": "4.5.0",
-    "husky": "4.3.0",
-    "lint-staged": "10.4.2",
+    "html-webpack-plugin": "5.3.1",
     "mini-css-extract-plugin": "1.6.0",
     "npm-run-all": "4.1.5",
-    "postcss-import": "12.0.1",
-    "postcss-loader": "3.0.0",
-    "postcss-nested": "4.2.1",
+    "postcss-import": "14.0.2",
+    "postcss-loader": "5.2.0",
+    "postcss-nested": "5.0.5",
     "postcss-preset-env": "6.7.0",
-    "react-refresh": "0.8.3",
-    "style-loader": "1.2.1",
+    "react-refresh": "0.9.0",
+    "style-loader": "2.0.0",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "22.0.0",
     "url-loader": "4.1.1",
-    "webpack-cli": "3.3.12",
+    "webpack-cli": "4.7.0",
     "webpack-dev-server": "3.11.2"
   }
 }

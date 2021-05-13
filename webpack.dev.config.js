@@ -9,6 +9,7 @@ const port = process.env.PORT || 3002;
 
 module.exports = {
   mode: 'development',
+  target: 'web',
 
   entry: {
     main: './src/index.jsx',
