@@ -1,6 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  core: {
+    builder: "webpack5",
+  },
   webpackFinal: (config) => {
     config.module.rules.push({
       test: /\.pcss$/,

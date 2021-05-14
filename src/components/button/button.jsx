@@ -1,34 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 
 import styles from './button.styles.pcss';
 
 const colors = {
-  green: 'green',
-  blue: 'blue',
-  red: 'red',
+  primary: 'primary',
+  success: 'success',
+  danger: 'danger',
 };
 
-function Button({ color, className, ...props }) {
+function Button({
+  children, color, isLoading, className, ...props
+}) {
   return (
     <button
       type="button"
-      className={cn(styles.button, styles[color], className)}
+      className={cn({
+        [styles.button]: true,
+        [styles.buttonLoading]: isLoading,
+      }, styles[color], className)}
       {...props}
-    />
+    >
+      {children}
+      {isLoading && <span className={styles.loader} />}
+    </button>
   );
 }
 
 Button.propTypes = {
+  children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.values(colors)),
+  isLoading: PropTypes.bool,
   className: PropTypes.string,
 };
 
 Button.defaultProps = {
-  color: colors.blue,
+  color: colors.primary,
+  isLoading: false,
   className: null,
 };
 
-export default Button;
-export { colors };
+export default React.memo(Button);

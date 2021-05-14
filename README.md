@@ -11,6 +11,12 @@ React starter is what we think an ideal starting point for the most React.JS fro
 
 Application structured in a way, which we find most efficient in both short and long term projects. The main intention of the current structure is to keep logical components close to each other and define clear structure for the common things, such as routers, store, api wrappers, slices, selectors.
 
+### Start application.
+
+Run ```npm start``` that will start the application using webpack-dev-server.
+
+Or run ```docker-compose up --build``` for starting application inside a container using nginx as a server.
+
 ### Explanations of the files structure.
 
 1. **[src/components](./src/components)** - this folder consist all UI components. Root level folders (such as [profile](./src/components/profile), [index](./src/components/index)) are typically pages of your application. Every such component should have all files related to the page: images, style files, jsx files, sub components. This folder also consist two none page components: [common](./src/components/common) and [layout](./src/components/common). *Common* folder should have all common components which are reused in **at least two** root level components. Layout - represent a layout of your application and should consist all layout related logic and other components, such as headers, footers, sidebars.

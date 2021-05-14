@@ -31,7 +31,6 @@ function SignIn() {
       await dispatch(userActions.signIn({ email, password }));
     } catch (error) {
       setErrors(error.data.errors);
-    } finally {
       setPending(false);
     }
   }
@@ -74,8 +73,9 @@ function SignIn() {
       <div className={styles.row}>
         <Button
           type="submit"
-          color="green"
-          disabled={pending || !email || !password}
+          color="success"
+          isLoading={pending}
+          disabled={!email || !password}
         >
           Sign in
         </Button>

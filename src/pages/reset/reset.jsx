@@ -33,7 +33,6 @@ function Reset() {
       await dispatch(userActions.reset({ password, token }));
     } catch (error) {
       setErrors(error.data.errors);
-    } finally {
       setPending(false);
     }
   }
@@ -73,8 +72,9 @@ function Reset() {
       <div className={styles.row}>
         <Button
           type="submit"
-          color="green"
-          disabled={pending || !password}
+          color="success"
+          isLoading={pending}
+          disabled={!password}
         >
           Save New Password
         </Button>

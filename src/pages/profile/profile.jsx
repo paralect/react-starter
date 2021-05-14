@@ -7,7 +7,7 @@ import { userActions } from 'resources/user/user.slice';
 import { toastActions } from 'resources/toast/toast.slice';
 
 import Input from 'components/input';
-import Button, { colors as buttonColors } from 'components/button';
+import Button from 'components/button';
 import Form, { Row, Column } from 'components/form';
 
 import styles from './profile.styles.pcss';
@@ -104,7 +104,7 @@ function Profile() {
               className={styles.button}
               onClick={cancel}
               tabIndex={-1}
-              color={buttonColors.red}
+              color="danger"
             >
               Cancel
             </Button>
@@ -113,7 +113,7 @@ function Profile() {
               className={styles.button}
               onClick={updateUser}
               tabIndex={0}
-              color={buttonColors.green}
+              color="success"
             >
               Save
             </Button>

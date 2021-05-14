@@ -13,17 +13,22 @@ export default {
 
 const Template = (args) => <Button {...args}>{args.children}</Button>;
 
-export const Green = Template.bind({});
-Green.args = {
-  color: 'green',
+export const Success = Template.bind({});
+Success.args = {
+  color: 'success',
 };
 
-export const Blue = Template.bind({});
-Blue.args = {
-  color: 'blue',
+export const Primary = Template.bind({});
+Primary.args = {
+  color: 'primary',
 };
 
-export const Red = Template.bind({});
-Red.args = {
-  color: 'red',
+export const Danger = Template.bind({});
+Danger.args = {
+  color: 'danger',
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
 };
