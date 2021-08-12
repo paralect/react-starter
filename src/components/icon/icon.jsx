@@ -2,18 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import Store from './Store';
-
 import styles from './icon.styles.pcss';
+import IMAGES from './icons';
 
-const Icon = ({
-  iconLabel, className, noWrapper,
-}) => {
-  const SourceImage = Store.getImage(iconLabel);
+const Icon = ({ iconLabel, className, noWrapper }) => {
+  const IconComponent = IMAGES[iconLabel] || IMAGES.arrowRight;
 
   return (
     <div className={cn(!noWrapper && styles.iconWrapper, className)}>
-      <SourceImage />
+      <IconComponent />
     </div>
   );
 };
