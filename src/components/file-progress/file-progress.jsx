@@ -23,10 +23,10 @@ const FileProgress = ({
   const renderStatus = () => {
     switch (status) {
       case STATUSES.SUCCESS:
-        return <Icon icon="check" color={STATUS_COLORS.SUCCESS} />;
+        return <Icon icon="roundCheckSmall" color={STATUS_COLORS.SUCCESS} />;
 
       case STATUSES.FAIL:
-        return <Icon icon="error" color={STATUS_COLORS.FAIL} />;
+        return <Icon icon="roundErrorSmall" color={STATUS_COLORS.FAIL} />;
 
       default:
         return (

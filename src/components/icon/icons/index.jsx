@@ -4,8 +4,10 @@ import ArrowRight from './arrowRight.svg';
 import Copy from './copy.svg';
 import Close from './close.svg';
 import FileUpload from './file-upload.svg';
-import Check from './check.svg';
-import ErrorIcon from './error.svg';
+import RoundCheck from './round-check.svg';
+import RoundCheckSmall from './round-check-small.svg';
+import RoundError from './round-error.svg';
+import RoundErrorSmall from './round-error-small.svg';
 import DocumentIcon from './document.svg';
 
 const IMAGES = {
@@ -15,8 +17,10 @@ const IMAGES = {
   copy: Copy,
   close: Close,
   fileUpload: FileUpload,
-  check: Check,
-  error: ErrorIcon,
+  roundCheck: RoundCheck,
+  roundCheckSmall: RoundCheckSmall,
+  roundError: RoundError,
+  roundErrorSmall: RoundErrorSmall,
   document: DocumentIcon,
 };
 
