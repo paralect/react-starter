@@ -9,19 +9,10 @@
   }
 }
 
-.title {
-  margin-bottom: 4px;
-  font-size: 14px;
-  font-weight: 500;
-
-  &.error {
-    color: var(--red);
-  }
-}
-
 .select {
   outline: none;
   transition: all 0.2s;
+  margin: 0;
 
   [class$='-control'] {
     width: 100%;
@@ -51,11 +42,23 @@
 
 .error {
   color: var(--red);
-  font-size: 12px;
   word-wrap: break-word;
   font-weight: normal;
+  font-size: 12px;
+  margin-top: 5px;
 
   [class$='-control']:hover {
     border-color: var(--red) !important;
+  }
+}
+
+.title {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+
+  &.error {
+    color: var(--red);
+    margin: 0;
   }
 }
