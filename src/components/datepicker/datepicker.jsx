@@ -5,11 +5,13 @@ import DatePicker, { CalendarContainer } from 'react-datepicker';
 import Input from 'components/input';
 import IconButton from 'components/icon-button';
 import Icon from 'components/icon';
-import { MOUNTHS } from 'helpers/constants';
+import { MONTHS } from 'helpers/constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 import styles from './datepicker.styles.pcss';
+
+const iconStyle = { transform: 'rotate(180deg)' };
 
 const renderContainer = ({ children }) => (
   <CalendarContainer className={styles.container}>
@@ -24,11 +26,11 @@ const renderHeader = ({
   <div className={styles.header}>
     <IconButton
       onClick={decreaseMonth}
-      style={{ transform: 'rotate(180deg)' }}
+      style={iconStyle}
       icon="arrowRight"
       disabled={prevMonthButtonDisabled}
     />
-    {`${MOUNTHS[date.getMonth()]} ${date.getFullYear()}`}
+    {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
     <IconButton
       onClick={increaseMonth}
       disabled={nextMonthButtonDisabled}
