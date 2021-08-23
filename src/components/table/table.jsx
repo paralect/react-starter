@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import noop from 'lodash/noop';
@@ -12,11 +12,13 @@ import styles from './table.styles.pcss';
 
 const Table = (props) => {
   const {
-    columns, items, sortBy, onSortBy,
-    checkable, checkedItems, onCheckItems,
-    pageSize, page, totalPages,
-    itemsCount, totalCount, onGoToPage,
+    columns, items, checkable, onUpdate,
+    pageSize, totalPages,
+    itemsCount, totalCount,
   } = props;
+  const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState(null);
+  const [checkedItems, setCheckedItems] = useState([]);
 
   const allChecked = items.every((item) => {
     return checkedItems.some((checkedItem) => checkedItem.id === item.id);
@@ -32,11 +34,24 @@ const Table = (props) => {
     }
   }
 
+  function handleSortBy(newSortBy) {
+    setSortBy(newSortBy);
+  }
+
+  function handleGoToPage(selectedPage) {
+    setPage(selectedPage);
+  }
+
+  useEffect(() => {
+    onUpdate(page, pageSize, sortBy?.field, sortBy?.direction);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortBy, page]);
+
   function handleAllCheck() {
     if (allChecked) {
-      onCheckItems(differenceBy(checkedItems, items));
+      setCheckedItems(differenceBy(checkedItems, items));
     } else {
-      onCheckItems([...checkedItems, ...items]);
+      setCheckedItems([...checkedItems, ...items]);
     }
   }
 
@@ -67,10 +82,10 @@ const Table = (props) => {
       const changedItem = items.find((i) => i.id === id);
       if (!checked) {
         const mergedItems = [...checkedItems, changedItem];
-        onCheckItems(mergedItems);
+        setCheckedItems(mergedItems);
       } else {
         const filteredItems = checkedItems.filter((i) => i.id !== id);
-        onCheckItems(filteredItems);
+        setCheckedItems(filteredItems);
       }
     }
 
@@ -111,7 +126,7 @@ const Table = (props) => {
           totalPages={totalPages}
           itemsCount={itemsCount}
           totalCount={totalCount}
-          onGoToPage={onGoToPage}
+          onGoToPage={handleGoToPage}
         />
       </>
     );
@@ -136,7 +151,7 @@ const Table = (props) => {
             key={column.key}
             column={column}
             sortBy={sortBy}
-            onSortBy={onSortBy}
+            onSortBy={handleSortBy}
             noSort={column.noSort}
           />
         ))}
@@ -158,23 +173,17 @@ Table.propTypes = {
     direction: PropTypes.number,
   }),
   checkable: PropTypes.bool,
-  checkedItems: PropTypes.arrayOf(PropTypes.object),
-  onCheckItems: PropTypes.func,
-  onSortBy: PropTypes.func,
+  onUpdate: PropTypes.func,
   pageSize: PropTypes.number.isRequired,
-  page: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   itemsCount: PropTypes.number.isRequired,
   totalCount: PropTypes.number.isRequired,
-  onGoToPage: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {
   sortBy: null,
   checkable: false,
-  checkedItems: PropTypes.arrayOf(),
-  onCheckItems: noop,
-  onSortBy: noop,
+  onUpdate: noop,
 };
 
 export default Table;

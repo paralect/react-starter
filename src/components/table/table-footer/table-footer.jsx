@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import IconButton from 'components/icon-button';
 
@@ -8,7 +9,7 @@ import styles from './table-footer.styles.pcss';
 
 const iconStyle = { transform: 'rotate(180deg)' };
 
-const PageNumber = ({ number, onClick }) => {
+const PageNumber = ({ number, onClick, isCurrent }) => {
   const handleClick = () => {
     onClick(number);
   };
@@ -17,7 +18,10 @@ const PageNumber = ({ number, onClick }) => {
     <button
       type="button"
       onClick={handleClick}
-      className={styles.pageNumber}
+      className={cn(
+        styles.pageNumber,
+        { [styles.current]: isCurrent },
+      )}
     >
       {number}
     </button>
@@ -26,6 +30,7 @@ const PageNumber = ({ number, onClick }) => {
 
 PageNumber.propTypes = {
   number: PropTypes.number.isRequired,
+  isCurrent: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
@@ -55,6 +60,7 @@ const TableFooter = ({
           <PageNumber
             onClick={onGoToPage}
             number={i + 1}
+            isCurrent={page === i + 1}
             key={i}
           />
         ))
@@ -66,6 +72,7 @@ const TableFooter = ({
           <PageNumber
             onClick={onGoToPage}
             number={i + 1}
+            isCurrent={page === i + 1}
             key={i}
           />
         ))}
@@ -74,6 +81,7 @@ const TableFooter = ({
           <PageNumber
             onClick={onGoToPage}
             number={totalPages - i}
+            isCurrent={page === totalPages - i}
             key={totalPages - i - 1}
           />
         ))).reverse()}

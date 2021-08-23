@@ -1,5 +1,5 @@
 /* eslint-disable object-property-newline */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import random from 'lodash/random';
 import * as sort from 'lodash/sortBy';
 
@@ -65,50 +65,32 @@ export default {
 };
 
 export const Template = () => {
-  const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState(null);
   const [items, setItems] = useState(data.slice(0, PAGE_SIZE));
-  const [checkedItems, setCheckedItems] = useState([]);
 
-  function handleSortBy(newSortBy) {
-    setSortBy(newSortBy);
-  }
-
-  function handleGoToPage(selectedPage) {
-    setPage(selectedPage);
-  }
-
-  useEffect(() => {
-    setItems(data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE));
-  }, [page]);
-
-  useEffect(() => {
-    if (!sortBy) return;
-
-    const ascSortedItems = sort(items, sortBy?.field);
-    if (sortBy.direction === 1) {
-      setItems(ascSortedItems);
+  const dummyRequest = (page, pageSize, sortField, sortDirection) => {
+    const newItems = data.slice((page - 1) * pageSize, page * pageSize);
+    if (sortField) {
+      const ascSortedItems = sort(newItems, sortField);
+      if (sortDirection === 1) {
+        setItems(ascSortedItems);
+      } else {
+        setItems(ascSortedItems.reverse());
+      }
     } else {
-      setItems(ascSortedItems.reverse());
+      setItems(newItems);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortBy, page]);
+  };
 
   return (
     <Table
       items={items}
       columns={columns}
       checkable
-      sortBy={sortBy}
-      onSortBy={handleSortBy}
+      onUpdate={dummyRequest}
       pageSize={PAGE_SIZE}
-      page={page}
       totalPages={TOTAL_PAGES}
       itemsCount={items.length}
       totalCount={TOTAL_COUNT}
-      checkedItems={checkedItems}
-      onCheckItems={setCheckedItems}
-      onGoToPage={handleGoToPage}
     />
   );
 };
