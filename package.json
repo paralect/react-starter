@@ -22,7 +22,8 @@
     "build": "webpack -p",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.5.1",
@@ -64,6 +65,7 @@
     "@svgr/webpack": "5.5.0",
     "babel-loader": "8.2.2",
     "babel-plugin-module-resolver": "4.1.0",
+    "chromatic": "5.9.2",
     "copy-webpack-plugin": "8.1.1",
     "css-loader": "5.2.4",
     "cssnano": "5.0.2",
