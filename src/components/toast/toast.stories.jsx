@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { ContextStoreProvider, StoreContext } from 'resources/store';
-import { toastActions } from 'resources/toast/toast.actions';
+import actions from 'resources/actions';
 
 import Button from 'components/button';
 
@@ -21,19 +21,19 @@ export const Template = () => {
   const { dispatch } = useContext(StoreContext);
 
   const showSuccessToast = () => {
-    toastActions.createToast(dispatch, { type: 'success', message: 'This is success toast! This is success toast!' });
+    dispatch(actions.createToast({ type: 'success', message: 'This is success toast! This is success toast!' }));
   };
 
   const showErrorToast = () => {
-    toastActions.createToast(dispatch, { type: 'error', message: 'This is error toast! This is error toast!' });
+    dispatch(actions.createToast({ type: 'error', message: 'This is error toast! This is error toast!' }));
   };
 
   const showInfoToast = () => {
-    toastActions.createToast(dispatch, { type: 'info', message: 'This is info toast! This is info toast!' });
+    dispatch(actions.createToast({ type: 'info', message: 'This is info toast! This is info toast!' }));
   };
 
   const showWarningToast = () => {
-    toastActions.createToast(dispatch, { type: 'warning', message: 'This is warning toast! This is warning toast!' });
+    dispatch(actions.createToast({ type: 'warning', message: 'This is warning toast! This is warning toast!' }));
   };
 
   return (

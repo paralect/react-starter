@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { routes } from 'routes';
 
 import { StoreContext } from 'resources/store';
-import { userActions } from 'resources/user/user.actions';
+import actions from 'resources/actions';
 
 import styles from './user-menu.styles.pcss';
 
@@ -36,7 +36,7 @@ function UserMenu() {
   }, []);
 
   async function logout() {
-    await userActions.signOut(dispatch);
+    await dispatch(actions.signOut());
     history.push(routes.signIn.path);
   }
 

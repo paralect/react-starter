@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
-import { userActions } from 'resources/user/user.actions';
 import { StoreContext } from 'resources/store';
+import actions from 'resources/actions';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -15,7 +15,7 @@ function SignIn() {
   const { state: { user }, dispatch } = useContext(StoreContext);
 
   const handleSubmit = async (submitValues) => {
-    await userActions.signIn(dispatch, submitValues);
+    await dispatch(actions.signIn(submitValues));
   };
 
   if (user) {

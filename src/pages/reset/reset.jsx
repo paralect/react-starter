@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { routes } from 'routes';
 
 import { StoreContext } from 'resources/store';
-import { userActions } from 'resources/user/user.actions';
+import actions from 'resources/actions';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -22,7 +22,7 @@ function Reset() {
 
   const handleSubmit = async (submitValues) => {
     setPending(true);
-    await userActions.reset(submitValues);
+    await actions.reset(submitValues);
     setPending(false);
   };
 

@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { useCallback, createContext, useReducer } from 'react';
 
 export const StoreContext = createContext();
 
@@ -37,8 +37,15 @@ export const reducer = (state = initialState, action) => {
 export const ContextStoreProvider = ({ children }) => { // eslint-disable-line react/prop-types
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const thunk = useCallback((action) => {
+    if (typeof action === 'function') {
+      return action(dispatch, state);
+    }
+    return dispatch(action);
+  }, [state]);
+
   return (
-    <StoreContext.Provider value={{ state, dispatch }}>
+    <StoreContext.Provider value={{ state, dispatch: thunk }}>
       {children}
     </StoreContext.Provider>
   );

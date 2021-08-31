@@ -5,8 +5,7 @@ import * as yup from 'yup';
 import { useFormContext } from 'react-hook-form';
 
 import { StoreContext } from 'resources/store';
-import { userActions } from 'resources/user/user.actions';
-import { toastActions } from 'resources/toast/toast.actions';
+import actions from 'resources/actions';
 
 import * as filesApi from 'resources/files/files.api';
 
@@ -54,14 +53,14 @@ const CancelButton = ({ onCancel, user }) => { // eslint-disable-line react/prop
 
 const Profile = () => {
   const { state: { user }, dispatch } = useContext(StoreContext);
-  const { avatarFileKey: userAvatarFileKey } = user;
+  const { avatarFileKey: userAvatarFileKey } = user || {};
 
   const [avatarFileKey, setAvatarFileKey] = useState(userAvatarFileKey);
   const [avatarUrl, setAvatarUrl] = useState(null);
 
   const handleSubmit = useCallback(async (submitValues) => {
-    await userActions.updateCurrentUser(dispatch, { ...submitValues, avatarFileKey });
-    toastActions.createToast(dispatch, { type: 'success', message: 'User info updated!' });
+    await dispatch(actions.updateCurrentUser({ ...submitValues, avatarFileKey }));
+    dispatch(actions.createToast({ type: 'success', message: 'User info updated!' }));
   }, [dispatch, avatarFileKey]);
 
   const getAvatarUrl = useCallback(async (key) => {
@@ -71,7 +70,7 @@ const Profile = () => {
         setAvatarUrl(url);
       }
     } catch ({ data }) {
-      toastActions.createToast(dispatch, { type: 'error', message: data.errors.file[0] });
+      dispatch(actions.createToast({ type: 'error', message: data.errors.file[0] }));
     }
   }, [dispatch]);
 
@@ -81,7 +80,7 @@ const Profile = () => {
       const { key } = await filesApi.upload(file);
       setAvatarFileKey(key);
     } catch ({ data }) {
-      toastActions.createToast(dispatch, { type: 'error', message: data.errors.file[0] });
+      dispatch(actions.createToast({ type: 'error', message: data.errors.file[0] }));
     }
   };
 

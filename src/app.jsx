@@ -8,7 +8,7 @@ import * as socketService from 'services/socket.service';
 import api from 'services/api.service';
 
 import { ContextStoreProvider, StoreContext } from 'resources/store';
-import { userActions } from 'resources/user/user.actions';
+import actions from 'resources/actions';
 
 import Toast from 'components/toast';
 import Loading from 'components/loading';
@@ -37,7 +37,7 @@ function PrivateScope({ children }) {
 
     api.on('error', (error) => {
       if (error.status === 401) {
-        userActions.signOut(dispatch);
+        dispatch(actions.signOut());
       }
     });
 
@@ -46,7 +46,7 @@ function PrivateScope({ children }) {
     });
 
     socketService.on('user:updated', (updatedUser) => {
-      userActions.setUser(dispatch, { user: updatedUser });
+      dispatch(actions.setUser({ user: updatedUser }));
     });
 
     return () => socketService.disconnect();
@@ -103,7 +103,7 @@ function App() {
   React.useEffect(() => {
     async function init() {
       try {
-        await userActions.getCurrentUser(dispatch);
+        await dispatch(actions.getCurrentUser());
       } catch (error) {
         // @todo: add something like sentry
       } finally {
@@ -113,7 +113,8 @@ function App() {
     }
 
     init();
-  }, [dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) return null;
 

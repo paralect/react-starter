@@ -5,7 +5,7 @@ import config from 'config';
 import { routes } from 'routes';
 
 import { StoreContext } from 'resources/store';
-import { userActions } from 'resources/user/user.actions';
+import actions from 'resources/actions';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,7 +14,7 @@ import Form from 'components/form';
 import styles from './sign-up.pcss';
 
 function SignUp() {
-  const { state: { user }, dispatch } = useContext(StoreContext);
+  const { state: { user } } = useContext(StoreContext);
 
   const [values, setValues] = React.useState({});
   const [registered, setRegistered] = React.useState(false);
@@ -22,7 +22,7 @@ function SignUp() {
   const [signupToken, setSignupToken] = React.useState();
 
   const handleSubmit = async (submitValues) => {
-    const response = await userActions.signUp(dispatch, submitValues);
+    const response = await actions.signUp(submitValues);
     if (response.signupToken) setSignupToken(response.signupToken);
     setRegistered(true);
     setValues(submitValues);

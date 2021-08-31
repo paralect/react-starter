@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { routes } from 'routes';
 
 import { StoreContext } from 'resources/store';
-import { userActions } from 'resources/user/user.actions';
+import actions from 'resources/actions';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -23,7 +23,7 @@ const Forgot = () => {
 
   const handleSubmit = async (submitValues) => {
     setPending(true);
-    await userActions.forgot(dispatch, submitValues);
+    await dispatch(actions.forgot(submitValues));
     setValues(submitValues);
     setSubmitted(true);
     setPending(false);

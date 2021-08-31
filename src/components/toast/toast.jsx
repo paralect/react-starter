@@ -3,7 +3,7 @@ import cn from 'classnames';
 import ReactDOM from 'react-dom';
 
 import { StoreContext } from 'resources/store';
-import { toastActions } from 'resources/toast/toast.actions';
+import actions from 'resources/actions';
 
 import Icon from 'components/icon';
 import IconButton from 'components/icon-button';
@@ -55,16 +55,16 @@ function RawToast() {
   function list() {
     return (
       <>
-        {messages.map((m) => {
+        {messages.map(({ id, message, type }) => {
           const closeToast = () => {
-            toastActions.removeToast(dispatch, m.id);
+            dispatch(actions.removeToast(id));
           };
 
-          const iconProps = getIconProps(m.type);
+          const iconProps = getIconProps(type);
           return (
             <div
-              key={m.id}
-              className={cn(styles.toast, styles[m.type])}
+              key={id}
+              className={cn(styles.toast, styles[type])}
             >
               <div className={styles.main}>
                 <Icon
@@ -72,7 +72,7 @@ function RawToast() {
                   color={iconProps.color}
                   noWrapper
                 />
-                <span>{m.message}</span>
+                <span>{message}</span>
               </div>
               <IconButton
                 icon="close"
