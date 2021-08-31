@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
@@ -54,31 +54,52 @@ const CancelButton = ({ onCancel }) => { // eslint-disable-line react/prop-types
 const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelectors.selectUser);
-  const { avatarUrl: userAvatarUrl } = user;
-  const [avatarUrl, setAvatarUrl] = useState(userAvatarUrl);
+  const { avatarFileKey: userAvatarFileKey } = user;
+
+  const [avatarFileKey, setAvatarFileKey] = useState(userAvatarFileKey);
+  const [avatarUrl, setAvatarUrl] = useState(null);
 
   const handleSubmit = useCallback(async (submitValues) => {
-    await dispatch(userActions.updateCurrentUser({ ...submitValues, avatarUrl }));
+    await dispatch(userActions.updateCurrentUser({ ...submitValues, avatarFileKey }));
     dispatch(toastActions.success('User info updated!'));
-  }, [dispatch, avatarUrl]);
+  }, [dispatch, avatarFileKey]);
+
+  const getAvatarUrl = useCallback(async (key) => {
+    try {
+      const { url } = await filesApi.getDownloadUrl(key);
+      if (url) {
+        setAvatarUrl(url);
+      }
+    } catch (error) {
+      dispatch(toastActions.error(error));
+    }
+  }, [dispatch]);
 
   const uploadAvatar = async (files) => {
     try {
       const file = files[0];
-      const { url } = await filesApi.upload(file);
-      setAvatarUrl(url);
+      const { key } = await filesApi.upload(file);
+      setAvatarFileKey(key);
     } catch (error) {
       dispatch(toastActions.error(error));
     }
   };
 
   const deleteAvatar = () => {
-    setAvatarUrl(null);
+    setAvatarFileKey(null);
   };
 
   const resetAvatar = () => {
-    setAvatarUrl(userAvatarUrl);
+    setAvatarFileKey(userAvatarFileKey);
   };
+
+  useEffect(() => {
+    if (avatarFileKey) {
+      getAvatarUrl(avatarFileKey);
+    } else {
+      setAvatarUrl(null);
+    }
+  }, [avatarFileKey, getAvatarUrl]);
 
   return (
     <>
