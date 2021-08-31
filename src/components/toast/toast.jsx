@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import cn from 'classnames';
 import ReactDOM from 'react-dom';
 
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import Icon from 'components/icon';
 import IconButton from 'components/icon-button';

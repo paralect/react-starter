@@ -4,8 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import config from 'config';
 import { routes } from 'routes';
 
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+import * as api from 'resources/user/user.api';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -22,7 +22,8 @@ function SignUp() {
   const [signupToken, setSignupToken] = React.useState();
 
   const handleSubmit = async (submitValues) => {
-    const response = await actions.signUp(submitValues);
+    const response = await api.signUp(submitValues);
+
     if (response.signupToken) setSignupToken(response.signupToken);
     setRegistered(true);
     setValues(submitValues);

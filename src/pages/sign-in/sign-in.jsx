@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import Input from 'components/input';
 import Button from 'components/button';

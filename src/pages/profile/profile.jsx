@@ -4,8 +4,8 @@ import React, {
 import * as yup from 'yup';
 import { useFormContext } from 'react-hook-form';
 
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import * as filesApi from 'resources/files/files.api';
 

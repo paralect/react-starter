@@ -1,8 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
 
 import * as socketService from 'services/socket.service';
-import { routes } from 'routes';
-import * as api from './user/user.api';
+import * as api from 'resources/user/user.api';
 
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
@@ -35,31 +34,6 @@ const setUser = (data) => (dispatch) => {
   return data;
 };
 
-const signUp = async ({
-  firstName,
-  lastName,
-  email,
-  password,
-}) => {
-  const response = await api.signUp({
-    firstName,
-    lastName,
-    email,
-    password,
-  });
-
-  return response;
-};
-
-const forgot = async ({ email }) => {
-  await api.forgot({ email });
-};
-
-const reset = ({ password, token }) => async (_dispatch, _getState, ctx) => {
-  await api.reset({ password, token });
-  ctx.history.push(routes.signIn.path);
-};
-
 const signOut = () => async (dispatch) => {
   await api.signOut();
   dispatch({ type: REMOVE_USER });
@@ -83,9 +57,6 @@ const updateCurrentUser = (data) => async (dispatch) => {
 export default {
   setUser,
   signIn,
-  signUp,
-  forgot,
-  reset,
   signOut,
   getCurrentUser,
   updateCurrentUser,

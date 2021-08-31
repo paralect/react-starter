@@ -4,8 +4,9 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+
+import * as api from 'resources/user/user.api';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,17 +15,17 @@ import Form from 'components/form';
 import styles from './forgot.pcss';
 
 const Forgot = () => {
-  const { state, dispatch } = useContext(StoreContext);
+  const { state } = useContext(StoreContext);
   const { user } = state;
 
   const [values, setValues] = React.useState({});
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
 
-  const handleSubmit = async (submitValues) => {
+  const handleSubmit = async ({ email }) => {
     setPending(true);
-    await dispatch(actions.forgot(submitValues));
-    setValues(submitValues);
+    await api.forgot({ email });
+    setValues({ email });
     setSubmitted(true);
     setPending(false);
   };

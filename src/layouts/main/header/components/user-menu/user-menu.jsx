@@ -4,8 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import styles from './user-menu.styles.pcss';
 

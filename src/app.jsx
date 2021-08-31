@@ -7,8 +7,8 @@ import * as loaderService from 'services/loader.service';
 import * as socketService from 'services/socket.service';
 import api from 'services/api.service';
 
-import { ContextStoreProvider, StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import ContextStoreProvider, { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import Toast from 'components/toast';
 import Loading from 'components/loading';

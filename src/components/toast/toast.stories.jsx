@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { ContextStoreProvider, StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import ContextStoreProvider, { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import Button from 'components/button';
 

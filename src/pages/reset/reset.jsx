@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import { StoreContext } from 'resources/store';
-import actions from 'resources/actions';
+import { StoreContext } from 'resources/store/store';
+import * as api from 'resources/user/user.api';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -13,6 +13,7 @@ import Form from 'components/form';
 import styles from './reset.pcss';
 
 function Reset() {
+  const history = useHistory();
   const { state: { user } } = useContext(StoreContext);
 
   const searchParams = new URLSearchParams(window.location.search);
@@ -22,7 +23,8 @@ function Reset() {
 
   const handleSubmit = async (submitValues) => {
     setPending(true);
-    await actions.reset(submitValues);
+    await api.reset(submitValues);
+    history.push(routes.signIn.path);
     setPending(false);
   };
 
