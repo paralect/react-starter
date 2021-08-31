@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cn from 'classnames';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { routes } from 'routes';
 
-import { userActions } from 'resources/user/user.slice';
+import { StoreContext } from 'resources/store';
+import { userActions } from 'resources/user/user.actions';
 
 import styles from './user-menu.styles.pcss';
 
@@ -17,8 +17,8 @@ const linksList = [
 ];
 
 function UserMenu() {
-  const dispatch = useDispatch();
   const history = useHistory();
+  const { dispatch } = useContext(StoreContext);
 
   const [isOpen, setIsOpen] = React.useState(false);
   function toggleIsOpen() {
@@ -36,7 +36,7 @@ function UserMenu() {
   }, []);
 
   async function logout() {
-    await dispatch(userActions.signOut());
+    await userActions.signOut(dispatch);
     history.push(routes.signIn.path);
   }
 

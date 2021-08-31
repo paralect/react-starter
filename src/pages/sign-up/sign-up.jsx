@@ -1,12 +1,11 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import config from 'config';
 import { routes } from 'routes';
 
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
+import { StoreContext } from 'resources/store';
+import { userActions } from 'resources/user/user.actions';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -15,9 +14,7 @@ import Form from 'components/form';
 import styles from './sign-up.pcss';
 
 function SignUp() {
-  const dispatch = useDispatch();
-
-  const user = useSelector(userSelectors.selectUser);
+  const { state: { user }, dispatch } = useContext(StoreContext);
 
   const [values, setValues] = React.useState({});
   const [registered, setRegistered] = React.useState(false);
@@ -25,7 +22,7 @@ function SignUp() {
   const [signupToken, setSignupToken] = React.useState();
 
   const handleSubmit = async (submitValues) => {
-    const response = await dispatch(userActions.signUp(submitValues));
+    const response = await userActions.signUp(dispatch, submitValues);
     if (response.signupToken) setSignupToken(response.signupToken);
     setRegistered(true);
     setValues(submitValues);
