@@ -4,10 +4,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const env = process.env.APP_ENV;
+const env = 'production';
 
 module.exports = {
-  mode: 'production',
+  mode: env,
 
   entry: {
     main: './src/index.jsx',
@@ -53,7 +53,7 @@ module.exports = {
         use: ['@svgr/webpack'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot)$/i,
         use: [
           {
             loader: 'url-loader',
@@ -73,7 +73,7 @@ module.exports = {
 
   optimization: {
     minimize: true,
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
     runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
@@ -92,12 +92,15 @@ module.exports = {
         {
           context: 'src/static',
           from: '**/*',
+          globOptions: {
+            ignore: ['**/index.html'],
+          },
         },
       ],
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify(env),
         APP_ENV: JSON.stringify(env),
       },
     }),

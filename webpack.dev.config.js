@@ -3,12 +3,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const env = process.env.APP_ENV || 'development';
+const env = 'development';
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3002;
 
 module.exports = {
-  mode: 'development',
+  mode: env,
   target: 'web',
 
   entry: {
@@ -67,7 +67,7 @@ module.exports = {
         use: ['@svgr/webpack'],
       },
       {
-        test: /\.(png|jpe?g|gif|woff|woff2|ttf)$/i,
+        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot)$/i,
         use: [
           {
             loader: 'url-loader',
@@ -90,7 +90,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify(env),
         APP_ENV: JSON.stringify(env),
       },
     }),
