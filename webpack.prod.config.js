@@ -4,10 +4,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const env = 'production';
+const env = process.env.APP_ENV;
 
 module.exports = {
-  mode: env,
+  mode: 'production',
 
   entry: {
     main: './src/index.jsx',
@@ -100,7 +100,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(env),
+        NODE_ENV: JSON.stringify('production'),
         APP_ENV: JSON.stringify(env),
       },
     }),
