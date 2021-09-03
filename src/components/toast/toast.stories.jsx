@@ -1,8 +1,8 @@
-import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
-import store from 'resources/store';
+import React, { useContext } from 'react';
 
-import { toastActions } from 'resources/toast/toast.slice';
+import ContextStoreProvider, { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
+
 import Button from 'components/button';
 
 export default {
@@ -10,30 +10,30 @@ export default {
   component: Button,
   decorators: [
     (Story) => (
-      <Provider store={store}>
+      <ContextStoreProvider>
         <Story />
-      </Provider>
+      </ContextStoreProvider>
     ),
   ],
 };
 
 export const Template = () => {
-  const dispatch = useDispatch();
+  const { dispatch } = useContext(StoreContext);
 
   const showSuccessToast = () => {
-    dispatch(toastActions.success('This is success toast! This is success toast!'));
+    dispatch(actions.createToast({ type: 'success', message: 'This is success toast! This is success toast!' }));
   };
 
   const showErrorToast = () => {
-    dispatch(toastActions.error('This is error toast! This is error toast!'));
+    dispatch(actions.createToast({ type: 'error', message: 'This is error toast! This is error toast!' }));
   };
 
   const showInfoToast = () => {
-    dispatch(toastActions.info('This is info toast! This is info toast!'));
+    dispatch(actions.createToast({ type: 'info', message: 'This is info toast! This is info toast!' }));
   };
 
   const showWarningToast = () => {
-    dispatch(toastActions.warning('This is warning toast! This is warning toast!'));
+    dispatch(actions.createToast({ type: 'warning', message: 'This is warning toast! This is warning toast!' }));
   };
 
   return (

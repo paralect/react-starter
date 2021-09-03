@@ -1,11 +1,12 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, {
+  useCallback, useState, useEffect, useContext,
+} from 'react';
 import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
 
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
-import { toastActions } from 'resources/toast/toast.slice';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
+
 import * as filesApi from 'resources/files/files.api';
 
 import Input from 'components/input';
@@ -30,9 +31,8 @@ const schema = yup.object({
     .email('Please enter a valid email address'),
 });
 
-const CancelButton = ({ onCancel }) => { // eslint-disable-line react/prop-types
+const CancelButton = ({ onCancel, user }) => { // eslint-disable-line react/prop-types
   const { reset } = useFormContext();
-  const user = useSelector(userSelectors.selectUser);
 
   const handleClick = () => {
     onCancel();
@@ -52,16 +52,15 @@ const CancelButton = ({ onCancel }) => { // eslint-disable-line react/prop-types
 };
 
 const Profile = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(userSelectors.selectUser);
-  const { avatarFileKey: userAvatarFileKey } = user;
+  const { state: { user }, dispatch } = useContext(StoreContext);
+  const { avatarFileKey: userAvatarFileKey } = user || {};
 
   const [avatarFileKey, setAvatarFileKey] = useState(userAvatarFileKey);
   const [avatarUrl, setAvatarUrl] = useState(null);
 
   const handleSubmit = useCallback(async (submitValues) => {
-    await dispatch(userActions.updateCurrentUser({ ...submitValues, avatarFileKey }));
-    dispatch(toastActions.success('User info updated!'));
+    await dispatch(actions.updateCurrentUser({ ...submitValues, avatarFileKey }));
+    dispatch(actions.createToast({ type: 'success', message: 'User info updated!' }));
   }, [dispatch, avatarFileKey]);
 
   const getAvatarUrl = useCallback(async (key) => {
@@ -70,8 +69,8 @@ const Profile = () => {
       if (url) {
         setAvatarUrl(url);
       }
-    } catch (error) {
-      dispatch(toastActions.error(error));
+    } catch ({ data }) {
+      dispatch(actions.createToast({ type: 'error', message: data.errors.file[0] }));
     }
   }, [dispatch]);
 
@@ -80,8 +79,8 @@ const Profile = () => {
       const file = files[0];
       const { key } = await filesApi.upload(file);
       setAvatarFileKey(key);
-    } catch (error) {
-      dispatch(toastActions.error(error));
+    } catch ({ data }) {
+      dispatch(actions.createToast({ type: 'error', message: data.errors.file[0] }));
     }
   };
 
@@ -162,6 +161,7 @@ const Profile = () => {
         <div className={styles.buttons}>
           <CancelButton
             onCancel={resetAvatar}
+            user={user}
           />
           <Button
             className={styles.button}

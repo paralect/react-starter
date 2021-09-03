@@ -1,11 +1,10 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
+import { StoreContext } from 'resources/store/store';
+import * as api from 'resources/user/user.api';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,9 +13,8 @@ import Form from 'components/form';
 import styles from './reset.pcss';
 
 function Reset() {
-  const dispatch = useDispatch();
-
-  const user = useSelector(userSelectors.selectUser);
+  const history = useHistory();
+  const { state: { user } } = useContext(StoreContext);
 
   const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
@@ -25,7 +23,8 @@ function Reset() {
 
   const handleSubmit = async (submitValues) => {
     setPending(true);
-    await dispatch(userActions.reset(submitValues));
+    await api.reset(submitValues);
+    history.push(routes.signIn.path);
     setPending(false);
   };
 

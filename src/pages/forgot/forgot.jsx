@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cn from 'classnames';
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { routes } from 'routes';
 
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
+import { StoreContext } from 'resources/store/store';
+
+import * as api from 'resources/user/user.api';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -15,18 +15,17 @@ import Form from 'components/form';
 import styles from './forgot.pcss';
 
 const Forgot = () => {
-  const dispatch = useDispatch();
-
-  const user = useSelector(userSelectors.selectUser);
+  const { state } = useContext(StoreContext);
+  const { user } = state;
 
   const [values, setValues] = React.useState({});
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
 
-  const handleSubmit = async (submitValues) => {
+  const handleSubmit = async ({ email }) => {
     setPending(true);
-    await dispatch(userActions.forgot(submitValues));
-    setValues(submitValues);
+    await api.forgot({ email });
+    setValues({ email });
     setSubmitted(true);
     setPending(false);
   };

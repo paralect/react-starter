@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cn from 'classnames';
 import ReactDOM from 'react-dom';
-import { useSelector, useDispatch } from 'react-redux';
 
-import * as toastSelectors from 'resources/toast/toast.selectors';
-import { toastActions } from 'resources/toast/toast.slice';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import Icon from 'components/icon';
 import IconButton from 'components/icon-button';
@@ -39,9 +38,8 @@ function getIconProps(type) {
 }
 
 function RawToast() {
-  const dispatch = useDispatch();
-
-  const messages = useSelector(toastSelectors.selectMessages);
+  const { state, dispatch } = useContext(StoreContext);
+  const { toast: messages } = state;
 
   const element = React.useRef(document.createElement('div'));
 
@@ -57,16 +55,16 @@ function RawToast() {
   function list() {
     return (
       <>
-        {messages.map((m) => {
+        {messages.map(({ id, message, type }) => {
           const closeToast = () => {
-            dispatch(toastActions.remove({ id: m.id }));
+            dispatch(actions.removeToast(id));
           };
 
-          const iconProps = getIconProps(m.type);
+          const iconProps = getIconProps(type);
           return (
             <div
-              key={m.id}
-              className={cn(styles.toast, styles[m.type])}
+              key={id}
+              className={cn(styles.toast, styles[type])}
             >
               <div className={styles.main}>
                 <Icon
@@ -74,7 +72,7 @@ function RawToast() {
                   color={iconProps.color}
                   noWrapper
                 />
-                <span>{m.text}</span>
+                <span>{message}</span>
               </div>
               <IconButton
                 icon="close"

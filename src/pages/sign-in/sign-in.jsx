@@ -1,11 +1,9 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
-
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
+import { StoreContext } from 'resources/store/store';
+import actions from 'resources/store/actions';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,12 +12,10 @@ import Form from 'components/form';
 import styles from './sign-in.pcss';
 
 function SignIn() {
-  const user = useSelector(userSelectors.selectUser);
-
-  const dispatch = useDispatch();
+  const { state: { user }, dispatch } = useContext(StoreContext);
 
   const handleSubmit = async (submitValues) => {
-    await dispatch(userActions.signIn(submitValues));
+    await dispatch(actions.signIn(submitValues));
   };
 
   if (user) {
