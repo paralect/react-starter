@@ -11,7 +11,9 @@ const initialReducerState = {
   error: null,
 };
 
-export const useFetch = (fetchFunc, { onFinish, params }) => {
+export const useFetch = (fetchFunc, {
+  onSuccess, onError, onFinish, params, enabled = true,
+}) => {
   const [{ data, loading, error }, setState] = useReducer(reducerFunc, initialReducerState);
 
   useEffect(() => {
@@ -25,16 +27,18 @@ export const useFetch = (fetchFunc, { onFinish, params }) => {
           response = await Promise.all(fetchFunc);
         }
         setState({ data: response, loading: false });
+        if (onSuccess) onSuccess();
       } catch (err) {
         setState({ error: err, loading: false });
+        if (onError) onError();
       } finally {
         if (onFinish) onFinish();
       }
     };
 
-    fetchData();
+    if (enabled) fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+  }, [JSON.stringify(params), enabled]);
 
   return { data, loading, error };
 };
