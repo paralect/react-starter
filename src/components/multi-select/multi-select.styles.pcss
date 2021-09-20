@@ -9,11 +9,11 @@
 }
 
 .error {
+  margin-top: 5px;
   color: var(--red);
   font-size: 12px;
   word-wrap: break-word;
   font-weight: normal;
-  margin-top: 5px;
 }
 
 .title {
@@ -24,17 +24,20 @@
   &.error {
     color: var(--red);
     font-size: 14px;
-    margin: 0;
   }
 }
 
 .select {
+  margin-top: 5px;
   outline: none;
   transition: all 0.2s;
 
   [class$='-control'] {
     width: 100%;
     min-width: 200px;
+    max-height: 40px;
+    display: flex;
+    align-items: flex-start;
   }
 
   [class$='-control']:hover {
@@ -46,15 +49,36 @@
     border-color: var(--blue);
   }
 
+  [class$='-ValueContainer'] {
+    padding: 5px 12px;
+  }
+
   [class$='-control--menu-is-open'] {
     border-color: var(--blue);
   }
 
   [class$='-placeholder'] {
-    color: var(--gray);
+    color: var(--gray-dark);
   }
 
   [class$='-control--is-focused'] {
     border-color: var(--blue);
+  }
+
+  &.error {
+    [class$='-control']:hover {
+      border-color: var(--red) !important;
+    }
+  }
+}
+
+.selectLabel {
+  font-weight: 500;
+  line-height: 17px;
+  font-size: 14px;
+  transition: all 0.1s ease-in-out;
+
+  &.error {
+    color: var(--red) !important;
   }
 }

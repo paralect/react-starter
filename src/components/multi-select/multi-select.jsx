@@ -12,7 +12,7 @@ import { getCustomStyle } from './helpers';
 import styles from './multi-select.styles.pcss';
 
 const MultiSelectComponent = ({
-  options, label, disabled, error, className, onChange, value, name,
+  options, label, disabled, error, className, onChange, value, name, placeholder,
 }) => {
   const MultiValueRemove = (props) => (
     <>
@@ -35,11 +35,12 @@ const MultiSelectComponent = ({
             [styles.error]: error,
           })}
         >
-          {label}
+          <span className={styles.selectLabel}>{label}</span>
         </span>
       )}
       <ReactSelect
         value={value}
+        placeholder={placeholder}
         name={name}
         className={cn(styles.select, {
           [styles.error]: error,
@@ -89,6 +90,7 @@ MultiSelectComponent.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 MultiSelectComponent.defaultProps = {
@@ -100,6 +102,7 @@ MultiSelectComponent.defaultProps = {
   name: '',
   value: undefined,
   options: [],
+  placeholder: 'Select...',
 };
 
 MultiSelect.propTypes = {

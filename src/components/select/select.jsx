@@ -84,7 +84,7 @@ SelectComponent.defaultProps = {
   error: null,
   className: null,
   value: '',
-  placeholder: '',
+  placeholder: 'Select...',
   name: '',
   options: [],
   onChange: () => {},

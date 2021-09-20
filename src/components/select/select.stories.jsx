@@ -71,3 +71,9 @@ Error.args = {
     message: 'Error message',
   },
 };
+
+export const WithPlaceholder = Template.bind({});
+WithPlaceholder.args = {
+  placeholder: 'Placeholder',
+  label: 'Label',
+};
