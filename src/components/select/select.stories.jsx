@@ -25,6 +25,37 @@ const options = [
   },
 ];
 
+const optionsWithAvatar = [
+  {
+    value: 'John Doe',
+    fullName: 'John Doe',
+    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    label: 'John Doe',
+  },
+  {
+    value: 'Oscar Steele',
+    fullName: 'Oscar Steele',
+    label: 'Oscar Steele',
+  },
+  {
+    value: 'Casey Banks',
+    fullName: 'Casey Banks',
+    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    label: 'Casey Banks',
+  },
+  {
+    value: 'Jayce Friedman',
+    fullName: 'Jayce Friedman',
+    label: 'Jayce Friedman',
+  },
+  {
+    value: 'Ace Sharp',
+    fullName: 'Ace Sharp',
+    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    label: 'Ace Sharp',
+  },
+];
+
 export default {
   title: 'Components/Select',
   component: Select,
@@ -49,10 +80,10 @@ const Template = (args) => {
   return (
     <div style={{ width: '400px' }}>
       <Select
-        {...args}
         value={value}
         onChange={setValue}
         options={options}
+        {...args}
       />
     </div>
   );
@@ -76,4 +107,10 @@ export const WithPlaceholder = Template.bind({});
 WithPlaceholder.args = {
   placeholder: 'Placeholder',
   label: 'Label',
+};
+
+export const WithAvatar = Template.bind({});
+WithAvatar.args = {
+  options: optionsWithAvatar,
+  withAvatar: true,
 };

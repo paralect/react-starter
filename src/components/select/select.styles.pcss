@@ -56,6 +56,12 @@
       border-color: var(--red) !important;
     }
   }
+
+  &.withAvatar {
+    [class$='-ValueContainer'] {
+      padding: 5px 12px 5px 4px;
+    }
+  }
 }
 
 .error {
@@ -74,4 +80,18 @@
   &.error {
     color: var(--red);
   }
+}
+
+.optionContainer {
+  display: flex;
+  align-items: center;
+
+  & > :nth-child(1) {
+    margin-right: 6px;
+  }
+}
+
+.avatarContainer {
+  margin-left: 14px;
+  align-self: center;
 }
