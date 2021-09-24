@@ -6,14 +6,18 @@ import styles from './icon.styles.pcss';
 import IMAGES from './icons';
 
 const Icon = ({
-  icon, className, noWrapper, color,
+  icon, className, noWrapper, color, onClick,
 }) => {
   const IconComponent = IMAGES[icon] || IMAGES.arrowRight;
 
   return (
-    <div className={cn(!noWrapper && styles.iconWrapper, className, styles.icon)}>
+    <button
+      type="button"
+      className={cn(!noWrapper && styles.iconWrapper, className, styles.icon)}
+      onClick={onClick}
+    >
       <IconComponent color={color} />
-    </div>
+    </button>
   );
 };
 
@@ -22,6 +26,7 @@ Icon.propTypes = {
   noWrapper: PropTypes.bool,
   className: PropTypes.string,
   color: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 Icon.defaultProps = {
@@ -29,6 +34,7 @@ Icon.defaultProps = {
   noWrapper: false,
   className: null,
   color: null,
+  onClick: null,
 };
 
 export default Icon;

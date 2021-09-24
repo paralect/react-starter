@@ -1,23 +1,46 @@
-.input {
-  height: 40px;
-  width: 100%;
-  min-width: 200px;
-  margin-top: 5px;
-  padding: 0 14px;
-  background: var(--white);
-  border: 1px solid var(--gray);
-  box-sizing: border-box;
-  border-radius: 6px;
-  outline: none;
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   font-size: 14px;
   line-height: 17px;
+}
+
+.label {
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+
+  &:focus-within {
+    color: var(--blue);
+  }
+
+  &.error {
+    color: var(--red);
+
+    &:focus-within {
+      color: var(--red);
+    }
+  }
+}
+
+.input {
+  height: 40px;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  outline: none;
   transition: all 0.2s ease-in-out;
 
   &:focus {
     border: 1px solid var(--blue);
   }
 
-  &:hover:not(:focus):not(.disabled) {
+  &:disabled {
+    background-color: var(--gray-light);
+  }
+
+  &:hover:not(:focus):not(:disabled) {
     border: 1px solid var(--gray-dark);
   }
 
@@ -32,35 +55,29 @@
       border-color: var(--red);
     }
 
-    &:hover:not(:focus) {
+    &:hover:not(:focus):not(:disabled) {
       border-color: var(--red);
     }
   }
 
-  &.disabled {
-    background: var(--gray-light);
-    pointer-events: none;
-    color: var(--gray);
+  &.password {
+    padding-right: 40px;
   }
 }
 
-.errors {
-  font-size: 12px;
+.errorMessage {
+  margin-top: 4px;
   color: var(--red);
-  margin-top: 5px;
+  word-wrap: break-word;
+  font-size: 12px;
+  line-height: 15px;
 }
 
-label:focus-within:not(.disabled) {
-  color: var(--blue);
-}
-
-.label {
-  font-weight: 500;
-  line-height: 17px;
-  font-size: 14px;
-  transition: all 0.1s ease-in-out;
-
-  &.error {
-    color: var(--red) !important;
-  }
+.icon {
+  display: block;
+  position: absolute;
+  top: 32px;
+  right: 8px;
+  color: var(--gray-dark);
+  cursor: pointer;
 }

@@ -7,6 +7,7 @@ import arrowRight from './arrowRight.svg';
 import calendar from './calendar.svg';
 import copy from './copy.svg';
 import close from './close.svg';
+import closeSmall from './close-s.svg';
 import fileUpload from './file-upload.svg';
 import roundWarning from './round-warning.svg';
 import roundInfo from './round-info.svg';
@@ -19,6 +20,8 @@ import action from './action.svg';
 import search from './search.svg';
 import shipLogo from './ship-logo.svg';
 import lightning from './lightning.svg';
+import closedEye from './closed-eye.svg';
+import eye from './eye.svg';
 
 const IMAGES = {
   arrow,
@@ -30,6 +33,7 @@ const IMAGES = {
   calendar,
   copy,
   close,
+  closeSmall,
   fileUpload,
   roundWarning,
   roundInfo,
@@ -42,6 +46,8 @@ const IMAGES = {
   search,
   shipLogo,
   lightning,
+  closedEye,
+  eye,
 };
 
 export default IMAGES;

@@ -4,7 +4,8 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import ReactSelect, { components } from 'react-select';
 
-import Icon from 'components/icon';
+import CloseSmall from 'components/icon/icons/close-s.svg';
+import Icon from '../icon';
 
 import InputController from '../input-controller';
 import { getCustomStyle } from './helpers';
@@ -18,11 +19,19 @@ const MultiSelectComponent = ({
     <>
       {!disabled && (
         <components.MultiValueRemove {...props}>
-          <Icon icon="close" />
+          <CloseSmall />
         </components.MultiValueRemove>
       )}
     </>
   );
+
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <Icon icon="arrowDown" color="#808080" />
+      </components.DropdownIndicator>
+    );
+  };
 
   return (
     <label
@@ -57,10 +66,10 @@ const MultiSelectComponent = ({
         isDisabled={disabled}
         closeMenuOnSelect={false}
         options={options}
-        components={{ MultiValueRemove }}
+        components={{ MultiValueRemove, DropdownIndicator }}
         onChange={onChange}
       />
-      {error && <span className={styles.error}>{error.message}</span>}
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
     </label>
   );
 };

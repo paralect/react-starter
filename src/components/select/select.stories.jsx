@@ -60,32 +60,38 @@ export default {
   title: 'Components/Select',
   component: Select,
   argTypes: {
+    label: { name: 'Label', control: 'text', defaultValue: 'Label' },
+    placeholder: { name: 'Placeholder', control: 'text', defaultValue: 'Select...' },
     disabled: {
       options: [true, false],
-      control: { type: 'radio' },
+      control: { type: 'inline-radio' },
     },
     error: {
-      message: { name: 'Error', control: 'text', defaultValue: null },
+      message: { name: 'Error', control: 'object', defaultValue: null },
     },
-    label: { name: 'Label', control: 'text', defaultValue: 'Label' },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
+    label: 'Label',
     disabled: false,
   },
+  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
 const Template = (args) => {
   const [value, setValue] = useState('');
 
   return (
-    <div style={{ width: '400px' }}>
-      <Select
-        value={value}
-        onChange={setValue}
-        options={options}
-        {...args}
-      />
-    </div>
+    <Select
+      value={value}
+      onChange={setValue}
+      options={options}
+      {...args}
+    />
   );
 };
 
@@ -101,12 +107,6 @@ Error.args = {
   error: {
     message: 'Error message',
   },
-};
-
-export const WithPlaceholder = Template.bind({});
-WithPlaceholder.args = {
-  placeholder: 'Placeholder',
-  label: 'Label',
 };
 
 export const WithAvatar = Template.bind({});

@@ -6,6 +6,7 @@ import ReactSelect, { components } from 'react-select';
 import { getCustomStyle } from './helpers';
 
 import InputController from '../input-controller';
+import Icon from '../icon';
 import Avatar from '../avatar/avatar';
 
 import styles from './select.styles.pcss';
@@ -38,6 +39,14 @@ const ValueContainer = (props) => {
       </div>
       <components.ValueContainer {...props} />
     </>
+  );
+};
+
+const DropdownIndicator = (props) => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <Icon icon="arrowDown" color="#808080" />
+    </components.DropdownIndicator>
   );
 };
 
@@ -76,9 +85,11 @@ const SelectComponent = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        components={withAvatar ? { Option, ValueContainer } : null}
+        components={withAvatar
+          ? { Option, ValueContainer, DropdownIndicator }
+          : { DropdownIndicator }}
       />
-      {error && <span className={styles.error}>{error.message}</span>}
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
     </label>
   );
 };
