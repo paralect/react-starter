@@ -1,79 +1,79 @@
-import React, { forwardRef, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, forwardRef } from 'react';
 import cn from 'classnames';
-import { useFormContext } from 'react-hook-form';
+import PropTypes from 'prop-types';
+
+import Icon from 'components/icon';
 
 import styles from './input.styles.pcss';
 
 const Input = forwardRef(({
-  onChange, disabled, placeholder, className, errors, value, label, name, ...props
+  type, maxLength, disabled, placeholder, error, label, className, name, defaultValue,
 }, ref) => {
-  const formContext = useFormContext();
+  const [currentType, setCurrentType] = useState(type);
 
-  const handleChange = useCallback((values) => {
-    if (name) formContext.clearErrors(name);
-    if (onChange) onChange(values);
-  }, [onChange, name, formContext]);
+  const onEyeClick = () => {
+    if (currentType === 'password') setCurrentType('text');
+    else setCurrentType('password');
+  };
 
-  const { register, formState } = formContext || {};
+  const icon = currentType === 'password'
+    ? <Icon icon="eye" className={styles.icon} onClick={onEyeClick} />
+    : <Icon icon="closedEye" className={styles.icon} onClick={onEyeClick} />;
 
   return (
-    <div>
-      <label
-        htmlFor={name}
-        className={cn(styles.label, {
-          [styles.error]: errors.length || formState?.errors[name],
-        })}
+    <label
+      htmlFor="input"
+      className={cn([styles.container], className)}
+    >
+      <span className={cn({
+        [styles.label]: true,
+        [styles.error]: error,
+      }, className)}
       >
         {label}
-        <input
-          id={name}
-          ref={ref}
-          name={name}
-          placeholder={placeholder}
-          value={name ? undefined : value}
-          className={cn(styles.input, className, {
-            [styles.error]: errors.length || formState?.errors[name],
-            [styles.disabled]: disabled,
-          })}
-          onChange={handleChange}
-          {...(name && register(name))}
-          {...props}
-        />
-      </label>
-      {(errors.length > 0 || formState?.errors[name]) && (
-        <div className={styles.errors}>
-          {formState?.errors[name]
-            ? [...errors, formState?.errors[name]?.message].join(', ')
-            : errors.join(', ')}
-        </div>
-      )}
-    </div>
+      </span>
+      <input
+        type={currentType}
+        placeholder={placeholder}
+        disabled={disabled}
+        maxLength={maxLength}
+        className={cn({
+          [styles.input]: true,
+          [styles.password]: type === 'password',
+          [styles.error]: error,
+        })}
+        name={name}
+        defaultValue={defaultValue}
+        ref={ref}
+      />
+      {type === 'password' && icon}
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
+    </label>
   );
 });
 
 Input.propTypes = {
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  name: PropTypes.string,
-  placeholder: PropTypes.string,
-  className: PropTypes.string,
-  type: PropTypes.oneOf(['text', 'email', 'number', 'password']),
-  errors: PropTypes.arrayOf(PropTypes.string),
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   disabled: PropTypes.bool,
+  maxLength: PropTypes.number,
+  className: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.oneOf(['text', 'password']),
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
 };
 
 Input.defaultProps = {
-  className: '',
   type: 'text',
-  errors: [],
   disabled: false,
-  placeholder: null,
-  name: '',
-  label: '',
-  value: '',
-  onChange: () => {},
+  maxLength: 150,
+  defaultValue: null,
+  error: null,
+  name: null,
+  className: null,
 };
 
-export default React.memo(Input);
+export default Input;

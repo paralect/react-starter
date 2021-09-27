@@ -14,13 +14,16 @@
 }
 
 .select {
+  margin-top: 6px;
   outline: none;
   transition: all 0.2s;
-  margin: 0;
 
   [class$='-control'] {
     width: 100%;
     min-width: 200px;
+    max-height: 40px;
+    display: flex;
+    align-items: flex-start;
   }
 
   [class$='-control']:hover {
@@ -32,29 +35,41 @@
     border-color: var(--blue);
   }
 
+  [class$='-ValueContainer'] {
+    padding: 6px 12px;
+  }
+
   [class$='-control--menu-is-open'] {
     border-color: var(--blue);
   }
 
   [class$='-placeholder'] {
-    color: var(--gray);
+    color: var(--gray-dark);
   }
 
   [class$='-control--is-focused'] {
     border-color: var(--blue);
   }
+
+  &.error {
+    [class$='-control']:hover {
+      border-color: var(--red) !important;
+    }
+  }
+
+  &.withAvatar {
+    [class$='-ValueContainer'] {
+      padding: 5px 12px 5px 4px;
+    }
+  }
 }
 
-.error {
+.errorMessage {
+  margin-top: 6px;
   color: var(--red);
   word-wrap: break-word;
   font-weight: normal;
   font-size: 12px;
-  margin-top: 5px;
-
-  [class$='-control']:hover {
-    border-color: var(--red) !important;
-  }
 }
 
 .title {
@@ -64,6 +79,19 @@
 
   &.error {
     color: var(--red);
-    margin: 0;
   }
+}
+
+.optionContainer {
+  display: flex;
+  align-items: center;
+
+  & > :nth-child(1) {
+    margin-right: 6px;
+  }
+}
+
+.avatarContainer {
+  margin-left: 14px;
+  align-self: center;
 }

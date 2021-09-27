@@ -4,7 +4,8 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import ReactSelect, { components } from 'react-select';
 
-import Icon from 'components/icon';
+import CloseSmall from 'components/icon/icons/close-s.svg';
+import Icon from '../icon';
 
 import InputController from '../input-controller';
 import { getCustomStyle } from './helpers';
@@ -12,17 +13,25 @@ import { getCustomStyle } from './helpers';
 import styles from './multi-select.styles.pcss';
 
 const MultiSelectComponent = ({
-  options, label, disabled, error, className, onChange, value, name,
+  options, label, disabled, error, className, onChange, value, name, placeholder,
 }) => {
   const MultiValueRemove = (props) => (
     <>
       {!disabled && (
         <components.MultiValueRemove {...props}>
-          <Icon icon="close" />
+          <CloseSmall />
         </components.MultiValueRemove>
       )}
     </>
   );
+
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <Icon icon="arrowDown" color="#808080" />
+      </components.DropdownIndicator>
+    );
+  };
 
   return (
     <label
@@ -35,11 +44,12 @@ const MultiSelectComponent = ({
             [styles.error]: error,
           })}
         >
-          {label}
+          <span className={styles.selectLabel}>{label}</span>
         </span>
       )}
       <ReactSelect
         value={value}
+        placeholder={placeholder}
         name={name}
         className={cn(styles.select, {
           [styles.error]: error,
@@ -56,10 +66,10 @@ const MultiSelectComponent = ({
         isDisabled={disabled}
         closeMenuOnSelect={false}
         options={options}
-        components={{ MultiValueRemove }}
+        components={{ MultiValueRemove, DropdownIndicator }}
         onChange={onChange}
       />
-      {error && <span className={styles.error}>{error.message}</span>}
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
     </label>
   );
 };
@@ -89,6 +99,7 @@ MultiSelectComponent.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 MultiSelectComponent.defaultProps = {
@@ -100,6 +111,7 @@ MultiSelectComponent.defaultProps = {
   name: '',
   value: undefined,
   options: [],
+  placeholder: 'Select...',
 };
 
 MultiSelect.propTypes = {

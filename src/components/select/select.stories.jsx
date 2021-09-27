@@ -25,36 +25,73 @@ const options = [
   },
 ];
 
+const optionsWithAvatar = [
+  {
+    value: 'John Doe',
+    fullName: 'John Doe',
+    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    label: 'John Doe',
+  },
+  {
+    value: 'Oscar Steele',
+    fullName: 'Oscar Steele',
+    label: 'Oscar Steele',
+  },
+  {
+    value: 'Casey Banks',
+    fullName: 'Casey Banks',
+    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    label: 'Casey Banks',
+  },
+  {
+    value: 'Jayce Friedman',
+    fullName: 'Jayce Friedman',
+    label: 'Jayce Friedman',
+  },
+  {
+    value: 'Ace Sharp',
+    fullName: 'Ace Sharp',
+    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    label: 'Ace Sharp',
+  },
+];
+
 export default {
   title: 'Components/Select',
   component: Select,
   argTypes: {
+    label: { name: 'Label', control: 'text', defaultValue: 'Label' },
+    placeholder: { name: 'Placeholder', control: 'text', defaultValue: 'Select...' },
     disabled: {
       options: [true, false],
-      control: { type: 'radio' },
+      control: { type: 'inline-radio' },
     },
     error: {
-      message: { name: 'Error', control: 'text', defaultValue: null },
+      message: { name: 'Error', control: 'object', defaultValue: null },
     },
-    label: { name: 'Label', control: 'text', defaultValue: 'Label' },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
+    label: 'Label',
     disabled: false,
   },
+  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
 const Template = (args) => {
   const [value, setValue] = useState('');
 
   return (
-    <div style={{ width: '400px' }}>
-      <Select
-        {...args}
-        value={value}
-        onChange={setValue}
-        options={options}
-      />
-    </div>
+    <Select
+      value={value}
+      onChange={setValue}
+      options={options}
+      {...args}
+    />
   );
 };
 
@@ -70,4 +107,10 @@ Error.args = {
   error: {
     message: 'Error message',
   },
+};
+
+export const WithAvatar = Template.bind({});
+WithAvatar.args = {
+  options: optionsWithAvatar,
+  withAvatar: true,
 };

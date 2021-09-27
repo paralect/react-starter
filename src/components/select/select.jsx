@@ -1,51 +1,98 @@
 import React, { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import ReactSelect from 'react-select';
+import ReactSelect, { components } from 'react-select';
 
 import { getCustomStyle } from './helpers';
 
 import InputController from '../input-controller';
+import Icon from '../icon';
+import Avatar from '../avatar/avatar';
 
 import styles from './select.styles.pcss';
 
+const Option = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const { label, fullName, avatarUrl } = props.data;
+
+  return (
+    <components.Option {...props}>
+      <div className={styles.optionContainer}>
+        <Avatar size="s" src={avatarUrl} fullName={fullName} />
+        {label}
+      </div>
+    </components.Option>
+  );
+};
+
+const ValueContainer = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const { fullName, avatarUrl } = props.selectProps.value;
+  const { children } = props;
+
+  return (
+    <>
+      <div className={styles.avatarContainer}>
+        {children[0]
+          ? <Avatar size="s" src={avatarUrl} fullName={fullName} />
+          : <Avatar size="s" src={null} fullName="" />}
+      </div>
+      <components.ValueContainer {...props} />
+    </>
+  );
+};
+
+const DropdownIndicator = (props) => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <Icon icon="arrowDown" color="#808080" />
+    </components.DropdownIndicator>
+  );
+};
+
 const SelectComponent = ({
-  options, label, disabled, error, placeholder, className, onChange, value, name,
-}) => (
-  <label
-    htmlFor={name}
-    className={cn(styles.label, className)}
-  >
-    {label && (
-    <span
-      className={
+  options, label, disabled, error, placeholder, className, onChange, value, name, withAvatar,
+}) => {
+  return (
+    <label
+      htmlFor={name}
+      className={cn(styles.label, className)}
+    >
+      {label && (
+        <span
+          className={
             cn({
               [styles.error]: error,
             }, styles.title, className)
           }
-    >
-      {label}
-    </span>
-    )}
-    <ReactSelect
-      name={name}
-      className={cn(styles.select, {
-        [styles.error]: error,
-      })}
-      blurInputOnSelect
-      classNamePrefix="select"
-      hideSelectedOptions={false}
-      styles={getCustomStyle(error)}
-      isFocused={false}
-      isDisabled={disabled}
-      options={options}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
-    {error && <span className={styles.error}>{error.message}</span>}
-  </label>
-);
+        >
+          {label}
+        </span>
+      )}
+      <ReactSelect
+        name={name}
+        className={cn(styles.select, {
+          [styles.error]: error,
+          [styles.withAvatar]: withAvatar,
+        })}
+        blurInputOnSelect
+        classNamePrefix="select"
+        hideSelectedOptions={false}
+        styles={getCustomStyle(error)}
+        isFocused={false}
+        isDisabled={disabled}
+        options={options}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        components={withAvatar
+          ? { Option, ValueContainer, DropdownIndicator }
+          : { DropdownIndicator }}
+      />
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
+    </label>
+  );
+};
 
 const Select = ({ ...props }) => (
   props.name ? (
@@ -76,6 +123,7 @@ SelectComponent.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   name: PropTypes.string,
+  withAvatar: PropTypes.bool,
 };
 
 SelectComponent.defaultProps = {
@@ -84,10 +132,11 @@ SelectComponent.defaultProps = {
   error: null,
   className: null,
   value: '',
-  placeholder: '',
+  placeholder: 'Select...',
   name: '',
   options: [],
   onChange: () => {},
+  withAvatar: false,
 };
 
 Select.propTypes = {
@@ -96,6 +145,20 @@ Select.propTypes = {
 
 Select.defaultProps = {
   name: '',
+};
+
+Option.propTypes = {
+  data: PropTypes.shape({
+    avatarUrl: PropTypes.string,
+    fullName: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+ValueContainer.propTypes = {
+  selectProps: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.array]).isRequired,
 };
 
 export default memo(Select);
