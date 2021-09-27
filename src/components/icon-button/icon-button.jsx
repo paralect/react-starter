@@ -1,19 +1,18 @@
-import React from 'react';
-import cn from 'classnames';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
+import cn from 'classnames';
 import styles from './icon-button.styles.pcss';
 
 function IconButton({
-  Icon, color, disabled, className, ...props
+  Icon, disabled, onClick, className,
 }) {
   return (
     <button
       type="button"
-      className={cn({
-        [styles.disabled]: disabled,
-      }, styles.button)}
-      {...props}
+      className={cn(styles.iconButton, className)}
+      disabled={disabled}
+      onClick={onClick}
     >
       <Icon />
     </button>
@@ -21,16 +20,16 @@ function IconButton({
 }
 
 IconButton.propTypes = {
-  Icon: PropTypes.elementType.isRequired,
-  color: PropTypes.string,
-  className: PropTypes.string,
+  Icon: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 IconButton.defaultProps = {
-  color: undefined,
-  className: null,
   disabled: false,
+  className: null,
+  onClick: null,
 };
 
-export default React.memo(IconButton);
+export default memo(IconButton);
