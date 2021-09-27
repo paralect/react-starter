@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
-import Icon from 'components/icon';
+import FileUploadIcon from 'static/icons/file-upload.svg';
 import styles from './file-upload.styles.pcss';
 
 const ICON_COLOR = '#808080';
@@ -40,11 +40,7 @@ const FileUpload = ({
         )}
       >
         <input {...getInputProps({ })} />
-        <Icon
-          noWrapper
-          icon="fileUpload"
-          color={isDragActive ? ICON_COLOR : ICON_COLOR_LIGHT}
-        />
+        <FileUploadIcon color={isDragActive ? ICON_COLOR : ICON_COLOR_LIGHT} />
         <div className={styles.fileUploadText}>
           Drag and drop or
           {' '}

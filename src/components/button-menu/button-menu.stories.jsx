@@ -1,19 +1,19 @@
 /* eslint-disable no-console */
 import React from 'react';
 
-import Icon from 'components/icon';
+import CopyIcon from 'static/icons/copy.svg';
 
 import ButtonMenu from './index';
 
 const OPTIONS = [{
   label: 'Option 1',
   handler: () => console.log('1'),
-  icon: () => <Icon icon="copy" />,
+  icon: () => <CopyIcon />,
 },
 {
   label: 'Option 2',
   handler: () => console.log('2'),
-  icon: () => <Icon icon="copy" />,
+  icon: () => <CopyIcon />,
 },
 {
   label: 'Option 3',

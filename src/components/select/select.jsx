@@ -3,10 +3,11 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import ReactSelect, { components } from 'react-select';
 
+import ArrowDownIcon from 'static/icons/arrow-down.svg';
+
 import { getCustomStyle } from './helpers';
 
 import InputController from '../input-controller';
-import Icon from '../icon';
 import Avatar from '../avatar/avatar';
 
 import styles from './select.styles.pcss';
@@ -45,7 +46,7 @@ const ValueContainer = (props) => {
 const DropdownIndicator = (props) => {
   return (
     <components.DropdownIndicator {...props}>
-      <Icon icon="arrowDown" color="#808080" />
+      <ArrowDownIcon />
     </components.DropdownIndicator>
   );
 };

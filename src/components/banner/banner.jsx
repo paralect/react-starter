@@ -3,8 +3,11 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-import Icon from 'components/icon';
-import IconButton from 'components/icon-button';
+import RoundCheckIcon from 'static/icons/round-check.svg';
+import RoundErrorIcon from 'static/icons/round-error.svg';
+import RoundInfoIcon from 'static/icons/round-info.svg';
+import CloseIcon from 'static/icons/close.svg';
+
 import Button from 'components/button';
 
 import styles from './banner.styles.pcss';
@@ -12,25 +15,13 @@ import styles from './banner.styles.pcss';
 function getIconProps(type) {
   switch (type) {
     case 'success':
-      return {
-        icon: 'roundCheck',
-        color: '#FFF',
-      };
+      return <RoundCheckIcon />;
     case 'warning':
-      return {
-        icon: 'roundWarning',
-        color: '#000',
-      };
+      return <RoundCheckIcon />;
     case 'error':
-      return {
-        icon: 'roundError',
-        color: '#FFF',
-      };
+      return <RoundErrorIcon />;
     case 'info':
-      return {
-        icon: 'roundInfo',
-        color: '#FFF',
-      };
+      return <RoundInfoIcon />;
     default:
       return {};
   }
@@ -39,17 +30,12 @@ function getIconProps(type) {
 const Banner = ({
   onButtonClick, onClose, type, text, buttonText,
 }) => {
-  const iconProps = getIconProps(type);
   return (
     <div
       className={cn(styles.banner, styles[type])}
     >
       <div className={styles.left}>
-        <Icon
-          icon={iconProps.icon}
-          color={iconProps.color}
-          noWrapper
-        />
+        {getIconProps(type)}
         <span>{text}</span>
       </div>
       <div className={styles.right}>
@@ -61,11 +47,7 @@ const Banner = ({
             {buttonText}
           </Button>
         )}
-        <IconButton
-          icon="close"
-          color={iconProps.color}
-          onClick={onClose}
-        />
+        <CloseIcon onClick={onClose} />
       </div>
     </div>
   );

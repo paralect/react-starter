@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import debounce from 'lodash/debounce';
 
-import Icon from 'components/icon';
+import SearchIcon from 'static/icons/search.svg';
 
 import styles from './search-input.styles.pcss';
 
@@ -28,10 +28,7 @@ function SearchInput({
       >
         {label}
         <div className={styles.inputRoot}>
-          <Icon
-            icon="search"
-            className={styles.icon}
-          />
+          <SearchIcon className={styles.icon} />
           <input
             id="input"
             name="input"

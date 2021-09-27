@@ -2,10 +2,13 @@ import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { CalendarContainer } from 'react-datepicker';
 
+import arrowRightIcon from 'static/icons/arrow-right.svg';
+import arrowLeftIcon from 'static/icons/arrow-left.svg';
 import Input from 'components/input';
 import IconButton from 'components/icon-button';
-import Icon from 'components/icon';
 import { MONTHS } from 'helpers/constants';
+
+import CalendarIcon from 'static/icons/calendar.svg';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -27,27 +30,24 @@ const renderHeader = ({
 }) => (
   <div className={styles.header}>
     <IconButton
+      Icon={arrowLeftIcon}
+      disabled={prevMonthButtonDisabled}
       onClick={decreaseMonth}
       style={iconStyle}
-      icon="arrowRight"
-      disabled={prevMonthButtonDisabled}
     />
     {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
     <IconButton
-      onClick={increaseMonth}
+      Icon={arrowRightIcon}
       disabled={nextMonthButtonDisabled}
-      icon="arrowRight"
+      onClick={increaseMonth}
     />
   </div>
 );
 
-const DatepickerInput = forwardRef(({ ...props }, ref) => (
+const DatepickerInput = forwardRef(({ onClick, ...props }, ref) => (
   <div className={styles.inputRoot}>
     <Input {...props} name="" ref={ref} />
-    <Icon
-      icon="calendar"
-      className={styles.icon}
-    />
+    <CalendarIcon className={styles.icon} onClick={onClick} />
   </div>
 ));
 
@@ -122,6 +122,10 @@ Datepicker.propTypes = {
 
 Datepicker.defaultProps = {
   name: '',
+};
+
+DatepickerInput.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default memo(Datepicker);

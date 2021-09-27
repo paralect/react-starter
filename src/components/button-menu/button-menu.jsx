@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
+import ArrowDownIcon from 'static/icons/arrow-down.svg';
+
 import Button from 'components/button';
-import Icon from 'components/icon';
 import { useOutsideClick } from 'hooks/useOutsideClick';
 
 import styles from './button-menu.styles.pcss';
@@ -35,12 +36,11 @@ function ButtonMenu({
     <div ref={ref} className={styles.root}>
       <Button {...props} onClick={handleButtonClick}>
         {children}
-        <Icon
+        <ArrowDownIcon
           className={cn({
             [styles.icon]: true,
             [styles.opened]: isMenuOpened,
           })}
-          icon="arrowDown"
         />
       </Button>
       {isMenuOpened && options && options.length > 0 && (

@@ -12,7 +12,7 @@ import Input from 'components/input';
 import Button from 'components/button';
 import Form from 'components/form';
 import FileUpload from 'components/file-upload';
-import Icon from 'components/icon';
+import CloseIcon from 'static/icons/close.svg';
 
 import styles from './profile.styles.pcss';
 
@@ -147,7 +147,7 @@ const Profile = () => {
                 type="secondary"
                 onClick={deleteAvatar}
               >
-                <Icon icon="close" />
+                <CloseIcon />
                 Delete
               </Button>
             </>

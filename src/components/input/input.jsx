@@ -2,7 +2,8 @@ import React, { useState, forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import Icon from 'components/icon';
+import EyeIcon from 'static/icons/eye.svg';
+import ClosedEyeIcon from 'static/icons/closed-eye.svg';
 
 import styles from './input.styles.pcss';
 
@@ -17,8 +18,8 @@ const Input = forwardRef(({
   };
 
   const icon = currentType === 'password'
-    ? <Icon icon="eye" className={styles.icon} onClick={onEyeClick} />
-    : <Icon icon="closedEye" className={styles.icon} onClick={onEyeClick} />;
+    ? <EyeIcon className={styles.icon} onClick={onEyeClick} />
+    : <ClosedEyeIcon className={styles.icon} onClick={onEyeClick} />;
 
   return (
     <label

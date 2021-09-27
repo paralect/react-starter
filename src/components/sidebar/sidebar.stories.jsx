@@ -1,26 +1,27 @@
 import React from 'react';
 
+import ActionIcon from 'static/icons/action.svg';
 import Sidebar from './index';
 
 const MENU_ITEMS = [
   {
     label: 'Dashboard',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
     path: '/dashboard',
   },
   {
     label: 'Subscriptions',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
     path: '/subscriptions',
   },
   {
     label: 'Projects',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
     path: '/projects',
   },
   {
     label: 'Profile',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
     path: '/profie',
   },
 ];

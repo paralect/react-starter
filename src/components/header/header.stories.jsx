@@ -1,23 +1,24 @@
 /* eslint-disable no-console */
 import React from 'react';
 
+import ActionIcon from 'static/icons/action.svg';
 import Header from './index';
 
 const MENU_ITEMS = [
   {
     handler: () => console.log('Dashboard'),
     label: 'Dashboard',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
   },
   {
     handler: () => console.log('Subscription'),
     label: 'Subscription',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
   },
   {
     handler: () => console.log('Profile'),
     label: 'Profile',
-    icon: 'lightning',
+    icon: () => <ActionIcon />,
     options: [
       {
         handler: () => console.log('Dashboard'),
