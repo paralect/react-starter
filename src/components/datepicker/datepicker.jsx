@@ -4,8 +4,9 @@ import DatePicker, { CalendarContainer } from 'react-datepicker';
 
 import Input from 'components/input';
 import IconButton from 'components/icon-button';
-import Icon from 'components/icon';
 import { MONTHS } from 'helpers/constants';
+
+import CalendarIcon from 'static/icons/calendar.svg';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -44,10 +45,7 @@ const renderHeader = ({
 const DatepickerInput = forwardRef(({ ...props }, ref) => (
   <div className={styles.inputRoot}>
     <Input {...props} name="" ref={ref} />
-    <Icon
-      icon="calendar"
-      className={styles.icon}
-    />
+    <CalendarIcon className={styles.icon} />
   </div>
 ));
 

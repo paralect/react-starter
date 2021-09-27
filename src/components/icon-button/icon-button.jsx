@@ -2,12 +2,10 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import Icon from 'components/icon';
-
 import styles from './icon-button.styles.pcss';
 
 function IconButton({
-  icon, color, disabled, className, ...props
+  Icon, color, disabled, className, ...props
 }) {
   return (
     <button
@@ -17,20 +15,19 @@ function IconButton({
       }, styles.button)}
       {...props}
     >
-      <Icon icon={icon} color={color} />
+      <Icon />
     </button>
   );
 }
 
 IconButton.propTypes = {
-  icon: PropTypes.string,
+  Icon: PropTypes.elementType.isRequired,
   color: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
 IconButton.defaultProps = {
-  icon: 'close',
   color: undefined,
   className: null,
   disabled: false,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Icon from 'components/icon';
+import CopyIcon from 'static/icons/copy.svg';
 
 import Button from './index';
 
@@ -16,7 +16,7 @@ export default {
 const Template = ({ ...args }) => <Button {...args}>{args.children}</Button>;
 const TemplateWithIcon = ({ ...args }) => (
   <Button {...args}>
-    <Icon icon="copy" />
+    <CopyIcon />
     {args.children}
   </Button>
 );

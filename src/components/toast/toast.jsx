@@ -6,33 +6,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import { toastActions } from 'resources/toast/toast.slice';
 
-import Icon from 'components/icon';
-import IconButton from 'components/icon-button';
+import RoundCheckIcon from 'static/icons/round-check.svg';
+import RoundErrorIcon from 'static/icons/round-error.svg';
+import RoundInfoIcon from 'static/icons/round-info.svg';
+import CloseIcon from 'static/icons/close.svg';
 
 import styles from './toast.styles.pcss';
 
 function getIconProps(type) {
   switch (type) {
     case 'success':
-      return {
-        icon: 'roundCheck',
-        color: '#FFF',
-      };
+      return <RoundCheckIcon />;
     case 'warning':
-      return {
-        icon: 'roundWarning',
-        color: '#000',
-      };
+      return <RoundCheckIcon />;
     case 'error':
-      return {
-        icon: 'roundError',
-        color: '#FFF',
-      };
+      return <RoundErrorIcon />;
     case 'info':
-      return {
-        icon: 'roundInfo',
-        color: '#FFF',
-      };
+      return <RoundInfoIcon />;
     default:
       return {};
   }
@@ -62,25 +52,16 @@ function RawToast() {
             dispatch(toastActions.remove({ id: m.id }));
           };
 
-          const iconProps = getIconProps(m.type);
           return (
             <div
               key={m.id}
               className={cn(styles.toast, styles[m.type])}
             >
               <div className={styles.main}>
-                <Icon
-                  icon={iconProps.icon}
-                  color={iconProps.color}
-                  noWrapper
-                />
+                {getIconProps(m.type)}
                 <span>{m.text}</span>
               </div>
-              <IconButton
-                icon="close"
-                color={iconProps.color}
-                onClick={closeToast}
-              />
+              <CloseIcon onClick={closeToast} />
             </div>
           );
         })}

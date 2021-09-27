@@ -17,7 +17,6 @@
     width: 100%;
     min-width: 200px;
     display: flex;
-    align-items: flex-start;
   }
 
   [class$='-control']:hover {
@@ -41,8 +40,23 @@
     color: var(--gray-dark);
   }
 
+  [class$='-Input'] {
+    margin-top: -6px;
+  }
+
   [class$='-control--is-focused'] {
     border-color: var(--blue);
+  }
+
+  [class$='multi-value__label'] {
+    height: 16px;
+    padding: 0 4px 0 0;
+    line-height: 16px;
+  }
+
+  [class$='multi-value__remove'] {
+    padding: 0;
+    color: var(--gray-dark);
   }
 
   [class$='multi-value'] {

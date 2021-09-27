@@ -4,7 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-import Icon from 'components/icon';
+import ArrowUpIcon from 'static/icons/arrow-up.svg';
+import ArrowDownIcon from 'static/icons/arrow-down.svg';
+import ArrowDouble from 'static/icons/arrow-double.svg';
 
 import styles from './table-head-cell.styles.pcss';
 
@@ -20,13 +22,13 @@ const TableHeadCell = ({
   function getSortedIcon(fieldName) {
     if (sortBy && sortBy.field === fieldName) {
       if (sortBy.direction === 1) {
-        return 'arrowUpSmall';
+        return <ArrowUpIcon />;
       }
 
-      return 'arrowDownSmall';
+      return <ArrowDownIcon />;
     }
 
-    return 'arrowDouble';
+    return <ArrowDouble />;
   }
 
   function handleSort() {
@@ -56,12 +58,7 @@ const TableHeadCell = ({
       style={cellStyle}
     >
       {title}
-      {!noSort && (
-        <Icon
-          icon={getSortedIcon(key)}
-          noWrapper
-        />
-      )}
+      {!noSort && getSortedIcon(key)}
     </div>
   );
 };

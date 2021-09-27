@@ -2,28 +2,24 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import Icon from 'components/icon';
+import ShipLogo from 'static/icons/ship-logo.svg';
 import Avatar from 'components/avatar';
 
 import styles from './sidebar.styles.pcss';
 
 function Sidebar({
-  icon, name, currentPage, pages, fullName, onChange,
+  Icon, name, currentPage, pages, fullName, onChange,
 }) {
   return (
     <div className={styles.root}>
       <div className={styles.logoContainer}>
-        <Icon
-          icon={icon}
-          noWrapper
-          className={styles.logo}
-        />
+        <Icon className={styles.logo} />
         <div className={styles.projectName}>{name}</div>
       </div>
       <div className={styles.list}>
         {pages.map((item) => {
           const {
-            path, label, disabled, icon: itemIcon,
+            path, label, disabled, icon,
           } = item;
 
           const isCurrentPage = currentPage.path === path;
@@ -41,10 +37,7 @@ function Sidebar({
               onClick={handleChange}
             >
               <div className={styles.itemIcon}>
-                <Icon
-                  icon={itemIcon}
-                  className={styles.icon}
-                />
+                {icon()}
               </div>
               <div className={styles.listItemText}>
                 {label}
@@ -67,7 +60,7 @@ function Sidebar({
 }
 
 Sidebar.propTypes = {
-  icon: PropTypes.string,
+  Icon: PropTypes.elementType,
   name: PropTypes.string,
   onChange: PropTypes.func,
   fullName: PropTypes.string.isRequired,
@@ -84,7 +77,7 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
-  icon: 'shipLogo',
+  Icon: () => <ShipLogo />,
   name: 'ship',
   onChange: null,
 };

@@ -1,26 +1,25 @@
 import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-
-import Icon from 'components/icon';
 import Button from 'components/button';
 import Avatar from 'components/avatar';
 import ButtonMenu from 'components/button-menu';
+import ShipLogo from 'static/icons/ship-logo.svg';
 
 import styles from './header.styles.pcss';
 
 function Header({
-  icon, menu, avatarSrc, fullName, className,
+  Icon, menu, avatarSrc, fullName, className,
 }) {
   return (
     <div className={cn(styles.header, className)}>
       <div className={styles.panel}>
-        <Icon icon={icon} noWrapper />
+        <Icon />
         {menu && (
           <div className={styles.menu}>
             {menu.map((item) => {
               const {
-                handler, icon: itemIcon, label, options,
+                handler, icon, label, options,
               } = item;
 
               if (options) {
@@ -30,19 +29,19 @@ function Header({
                     className={styles.menuItem}
                     options={options}
                   >
-                    <Icon icon={itemIcon} />
+                    {icon()}
                     {label}
                   </ButtonMenu>
                 );
               }
               return (
                 <Button
-                  key={label + itemIcon}
+                  key={label}
                   onClick={handler}
                   type="text"
                   className={styles.menuItem}
                 >
-                  <Icon icon={itemIcon} />
+                  {icon()}
                   {label}
                 </Button>
               );
@@ -60,7 +59,7 @@ function Header({
 }
 
 Header.propTypes = {
-  icon: PropTypes.string,
+  Icon: PropTypes.elementType,
   fullName: PropTypes.string,
   avatarSrc: PropTypes.string,
   className: PropTypes.string,
@@ -77,7 +76,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  icon: 'shipLogo',
+  Icon: () => <ShipLogo />,
   avatarSrc: null,
   fullName: null,
   className: null,

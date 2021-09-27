@@ -4,8 +4,8 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import ReactSelect, { components } from 'react-select';
 
-import CloseSmall from 'components/icon/icons/close-s.svg';
-import Icon from '../icon';
+import CloseIcon from 'static/icons/close-small.svg';
+import ArrowDownIcon from 'static/icons/arrow-down.svg';
 
 import InputController from '../input-controller';
 import { getCustomStyle } from './helpers';
@@ -19,7 +19,7 @@ const MultiSelectComponent = ({
     <>
       {!disabled && (
         <components.MultiValueRemove {...props}>
-          <CloseSmall />
+          <CloseIcon />
         </components.MultiValueRemove>
       )}
     </>
@@ -28,7 +28,7 @@ const MultiSelectComponent = ({
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-        <Icon icon="arrowDown" color="#808080" />
+        <ArrowDownIcon />
       </components.DropdownIndicator>
     );
   };
