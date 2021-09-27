@@ -1,72 +1,66 @@
-import React, { memo, useCallback } from 'react';
+import React, { forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import { useFormContext } from 'react-hook-form';
 
 import styles from './textarea.styles.pcss';
 
-const TextArea = ({
-  errors, label, placeholder, disabled, className, onChange, name, ...props
-}) => {
-  const formContext = useFormContext();
-
-  const handleChange = useCallback((values) => {
-    if (name) formContext.clearErrors(name);
-    if (onChange) onChange(values);
-  }, [onChange, name, formContext]);
-
-  const { register, formState } = formContext || {};
-
-  return (
-    <label
-      htmlFor={name}
-      className={cn(styles.label, {
-        [styles.error]: errors.length || formState?.errors[name],
+const TextArea = forwardRef(({
+  height, error, label, placeholder, maxLength,
+  disabled, className, name, onChange, onBlur, defaultValue,
+}, ref) => (
+  <label
+    htmlFor="textarea"
+    className={cn({
+      [styles.container]: true,
+      [styles.error]: error,
+    }, className)}
+  >
+    <span className={styles.label}>{label}</span>
+    <textarea
+      placeholder={placeholder}
+      disabled={disabled}
+      style={{ height }}
+      maxLength={maxLength}
+      className={cn({
+        [styles.textarea]: true,
+        [styles.error]: error,
       })}
-    >
-      {label}
-      <textarea
-        name={name}
-        placeholder={placeholder}
-        className={cn(styles.input, className, {
-          [styles.error]: errors.length || formState?.errors[name],
-          [styles.disabled]: disabled,
-        })}
-        onChange={handleChange}
-        {...(name && register(name))}
-        {...props}
-      />
-      {(errors.length > 0 || formState?.errors[name]) && (
-        <div className={styles.errors}>
-          {formState?.errors[name]
-            ? [...errors, formState?.errors[name]?.message].join(', ')
-            : errors.join(', ')}
-        </div>
-      )}
-    </label>
-  );
-};
+      ref={ref}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      onBlur={onBlur}
+      name={name}
+    />
+    {error && <span className={styles.errorMessage}>{error.message}</span>}
+  </label>
+));
 
 TextArea.propTypes = {
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  className: PropTypes.string,
-  errors: PropTypes.arrayOf(PropTypes.string),
+  height: PropTypes.string,
+  maxLength: PropTypes.number,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
+  className: PropTypes.string,
   name: PropTypes.string,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  defaultValue: PropTypes.string,
 };
 
 TextArea.defaultProps = {
-  className: '',
-  errors: [],
+  height: '80px',
+  maxLength: 500,
   disabled: false,
-  placeholder: null,
-  name: '',
-  value: '',
-  label: '',
-  onChange: () => {},
+  error: null,
+  className: null,
+  name: null,
+  onChange: null,
+  onBlur: null,
+  defaultValue: null,
 };
 
-export default memo(TextArea);
+export default TextArea;

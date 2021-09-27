@@ -5,46 +5,58 @@ import TextArea from './index';
 export default {
   title: 'Components/TextArea',
   component: TextArea,
-  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
+  argTypes: {
+    label: { name: 'Label', control: 'text', defaultValue: 'Label' },
+    placeholder: { name: 'Placeholder', control: 'text', defaultValue: 'Placeholder Text' },
+    disabled: {
+      options: [true, false],
+      control: { type: 'inline-radio' },
+    },
+    maxLength: { name: 'Max Length', control: 'number', defaultValue: 500 },
+    height: { name: 'Height', control: 'text', defaultValue: '80px' },
+    error: {
+      message: { name: 'Error', control: 'text', defaultValue: null },
+    },
+    defaultValue: { name: 'Default value', control: 'text' },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
+    className: {
+      table: {
+        disable: true,
+      },
+    },
+    onChange: {
+      table: {
+        disable: true,
+      },
+    },
+    onBlur: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  args: {
+    disabled: false,
+  },
+  decorators: [(Story) => <div style={{ maxWidth: '260px' }}><Story /></div>],
 };
 
 const Template = (args) => <TextArea {...args} />;
 
-export const Empty = Template.bind({});
-Empty.args = {
-  value: '',
-  label: 'Label',
-};
-
-export const Filled = Template.bind({});
-Filled.args = {
-  value: 'Some text',
-  label: 'Label',
-};
-
-export const ErrorEmpty = Template.bind({});
-ErrorEmpty.args = {
-  value: '',
-  label: 'Label',
-  errors: ['Field is required.'],
-};
-
-export const ErrorFilled = Template.bind({});
-ErrorFilled.args = {
-  value: 'Some text',
-  label: 'Label',
-  errors: ['Field is required.'],
-};
+export const Active = Template.bind({});
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
-  value: 'Some text',
-  label: 'Label',
 };
 
-export const WithPlaceholder = Template.bind({});
-WithPlaceholder.args = {
-  placeholder: 'Placeholder',
-  label: 'Label',
+export const Error = Template.bind({});
+Error.args = {
+  error: {
+    message: 'Error message',
+  },
 };
