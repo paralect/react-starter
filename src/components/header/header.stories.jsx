@@ -1,24 +1,25 @@
 /* eslint-disable no-console */
 import React from 'react';
 
-import ActionIcon from 'static/icons/action.svg';
+import { ActivateCardIcon } from 'static/icons';
+
 import Header from './index';
 
 const MENU_ITEMS = [
   {
     handler: () => console.log('Dashboard'),
     label: 'Dashboard',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
   },
   {
     handler: () => console.log('Subscription'),
     label: 'Subscription',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
   },
   {
     handler: () => console.log('Profile'),
     label: 'Profile',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
     options: [
       {
         handler: () => console.log('Dashboard'),

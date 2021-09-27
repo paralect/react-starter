@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import SearchIcon from 'static/icons/search.svg';
+import { SearchIcon } from 'static/icons';
 
 import styles from './search-field.styles.pcss';
 

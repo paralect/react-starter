@@ -1,27 +1,28 @@
 import React from 'react';
 
-import ActionIcon from 'static/icons/action.svg';
+import { ActivateCardIcon } from 'static/icons';
+
 import Sidebar from './index';
 
 const MENU_ITEMS = [
   {
     label: 'Dashboard',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
     path: '/dashboard',
   },
   {
     label: 'Subscriptions',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
     path: '/subscriptions',
   },
   {
     label: 'Projects',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
     path: '/projects',
   },
   {
     label: 'Profile',
-    icon: () => <ActionIcon />,
+    icon: () => <ActivateCardIcon />,
     path: '/profie',
   },
 ];

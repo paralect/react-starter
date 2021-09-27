@@ -2,8 +2,8 @@ import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { CalendarContainer } from 'react-datepicker';
 
-import arrowRightIcon from 'static/icons/arrow-right.svg';
-import arrowLeftIcon from 'static/icons/arrow-left.svg';
+import { ArrowLeftIcon, ArrowRightIcon } from 'static/icons';
+
 import Input from 'components/input';
 import IconButton from 'components/icon-button';
 import { MONTHS } from 'helpers/constants';
@@ -30,14 +30,14 @@ const renderHeader = ({
 }) => (
   <div className={styles.header}>
     <IconButton
-      Icon={arrowLeftIcon}
+      Icon={ArrowLeftIcon}
       disabled={prevMonthButtonDisabled}
       onClick={decreaseMonth}
       style={iconStyle}
     />
     {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
     <IconButton
-      Icon={arrowRightIcon}
+      Icon={ArrowRightIcon}
       disabled={nextMonthButtonDisabled}
       onClick={increaseMonth}
     />

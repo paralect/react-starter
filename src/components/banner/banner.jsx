@@ -3,10 +3,9 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-import RoundCheckIcon from 'static/icons/round-check.svg';
-import RoundErrorIcon from 'static/icons/round-error.svg';
-import RoundInfoIcon from 'static/icons/round-info.svg';
-import CloseIcon from 'static/icons/close.svg';
+import {
+  CheckIcon, ErrorIcon, AlertIcon, CloseIcon,
+} from 'static/icons';
 
 import Button from 'components/button';
 
@@ -15,13 +14,13 @@ import styles from './banner.styles.pcss';
 function getIconProps(type) {
   switch (type) {
     case 'success':
-      return <RoundCheckIcon />;
+      return <CheckIcon />;
     case 'warning':
-      return <RoundCheckIcon />;
+      return <CheckIcon />;
     case 'error':
-      return <RoundErrorIcon />;
+      return <ErrorIcon />;
     case 'info':
-      return <RoundInfoIcon />;
+      return <AlertIcon />;
     default:
       return {};
   }

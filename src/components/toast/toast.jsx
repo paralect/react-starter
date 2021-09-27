@@ -6,23 +6,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import { toastActions } from 'resources/toast/toast.slice';
 
-import RoundCheckIcon from 'static/icons/round-check.svg';
-import RoundErrorIcon from 'static/icons/round-error.svg';
-import RoundInfoIcon from 'static/icons/round-info.svg';
-import CloseIcon from 'static/icons/close.svg';
+import {
+  CheckIcon, ErrorIcon, AlertIcon, CloseIcon,
+} from 'static/icons';
 
 import styles from './toast.styles.pcss';
 
 function getIconProps(type) {
   switch (type) {
     case 'success':
-      return <RoundCheckIcon />;
+      return <CheckIcon />;
     case 'warning':
-      return <RoundCheckIcon />;
+      return <CheckIcon />;
     case 'error':
-      return <RoundErrorIcon />;
+      return <ErrorIcon />;
     case 'info':
-      return <RoundInfoIcon />;
+      return <AlertIcon />;
     default:
       return {};
   }
