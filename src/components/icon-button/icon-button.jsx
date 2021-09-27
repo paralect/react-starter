@@ -20,7 +20,7 @@ function IconButton({
 }
 
 IconButton.propTypes = {
-  Icon: PropTypes.func.isRequired,
+  Icon: PropTypes.elementType.isRequired,
   disabled: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,

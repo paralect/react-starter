@@ -1,13 +1,13 @@
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-array-index-key,react/jsx-no-bind */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import IconButton from 'components/icon-button';
+import ArrowRightIcon from 'static/icons/arrow-right.svg';
+import ArrowLeftIcon from 'static/icons/arrow-left.svg';
 
 import styles from './table-footer.styles.pcss';
-
-const iconStyle = { transform: 'rotate(180deg)' };
 
 const PageNumber = ({ number, onClick, isCurrent }) => {
   const handleClick = () => {
@@ -99,17 +99,14 @@ const TableFooter = ({
       {totalPages > 1 ? (
         <div className={styles.controls}>
           <IconButton
+            Icon={ArrowLeftIcon}
             disabled={page === 1}
-            icon="arrowRight"
-            label="Previous page"
             onClick={handlePrevPageClick}
-            style={iconStyle}
           />
           {renderPages()}
           <IconButton
+            Icon={ArrowRightIcon}
             disabled={page === totalPages}
-            icon="arrowRight"
-            label="Previous page"
             onClick={handleNextPageClick}
           />
         </div>
