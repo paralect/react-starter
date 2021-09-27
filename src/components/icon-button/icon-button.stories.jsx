@@ -1,6 +1,8 @@
 import React from 'react';
 
 import CloseIcon from 'static/icons/close.svg';
+import CloseIconSmall from 'static/icons/close-small.svg';
+
 import IconButton from './index';
 
 export default {
@@ -26,6 +28,11 @@ export default {
         disable: true,
       },
     },
+    size: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
     Icon: CloseIcon,
@@ -35,11 +42,14 @@ export default {
 const Template = (args) => <IconButton {...args} />;
 
 export const Active = Template.bind({});
-Active.args = {
-  disabled: false,
-};
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+};
+
+export const SmallIcon = Template.bind({});
+SmallIcon.args = {
+  Icon: CloseIconSmall,
+  size: 's',
 };

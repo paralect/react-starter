@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
+import CloseIcon from 'static/icons/close.svg';
+
 import Button from 'components/button';
 import IconButton from 'components/icon-button';
 
@@ -34,7 +36,7 @@ function Modal({
             </div>
           )}
         </div>
-        <IconButton icon="close" onClick={onClose} />
+        <IconButton Icon={CloseIcon} onClick={onClose} />
       </div>
       <div className={styles.content}>
         {children}

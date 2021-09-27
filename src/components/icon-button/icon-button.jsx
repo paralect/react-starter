@@ -5,12 +5,12 @@ import cn from 'classnames';
 import styles from './icon-button.styles.pcss';
 
 function IconButton({
-  Icon, disabled, onClick, className,
+  Icon, disabled, onClick, className, size,
 }) {
   return (
     <button
       type="button"
-      className={cn(styles.iconButton, className)}
+      className={cn(styles.iconButton, className, styles[size])}
       disabled={disabled}
       onClick={onClick}
     >
@@ -24,12 +24,14 @@ IconButton.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 IconButton.defaultProps = {
   disabled: false,
   className: null,
   onClick: null,
+  size: 'm',
 };
 
 export default memo(IconButton);
