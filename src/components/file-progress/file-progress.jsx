@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DocumentIcon from 'static/icons/document.svg';
-import RoundCheckIcon from 'static/icons/round-check-small.svg';
-import RoundErrorIcon from 'static/icons/round-error-small.svg';
+import { CheckIcon, ErrorIcon, DocumentEmptyIcon } from 'static/icons';
 
 import ProgressBar from 'components/progress-bar';
 
@@ -26,10 +24,10 @@ const FileProgress = ({
   const renderStatus = () => {
     switch (status) {
       case STATUSES.SUCCESS:
-        return <RoundCheckIcon color={STATUS_COLORS.SUCCESS} />;
+        return <CheckIcon color={STATUS_COLORS.SUCCESS} />;
 
       case STATUSES.FAIL:
-        return <RoundErrorIcon color={STATUS_COLORS.FAIL} />;
+        return <ErrorIcon color={STATUS_COLORS.FAIL} />;
 
       default:
         return (
@@ -43,7 +41,7 @@ const FileProgress = ({
 
   return (
     <div className={styles.fileProgress}>
-      <DocumentIcon />
+      <DocumentEmptyIcon />
       <div className={styles.main}>
         <span className={styles.fileName}>{fileName}</span>
         {status === STATUSES.IN_PROGRESS && <ProgressBar percentage={percentage} />}
