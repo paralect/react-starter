@@ -1,41 +1,56 @@
 import React, { useState } from 'react';
 
-import CheckBox from './index';
+import Checkbox from './index';
 
 export default {
   title: 'Components/Checkbox',
-  component: CheckBox,
+  component: Checkbox,
   argTypes: {
+    text: { name: 'Text', control: 'text', defaultValue: 'Text' },
     disabled: {
       options: [true, false],
-      control: { type: 'radio' },
+      control: { type: 'inline-radio' },
     },
-    text: 'text',
+    name: {
+      table: {
+        disable: true,
+      },
+    },
+    className: {
+      table: {
+        disable: true,
+      },
+    },
+    onChange: {
+      table: {
+        disable: true,
+      },
+    },
+    value: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
     text: 'Text',
+    disabled: false,
   },
 };
 
 const Template = (args) => {
-  const { value } = args;
-  const [isChecked, setChecked] = useState(value);
+  const [isChecked, setChecked] = useState(false);
 
   const handleChange = () => setChecked(!isChecked);
 
   return (
-    <CheckBox {...args} value={isChecked} onChange={handleChange} />
+    <Checkbox {...args} value={isChecked} onChange={handleChange} />
   );
 };
 
 export const Active = Template.bind({});
-Active.args = {
-  disabled: false,
-  label: 'Checkbox',
-};
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
-  label: 'Checkbox',
 };
