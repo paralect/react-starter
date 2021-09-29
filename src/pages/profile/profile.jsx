@@ -8,10 +8,10 @@ import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
 import * as filesApi from 'resources/files/files.api';
 
-import Input from 'components/input';
-import Button from 'components/button';
-import Form from 'components/form';
-import FileUpload from 'components/file-upload';
+import Input from 'components/Input';
+import Button from 'components/Button';
+import Form from 'components/Form';
+import FileUpload from 'components/FileUpload';
 import CloseIcon from 'static/icons/close.svg';
 
 import styles from './profile.styles.pcss';

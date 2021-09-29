@@ -8,9 +8,9 @@ import { routes } from 'routes';
 import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
 
-import Input from 'components/input';
-import Button from 'components/button';
-import Form from 'components/form';
+import Input from 'components/Input';
+import Button from 'components/Button';
+import Form from 'components/Form';
 
 import styles from './sign-up.pcss';
 

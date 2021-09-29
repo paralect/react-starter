@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider, useSelector } from 'react-redux';
 import { Router } from 'react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -14,8 +15,8 @@ import store from 'resources/store';
 import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
 
-import Toast from 'components/toast';
-import Loading from 'components/loading';
+import Toast from 'components/Toaster';
+import Loading from 'components/Loading';
 import { ErrorBoundary } from 'components/error-boundary';
 
 import { routes, scope, layout } from 'routes';
@@ -129,5 +130,9 @@ function App() {
     </Provider>
   );
 }
+
+PrivateScope.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default App;
