@@ -11,7 +11,7 @@ import InputController from 'components/InputController';
 import { MONTHS } from 'helpers/constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import styles from './date-picker.styles.pcss';
+import styles from './date-picker.pcss';
 
 const iconStyle = { transform: 'rotate(180deg)' };
 

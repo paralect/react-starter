@@ -6,7 +6,7 @@ import noop from 'lodash/noop';
 
 import { ArrowUpIcon, ArrowDownIcon, ArrowDoubleIcon } from 'static/icons';
 
-import styles from './table-head-cell.styles.pcss';
+import styles from './table-head-cell.pcss';
 
 const TableHeadCell = ({
   column, sortBy, onSortBy, noSort,

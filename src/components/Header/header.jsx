@@ -6,7 +6,7 @@ import Avatar from 'components/Avatar';
 import ButtonMenu from 'components/ButtonMenu';
 import ShipLogo from 'static/icons/ship-logo.svg';
 
-import styles from './header.styles.pcss';
+import styles from './header.pcss';
 
 function Header({
   Icon, menu, avatarSrc, fullName, className,

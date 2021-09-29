@@ -8,7 +8,7 @@ import Checkbox from 'components/Checkbox';
 
 import TableHeadCell from './TableHeadCell/table-head-cell';
 import TableFooter from './TableFooter/table-footer';
-import styles from './table.styles.pcss';
+import styles from './table.pcss';
 
 const Table = (props) => {
   const {

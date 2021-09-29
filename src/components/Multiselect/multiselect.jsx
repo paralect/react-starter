@@ -9,7 +9,7 @@ import InputController from 'components/InputController';
 
 import { getCustomStyle } from './helpers';
 
-import styles from './multiselect.styles.pcss';
+import styles from './multiselect.pcss';
 
 const MultiSelectComponent = ({
   options, label, disabled, error, className, onChange, value, name, placeholder,

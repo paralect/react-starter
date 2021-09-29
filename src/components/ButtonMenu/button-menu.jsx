@@ -8,7 +8,7 @@ import Button from 'components/Button';
 
 import { useOutsideClick } from 'hooks/useOutsideClick';
 
-import styles from './button-menu.styles.pcss';
+import styles from './button-menu.pcss';
 
 const types = {
   primary: 'primary',

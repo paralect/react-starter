@@ -7,7 +7,7 @@ import CloseIcon from 'static/icons/close.svg';
 import Button from 'components/Button';
 import IconButton from 'components/IconButton';
 
-import styles from './modal.styles.pcss';
+import styles from './modal.pcss';
 
 function Modal({
   children, title, subtitle, onSubmit, onCancel, noCancel, noSubmit, open, onClose,

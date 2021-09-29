@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import RadioButton from './index';
 
 export default {
-  title: 'Components/RadioButton',
+  title: 'Components/Radiobutton',
   component: RadioButton,
   argTypes: {
     disabled: {

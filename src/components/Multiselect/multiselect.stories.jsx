@@ -26,7 +26,7 @@ const options = [
 ];
 
 export default {
-  title: 'Components/MultiSelect',
+  title: 'Components/Multiselect',
   component: MultiSelect,
   argTypes: {
     label: { name: 'Label', control: 'text', defaultValue: 'Label' },

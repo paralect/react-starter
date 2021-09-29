@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './text-area.styles.pcss';
+import styles from './text-area.pcss';
 
 const TextArea = forwardRef(({
   height, error, label, placeholder, maxLength,

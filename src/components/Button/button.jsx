@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './button.styles.pcss';
+import styles from './button.pcss';
 
 const types = {
   primary: 'primary',

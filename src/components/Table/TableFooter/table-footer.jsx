@@ -7,7 +7,7 @@ import IconButton from 'components/IconButton';
 import ArrowRightIcon from 'static/icons/arrow-right.svg';
 import ArrowLeftIcon from 'static/icons/arrow-left.svg';
 
-import styles from './table-footer.styles.pcss';
+import styles from './table-footer.pcss';
 
 const PageNumber = ({ number, onClick, isCurrent }) => {
   const handleClick = () => {

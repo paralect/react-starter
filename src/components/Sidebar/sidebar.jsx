@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { ShipLogo } from 'static/icons';
 import Avatar from 'components/Avatar';
 
-import styles from './sidebar.styles.pcss';
+import styles from './sidebar.pcss';
 
 function Sidebar({
   Icon, name, currentPage, pages, fullName, onChange,

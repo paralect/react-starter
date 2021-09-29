@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
-import styles from './icon-button.styles.pcss';
+import styles from './icon-button.pcss';
 
 function IconButton({
   Icon, disabled, onClick, className, size,

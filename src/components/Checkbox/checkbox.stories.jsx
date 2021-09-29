@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CheckBox from './index';
 
 export default {
-  title: 'Components/CheckBox',
+  title: 'Components/Checkbox',
   component: CheckBox,
   argTypes: {
     disabled: {

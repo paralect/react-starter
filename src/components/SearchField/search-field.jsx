@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { SearchIcon } from 'static/icons';
 
-import styles from './search-field.styles.pcss';
+import styles from './search-field.pcss';
 
 function SearchField({
   value, maxLength, disabled, onChange, placeholder, className,

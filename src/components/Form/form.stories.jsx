@@ -14,7 +14,7 @@ import Switch from 'components/Switch';
 import TextArea from 'components/TextArea';
 import Form from './index';
 
-import styles from './storybook.form.styles.pcss';
+import styles from './storybook.form.pcss';
 
 const options = [
   {

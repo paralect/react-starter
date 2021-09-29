@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import InputController from 'components/InputController';
 
-import styles from './radiobutton.styles.pcss';
+import styles from './radiobutton.pcss';
 
 const RadioButtonComponent = ({
   label, disabled, value, onChange, className, name,

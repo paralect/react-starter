@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './memo-card.styles.pcss';
+import styles from './memo-card.pcss';
 
 const MemoCard = ({
   title, items, type,

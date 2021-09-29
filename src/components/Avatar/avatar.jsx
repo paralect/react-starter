@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './avatar.styles.pcss';
+import styles from './avatar.pcss';
 
 const sizes = {
   xl: styles.xl,

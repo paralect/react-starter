@@ -10,7 +10,7 @@ import Avatar from 'components/Avatar';
 
 import { getCustomStyle } from './helpers';
 
-import styles from './select.styles.pcss';
+import styles from './select.pcss';
 
 const Option = (props) => {
   // eslint-disable-next-line react/destructuring-assignment

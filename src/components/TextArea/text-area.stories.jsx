@@ -3,7 +3,7 @@ import React from 'react';
 import TextArea from './index';
 
 export default {
-  title: 'Components/TextArea',
+  title: 'Components/Text Area',
   component: TextArea,
   argTypes: {
     label: { name: 'Label', control: 'text', defaultValue: 'Label' },

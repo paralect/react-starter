@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import InputController from 'components/InputController';
 
-import styles from './switch.styles.pcss';
+import styles from './switch.pcss';
 
 const SwitchComponent = ({
   label, disabled, value, onChange, className, name,

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './tab-bar.styles.pcss';
+import styles from './tab-bar.pcss';
 
 const TabBar = ({
   currentTab, tabs, withBorder, onChange,

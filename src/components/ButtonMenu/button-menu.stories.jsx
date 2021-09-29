@@ -30,7 +30,7 @@ const OPTIONS = [{
 ];
 
 export default {
-  title: 'Components/ButtonMenu',
+  title: 'Components/Button Menu',
   component: ButtonMenu,
   argTypes: {
     onClick: { action: 'clicked' },

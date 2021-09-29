@@ -3,7 +3,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import capitalize from 'lodash/capitalize';
 
-import styles from './status-tag.styles.pcss';
+import styles from './status-tag.pcss';
 
 const STATUSES = {
   positive: 'positive',

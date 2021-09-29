@@ -5,7 +5,7 @@ import { CheckIcon, ErrorIcon, DocumentEmptyIcon } from 'static/icons';
 
 import ProgressBar from 'components/ProgressBar';
 
-import styles from './file-progress.styles.pcss';
+import styles from './file-progress.pcss';
 
 const STATUSES = {
   SUCCESS: 'success',

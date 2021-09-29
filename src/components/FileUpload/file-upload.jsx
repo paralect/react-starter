@@ -3,7 +3,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
 import FileUploadIcon from 'static/icons/file-upload.svg';
-import styles from './file-upload.styles.pcss';
+import styles from './file-upload.pcss';
 
 const ICON_COLOR = '#808080';
 const ICON_COLOR_LIGHT = '#D4D8DD';

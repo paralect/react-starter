@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import InputController from 'components/InputController';
 
-import styles from './checkbox.styles.pcss';
+import styles from './checkbox.pcss';
 
 const CheckBoxComponent = ({
   label, disabled, value, onChange, className, name,

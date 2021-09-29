@@ -10,7 +10,7 @@ import {
   CheckIcon, ErrorIcon, AlertIcon, CloseIcon,
 } from 'static/icons';
 
-import styles from './toaster.styles.pcss';
+import styles from './toaster.pcss';
 
 function getIconProps(type) {
   switch (type) {

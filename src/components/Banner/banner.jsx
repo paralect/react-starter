@@ -9,7 +9,7 @@ import {
 
 import Button from 'components/Button';
 
-import styles from './banner.styles.pcss';
+import styles from './banner.pcss';
 
 function getIconProps(type) {
   switch (type) {

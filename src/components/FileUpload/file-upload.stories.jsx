@@ -3,7 +3,7 @@ import React from 'react';
 import FileUpload from './index';
 
 export default {
-  title: 'Components/FileUpload',
+  title: 'Components/File Upload',
   component: FileUpload,
 };
 

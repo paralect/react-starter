@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { ShowPasswordIcon, HidePasswordIcon } from 'static/icons';
 
-import styles from './input.styles.pcss';
+import styles from './input.pcss';
 
 const Input = forwardRef(({
   type, maxLength, disabled, placeholder, error, label, className, name, defaultValue,

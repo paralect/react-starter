@@ -3,7 +3,7 @@ import React from 'react';
 import FileProgress from './index';
 
 export default {
-  title: 'Components/FileProgress',
+  title: 'Components/File Progress',
   component: FileProgress,
 };
 

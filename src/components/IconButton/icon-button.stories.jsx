@@ -5,7 +5,7 @@ import { CloseIcon, CloseSmallIcon } from 'static/icons';
 import IconButton from './index';
 
 export default {
-  title: 'Components/IconButton',
+  title: 'Components/Icon Button',
   component: IconButton,
   argTypes: {
     disabled: {

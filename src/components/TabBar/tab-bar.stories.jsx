@@ -28,7 +28,7 @@ const tabs = [
 ];
 
 export default {
-  title: 'Components/TabBar',
+  title: 'Components/Tab Bar',
   component: TabBar,
 };
 

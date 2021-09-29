@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import useHandleError from 'hooks/useHandleError';
 
-import styles from './form.styles.pcss';
+import styles from './form.pcss';
 
 const Form = ({
   defaultValues,

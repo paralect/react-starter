@@ -26,7 +26,7 @@ const options = [
 ];
 
 export default {
-  title: 'Components/Datepicker',
+  title: 'Components/Date Picker',
   component: DatePicker,
   argTypes: {
     disabled: {
