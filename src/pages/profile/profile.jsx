@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
+import * as Sentry from '@sentry/browser';
 
 import useToast from 'hooks/useToast';
 import * as userSelectors from 'resources/user/user.selectors';
@@ -72,6 +73,7 @@ const Profile = () => {
         setAvatarUrl(url);
       }
     } catch (error) {
+      Sentry.captureException(error);
       toastError(error);
     }
   }, [toastError]);
@@ -82,6 +84,7 @@ const Profile = () => {
       const { key } = await filesApi.upload(file);
       setAvatarFileKey(key);
     } catch (error) {
+      Sentry.captureException(error);
       toastError(error);
     }
   };

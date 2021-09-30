@@ -4,13 +4,14 @@ export default function useHandleError() {
   const { toastError } = useToast();
 
   return (e, setError) => {
-    const { errors: { _global, ...errors } } = e.data;
+    const { errors } = e.data || {};
+    const { _global, ...errorsRest } = errors || {};
 
     if (_global) toastError(_global[0]);
 
-    if (setError) {
-      Object.keys(errors).forEach((key) => {
-        setError(key, { message: errors[key].join(' ') }, { shouldFocus: true });
+    if (setError && errorsRest) {
+      Object.keys(errorsRest).forEach((key) => {
+        setError(key, { message: errorsRest[key].join(' ') }, { shouldFocus: true });
       });
     }
   };
