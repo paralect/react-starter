@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 
 import InputController from 'components/InputController';
 
+<<<<<<< HEAD:src/components/Radiobutton/Radiobutton.jsx
 import styles from './Radiobutton.pcss';
+=======
+import styles from './radio-button.pcss';
+>>>>>>> feat: improve radio button component:src/components/Radio-button/radio-button.jsx
 
 const RadioButtonComponent = ({
   text, disabled, value, onChange, className, name,

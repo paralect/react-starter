@@ -8,7 +8,7 @@ import Button from 'components/Button';
 import CheckBox from 'components/Checkbox';
 import Datepicker from 'components/DatePicker';
 import MultiSelect from 'components/Multiselect';
-import RadioButton from 'components/Radiobutton';
+import RadioButton from 'components/Radio-button';
 import Select from 'components/Select';
 import Switch from 'components/Switch';
 import TextArea from 'components/TextArea';
