@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useFormContext } from 'react-hook-form';
 
 import InputController from '../input-controller';
 
@@ -37,13 +38,17 @@ const CheckBoxComponent = ({
   );
 };
 
-const CheckBox = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <CheckBoxComponent />
-    </InputController>
-  ) : <CheckBoxComponent {...props} />
-);
+const CheckBox = ({ ...props }) => {
+  const formContext = useFormContext();
+
+  return (
+    formContext ? (
+      <InputController name={props.name} {...props}>
+        <CheckBoxComponent />
+      </InputController>
+    ) : <CheckBoxComponent {...props} />
+  );
+};
 
 CheckBoxComponent.propTypes = {
   label: PropTypes.string,

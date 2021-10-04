@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useFormContext } from 'react-hook-form';
 
 import InputController from '../input-controller';
 
@@ -48,13 +49,17 @@ const SwitchComponent = ({
   );
 };
 
-const Switch = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <SwitchComponent />
-    </InputController>
-  ) : <SwitchComponent {...props} />
-);
+const Switch = ({ ...props }) => {
+  const formContext = useFormContext();
+
+  return (
+    formContext ? (
+      <InputController name={props.name} {...props}>
+        <SwitchComponent />
+      </InputController>
+    ) : <SwitchComponent {...props} />
+  );
+};
 
 SwitchComponent.propTypes = {
   label: PropTypes.string,

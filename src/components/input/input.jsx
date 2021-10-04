@@ -1,15 +1,17 @@
 import React, { useState, forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useFormContext } from 'react-hook-form';
 
 import { ShowPasswordIcon, HidePasswordIcon } from 'static/icons';
 
 import styles from './input.styles.pcss';
 
 const Input = forwardRef(({
-  type, maxLength, disabled, placeholder, error, label, className, name, defaultValue,
+  type, maxLength, disabled, placeholder, error, label, className, value, name, ...props
 }, ref) => {
   const [currentType, setCurrentType] = useState(type);
+  const formContext = useFormContext();
 
   const onEyeClick = () => {
     if (currentType === 'password') setCurrentType('text');
@@ -20,14 +22,17 @@ const Input = forwardRef(({
     ? <ShowPasswordIcon className={styles.icon} onClick={onEyeClick} />
     : <HidePasswordIcon className={styles.icon} onClick={onEyeClick} />;
 
+  const { register, formState } = formContext || {};
+  const formError = formState?.errors[name];
+
   return (
     <label
-      htmlFor="input"
+      htmlFor={name}
       className={cn([styles.container], className)}
     >
       <span className={cn({
         [styles.label]: true,
-        [styles.error]: error,
+        [styles.error]: error || formError,
       }, className)}
       >
         {label}
@@ -37,17 +42,21 @@ const Input = forwardRef(({
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
-        className={cn({
-          [styles.input]: true,
+        value={name ? undefined : value}
+        className={cn(styles.input, className, {
           [styles.password]: type === 'password',
-          [styles.error]: error,
+          [styles.error]: error || formError,
         })}
         name={name}
-        defaultValue={defaultValue}
         ref={ref}
+        {...(name && register(name))}
+        {...props}
       />
       {type === 'password' && icon}
-      {error && <span className={styles.errorMessage}>{error.message}</span>}
+      {
+        (error || formError)
+        && <span className={styles.errorMessage}>{error?.message || formError.message}</span>
+      }
     </label>
   );
 });
@@ -59,6 +68,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   maxLength: PropTypes.number,
   className: PropTypes.string,
+  value: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.oneOf(['text', 'password']),
   error: PropTypes.shape({
@@ -71,9 +81,10 @@ Input.defaultProps = {
   disabled: false,
   maxLength: 150,
   defaultValue: null,
+  value: '',
   error: null,
   name: null,
   className: null,
 };
 
-export default Input;
+export default React.memo(Input);

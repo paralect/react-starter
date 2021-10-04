@@ -55,7 +55,7 @@ const Profile = () => {
   const { toastSuccess, toastError } = useToast();
   const dispatch = useDispatch();
   const user = useSelector(userSelectors.selectUser);
-  const { avatarFileKey: userAvatarFileKey } = user;
+  const { avatarFileKey: userAvatarFileKey } = user || {};
 
   const [avatarFileKey, setAvatarFileKey] = useState(userAvatarFileKey);
   const [avatarUrl, setAvatarUrl] = useState(null);

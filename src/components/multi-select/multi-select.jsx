@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import ReactSelect, { components } from 'react-select';
+import { useFormContext } from 'react-hook-form';
 
 import CloseIcon from 'static/icons/close-small.svg';
 import ArrowDownIcon from 'static/icons/arrow-down.svg';
@@ -74,13 +75,17 @@ const MultiSelectComponent = ({
   );
 };
 
-const MultiSelect = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <MultiSelectComponent />
-    </InputController>
-  ) : <MultiSelectComponent {...props} />
-);
+const MultiSelect = ({ ...props }) => {
+  const formContext = useFormContext();
+
+  return (
+    formContext ? (
+      <InputController name={props.name} {...props}>
+        <MultiSelectComponent />
+      </InputController>
+    ) : <MultiSelectComponent {...props} />
+  );
+};
 
 MultiSelectComponent.propTypes = {
   label: PropTypes.string,

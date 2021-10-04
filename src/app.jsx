@@ -34,6 +34,7 @@ import 'styles/main.pcss';
 
 const Profile = React.lazy(() => import('./pages/profile'));
 
+// eslint-disable-next-line react/prop-types
 function PrivateScope({ children }) {
   const user = useSelector(userSelectors.selectUser);
 

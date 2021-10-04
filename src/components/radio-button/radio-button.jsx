@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useFormContext } from 'react-hook-form';
 
 import InputController from '../input-controller';
 
@@ -51,13 +52,17 @@ const RadioButtonComponent = ({
   );
 };
 
-const RadioButton = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <RadioButtonComponent />
-    </InputController>
-  ) : <RadioButtonComponent {...props} />
-);
+const RadioButton = ({ ...props }) => {
+  const formContext = useFormContext();
+
+  return (
+    formContext ? (
+      <InputController name={props.name} {...props}>
+        <RadioButtonComponent />
+      </InputController>
+    ) : <RadioButtonComponent {...props} />
+  );
+};
 
 RadioButtonComponent.propTypes = {
   label: PropTypes.string,

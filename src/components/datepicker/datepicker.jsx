@@ -1,6 +1,7 @@
 import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { CalendarContainer } from 'react-datepicker';
+import { useFormContext } from 'react-hook-form';
 
 import { ArrowLeftIcon, ArrowRightIcon } from 'static/icons';
 
@@ -44,10 +45,10 @@ const renderHeader = ({
   </div>
 );
 
-const DatepickerInput = forwardRef(({ onClick, ...props }, ref) => (
+const DatepickerInput = forwardRef(({ ...props }, ref) => (
   <div className={styles.inputRoot}>
     <Input {...props} name="" ref={ref} />
-    <CalendarIcon className={styles.icon} onClick={onClick} />
+    <CalendarIcon className={styles.icon} />
   </div>
 ));
 
@@ -88,13 +89,17 @@ const DatepickerComponent = ({
   );
 };
 
-const Datepicker = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <DatepickerComponent />
-    </InputController>
-  ) : <DatepickerComponent {...props} />
-);
+const Datepicker = ({ ...props }) => {
+  const formContext = useFormContext();
+
+  return (
+    formContext ? (
+      <InputController name={props.name} {...props}>
+        <DatepickerComponent />
+      </InputController>
+    ) : <DatepickerComponent {...props} />
+  );
+};
 
 DatepickerComponent.propTypes = {
   label: PropTypes.string,
@@ -122,10 +127,6 @@ Datepicker.propTypes = {
 
 Datepicker.defaultProps = {
   name: '',
-};
-
-DatepickerInput.propTypes = {
-  onClick: PropTypes.func.isRequired,
 };
 
 export default memo(Datepicker);

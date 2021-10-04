@@ -1,39 +1,51 @@
 import React, { forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useFormContext } from 'react-hook-form';
 
 import styles from './textarea.styles.pcss';
 
 const TextArea = forwardRef(({
   height, error, label, placeholder, maxLength,
   disabled, className, name, onChange, onBlur, defaultValue,
-}, ref) => (
-  <label
-    htmlFor="textarea"
-    className={cn({
-      [styles.container]: true,
-      [styles.error]: error,
-    }, className)}
-  >
-    <span className={styles.label}>{label}</span>
-    <textarea
-      placeholder={placeholder}
-      disabled={disabled}
-      style={{ height }}
-      maxLength={maxLength}
+}, ref) => {
+  const formContext = useFormContext();
+
+  const { register, formState } = formContext || {};
+  const formError = formState?.errors[name];
+
+  return (
+    <label
+      htmlFor="textarea"
       className={cn({
-        [styles.textarea]: true,
-        [styles.error]: error,
-      })}
-      ref={ref}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      onBlur={onBlur}
-      name={name}
-    />
-    {error && <span className={styles.errorMessage}>{error.message}</span>}
-  </label>
-));
+        [styles.container]: true,
+        [styles.error]: error || formError,
+      }, className)}
+    >
+      <span className={styles.label}>{label}</span>
+      <textarea
+        placeholder={placeholder}
+        disabled={disabled}
+        style={{ height }}
+        maxLength={maxLength}
+        className={cn({
+          [styles.textarea]: true,
+          [styles.error]: error || formError,
+        })}
+        ref={ref}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        onBlur={onBlur}
+        name={name}
+        {...(register && register(name))}
+      />
+      {
+        (error || formError)
+        && <span className={styles.errorMessage}>{formError?.message || error.message}</span>
+      }
+    </label>
+  );
+});
 
 TextArea.propTypes = {
   height: PropTypes.string,

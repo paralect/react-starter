@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import ReactSelect, { components } from 'react-select';
+import { useFormContext } from 'react-hook-form';
 
 import ArrowDownIcon from 'static/icons/arrow-down.svg';
 
@@ -95,13 +96,17 @@ const SelectComponent = ({
   );
 };
 
-const Select = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <SelectComponent />
-    </InputController>
-  ) : <SelectComponent {...props} />
-);
+const Select = ({ ...props }) => {
+  const formContext = useFormContext();
+
+  return (
+    formContext ? (
+      <InputController name={props.name} {...props}>
+        <SelectComponent />
+      </InputController>
+    ) : <SelectComponent {...props} />
+  );
+};
 
 SelectComponent.propTypes = {
   label: PropTypes.string,
