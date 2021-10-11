@@ -1,11 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
 
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
+import { signIn } from 'resources/user/user.api';
+import useCurrentUser from 'hooks/useCurrentUser';
 
 import Input from 'components/input';
 import Button from 'components/button';
@@ -14,15 +13,14 @@ import Form from 'components/form';
 import styles from './sign-in.pcss';
 
 function SignIn() {
-  const user = useSelector(userSelectors.selectUser);
-
-  const dispatch = useDispatch();
+  const { currentUser, setCurrentUser } = useCurrentUser();
 
   const handleSubmit = async (submitValues) => {
-    await dispatch(userActions.signIn(submitValues));
+    const user = await signIn(submitValues);
+    setCurrentUser(user);
   };
 
-  if (user) {
+  if (currentUser) {
     const redirectPath = new URLSearchParams(window.location.search).get('to');
 
     return <Redirect to={redirectPath || routes.home.url()} />;
