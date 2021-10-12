@@ -1,3 +1,3 @@
-import FileProgress from './file-progress';
+import FileProgress from './FileProgress';
 
 export default FileProgress;

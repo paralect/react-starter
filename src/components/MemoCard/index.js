@@ -1,3 +1,3 @@
-import MemoCard from './memo-card';
+import MemoCard from './MemoCard';
 
 export default MemoCard;

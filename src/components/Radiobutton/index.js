@@ -1,3 +1,3 @@
-import Radiobutton from './radiobutton';
+import Radiobutton from './Radiobutton';
 
 export default Radiobutton;

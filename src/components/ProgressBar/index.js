@@ -1,3 +1,3 @@
-import ProgressBar from './progress-bar';
+import ProgressBar from './ProgressBar';
 
 export default ProgressBar;

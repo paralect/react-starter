@@ -1,3 +1,3 @@
-import SearchField from './search-field';
+import SearchField from './SearchField';
 
 export default SearchField;

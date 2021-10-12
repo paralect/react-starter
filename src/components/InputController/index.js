@@ -1,3 +1,3 @@
-import InputController from './input-controller';
+import InputController from './InputController';
 
 export default InputController;
