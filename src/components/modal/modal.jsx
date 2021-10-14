@@ -42,14 +42,6 @@ function Modal({
         {children}
       </div>
       <div className={styles.footer}>
-        {!noSubmit && (
-          <Button
-            className={styles.button}
-            onClick={onSubmit}
-          >
-            {submitButtonTitle}
-          </Button>
-        )}
         {!noCancel && (
           <Button
             className={styles.button}
@@ -57,6 +49,14 @@ function Modal({
             type="text"
           >
             {cancelButtonTitle}
+          </Button>
+        )}
+        {!noSubmit && (
+          <Button
+            className={styles.button}
+            onClick={onSubmit}
+          >
+            {submitButtonTitle}
           </Button>
         )}
       </div>
