@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import RadioButton from './index';
 
 export default {
-  title: 'Components/Radio button',
+  title: 'Components/Radio Button',
   component: RadioButton,
   argTypes: {
+    text: 'text',
     disabled: {
       options: [true, false],
       control: { type: 'inline-radio' },
     },
-    text: 'text',
   },
   args: {
     text: 'Text',

@@ -1,42 +1,44 @@
-import React, { memo, useCallback } from 'react';
+import React, { forwardRef, memo, useCallback } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import InputController from 'components/InputController';
 
-import styles from './Radiobutton.pcss';
+import styles from './RadioButton.pcss';
 
-const RadioButtonComponent = ({
+const RadioButtonComponent = forwardRef(({
   text, disabled, value, onChange, className, name,
-}) => {
+}, ref) => {
   const handleChange = useCallback(() => onChange(!value), [onChange, value]);
 
   return (
     <button
       type="button"
       onClick={handleChange}
-      className={cn(styles.container, className, {
+      className={cn({
         [styles.disabled]: disabled,
-      })}
+      }, styles.container, className)}
     >
       <div
-        className={cn(styles.radio, className, {
+        className={cn({
           [styles.checked]: value,
           [styles.disabled]: disabled,
-        })}
+        }, styles.radio)}
       >
         <input
           type="radio"
           name={name}
-          disabled={disabled}
-          onChange={handleChange}
+          ref={ref}
           checked={value}
+          onChange={handleChange}
+          disabled={disabled}
+          className={styles.input}
         />
         <span
-          className={cn(styles.circle, className, {
+          className={cn({
             [styles.checked]: value,
             [styles.disabled]: disabled,
-          })}
+          }, styles.circle)}
         />
       </div>
       <label
@@ -47,12 +49,12 @@ const RadioButtonComponent = ({
       </label>
     </button>
   );
-};
+});
 
 const RadioButton = ({ ...props }) => (
   props.name ? (
     <InputController name={props.name} {...props}>
-      <RadioButtonComponent />
+      <RadioButtonComponent name={props.name} />
     </InputController>
   ) : <RadioButtonComponent {...props} />
 );
@@ -72,7 +74,7 @@ RadioButtonComponent.defaultProps = {
   value: false,
   className: null,
   onChange: null,
-  name: '',
+  name: null,
 };
 
 RadioButton.propTypes = {
@@ -80,7 +82,7 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
-  name: '',
+  name: null,
 };
 
 export default memo(RadioButton);
