@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, useCallback } from 'react';
+import React, { forwardRef, memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -7,14 +7,12 @@ import InputController from 'components/InputController';
 import styles from './RadioButton.pcss';
 
 const RadioButtonComponent = forwardRef(({
-  text, disabled, value, onChange, className, name,
+  text, disabled, onClick, value, className, name,
 }, ref) => {
-  const handleChange = useCallback(() => onChange(!value), [onChange, value]);
-
   return (
     <button
       type="button"
-      onClick={handleChange}
+      onClick={onClick}
       className={cn({
         [styles.disabled]: disabled,
       }, styles.container, className)}
@@ -29,8 +27,6 @@ const RadioButtonComponent = forwardRef(({
           type="radio"
           name={name}
           ref={ref}
-          checked={value}
-          onChange={handleChange}
           disabled={disabled}
           className={styles.input}
         />
@@ -64,7 +60,7 @@ RadioButtonComponent.propTypes = {
   disabled: PropTypes.bool,
   value: PropTypes.bool,
   className: PropTypes.string,
-  onChange: PropTypes.func,
+  onClick: PropTypes.func,
   name: PropTypes.string,
 };
 
@@ -73,7 +69,7 @@ RadioButtonComponent.defaultProps = {
   disabled: false,
   value: false,
   className: null,
-  onChange: null,
+  onClick: null,
   name: null,
 };
 
