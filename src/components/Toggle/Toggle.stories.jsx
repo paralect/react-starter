@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import Checkbox from './index';
+import Toggle from './index';
 
 export default {
-  title: 'Components/Checkbox',
-  component: Checkbox,
+  title: 'Components/Toggle',
+  component: Toggle,
   argTypes: {
     text: { name: 'Text', control: 'text', defaultValue: 'Text' },
     disabled: {
@@ -44,7 +44,7 @@ const Template = (args) => {
   const handleChange = () => setChecked(!isChecked);
 
   return (
-    <Checkbox {...args} value={isChecked} onChange={handleChange} />
+    <Toggle {...args} value={isChecked} onChange={handleChange} />
   );
 };
 

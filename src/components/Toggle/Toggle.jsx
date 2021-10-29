@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import InputController from 'components/InputController';
 
-import styles from './Checkbox.pcss';
+import styles from './Toggle.pcss';
 
-const CheckboxComponent = forwardRef(({
+const ToggleComponent = forwardRef(({
   text, disabled, value, onChange, className, name,
 }, ref) => (
   <button
@@ -16,39 +16,46 @@ const CheckboxComponent = forwardRef(({
       [styles.disabled]: disabled,
     }, styles.container, className)}
   >
-    <input
-      type="checkbox"
-      name={name}
-      ref={ref}
-      checked={value}
-      onChange={onChange}
-      disabled={disabled}
-      className={styles.input}
-    />
-    <span
-      className={cn({
-        [styles.checked]: value,
-        [styles.disabled]: disabled,
-      }, styles.checkbox)}
-    />
     <label
       htmlFor="checkbox"
       className={styles.label}
     >
       {text}
     </label>
+    <div
+      className={cn({
+        [styles.checked]: value,
+        [styles.disabled]: disabled,
+      }, styles.toggle)}
+    >
+      <input
+        type="checkbox"
+        name={name}
+        ref={ref}
+        checked={value}
+        onChange={onChange}
+        disabled={disabled}
+        className={styles.input}
+      />
+      <span
+        className={cn({
+          [styles.checked]: value,
+          [styles.disabled]: disabled,
+        }, styles.circle)}
+      />
+    </div>
   </button>
 ));
 
-const Checkbox = ({ ...props }) => (
+const Toggle = ({ ...props }) => (
   props.name ? (
     <InputController name={props.name} {...props}>
-      <CheckboxComponent name={props.name} />
+      <ToggleComponent name={props.name} />
     </InputController>
-  ) : <CheckboxComponent {...props} />
+  ) : <ToggleComponent {...props} />
 );
 
-CheckboxComponent.propTypes = {
+ToggleComponent.propTypes = {
   text: PropTypes.string,
   disabled: PropTypes.bool,
   value: PropTypes.bool,
@@ -57,21 +64,21 @@ CheckboxComponent.propTypes = {
   name: PropTypes.string,
 };
 
-CheckboxComponent.defaultProps = {
+ToggleComponent.defaultProps = {
   text: '',
   disabled: false,
-  value: null,
+  value: false,
   className: null,
   onChange: null,
   name: null,
 };
 
-Checkbox.propTypes = {
+Toggle.propTypes = {
   name: PropTypes.string,
 };
 
-Checkbox.defaultProps = {
+Toggle.defaultProps = {
   name: null,
 };
 
-export default memo(Checkbox);
+export default memo(Toggle);

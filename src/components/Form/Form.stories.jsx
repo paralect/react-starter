@@ -8,9 +8,9 @@ import Button from 'components/Button';
 import CheckBox from 'components/Checkbox';
 import Datepicker from 'components/DatePicker';
 import MultiSelect from 'components/Multiselect';
-import RadioButton from 'components/Radiobutton';
+import RadioButton from 'components/RadioGroup/RadioButton';
 import Select from 'components/Select';
-import Switch from 'components/Switch';
+import Toggle from 'components/Toggle';
 import TextArea from 'components/TextArea';
 import Form from './index';
 
@@ -145,10 +145,10 @@ export const Template = () => {
             placeholder="Checkbox"
             name="checkbox"
           />
-          <Switch
-            label="Switch"
-            placeholder="Switch"
-            name="switch"
+          <Toggle
+            label="Toggle"
+            placeholder="Toggle"
+            name="Toggle"
           />
         </div>
       </div>
