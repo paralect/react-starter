@@ -1,4 +1,7 @@
-import React, { memo, forwardRef } from 'react';
+import React, {
+  memo, forwardRef, useState, useRef,
+} from 'react';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import Datepicker, { CalendarContainer } from 'react-datepicker';
 
@@ -41,18 +44,33 @@ const renderHeader = ({
   </div>
 );
 
-const DatepickerInput = forwardRef(({ onClick, ...props }, ref) => (
-  <div className={styles.inputRoot}>
-    <Input {...props} name="" ref={ref} />
-    <CalendarIcon className={styles.icon} onClick={onClick} />
-  </div>
-));
+const DatepickerInput = forwardRef(({ ...props }, ref) => {
+  const inputRef = useRef(ref);
+
+  return (
+    <div className={styles.inputRoot}>
+      <Input {...props} ref={inputRef} />
+      <CalendarIcon
+        className={cn({
+          [styles.active]: props.isOpen,
+          [styles.disabled]: props.disabled,
+        }, styles.icon)}
+        onMouseDown={() => {
+          if (!props.isOpen) setTimeout(() => inputRef.current.focus(), 0);
+          // replace with a more pretty solution
+        }}
+      />
+    </div>
+  );
+});
 
 const DatepickerComponent = ({
-  label, disabled, errors, placeholder, onChange, value, name,
+  label, disabled, error, placeholder, onChange, value, name,
 }) => {
+  const [isOpen, setOpen] = useState(false);
+
   const getDayStyle = (date) => (
-    date.toString() === value.toString()
+    date?.toString() === value?.toString()
       ? styles.selectedDay
       : styles.day
   );
@@ -62,23 +80,27 @@ const DatepickerComponent = ({
     <Datepicker
       name={name}
       renderCustomHeader={renderHeader}
-      value={value}
       selected={value}
       disabled={disabled}
       placeholderText={placeholder}
-      onChange={onChange}
+      onChange={(date) => onChange(date)}
+      onCalendarOpen={() => setOpen(true)}
+      onCalendarClose={() => setOpen(false)}
+      open={isOpen}
+      setOpen={setOpen}
       customInput={(
         <DatepickerInput
-          name={name}
           label={label}
-          errors={errors}
-          placeholder={placeholder}
+          value={value}
+          error={error}
+          disabled={disabled}
+          isOpen={isOpen}
+          setOpen={setOpen}
         />
       )}
-      calendarContainer={renderContainer}
-      popperClassName={styles.popper}
-      wrapperClassName={styles.wrapper}
       showPopperArrow={false}
+      popperClassName={styles.popper}
+      calendarContainer={renderContainer}
       weekDayClassName={getWeekStyle}
       dayClassName={getDayStyle}
     />
@@ -96,7 +118,7 @@ const DatePicker = ({ ...props }) => (
 DatepickerComponent.propTypes = {
   label: PropTypes.string,
   disabled: PropTypes.bool,
-  errors: PropTypes.arrayOf(PropTypes.string),
+  error: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
@@ -106,7 +128,7 @@ DatepickerComponent.propTypes = {
 DatepickerComponent.defaultProps = {
   label: null,
   disabled: false,
-  errors: [],
+  error: null,
   value: null,
   placeholder: '',
   name: '',
@@ -122,7 +144,8 @@ DatePicker.defaultProps = {
 };
 
 DatepickerInput.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default memo(DatePicker);
