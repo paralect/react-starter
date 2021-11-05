@@ -7,7 +7,7 @@ import Datepicker, { CalendarContainer } from 'react-datepicker';
 
 import { ArrowLeftIcon, ArrowRightIcon, CalendarIcon } from 'static/icons';
 
-import Input from 'components/Input';
+import Input from 'components/Input/Input';
 import IconButton from 'components/IconButton';
 import InputController from 'components/InputController';
 
@@ -15,8 +15,6 @@ import { MONTHS } from 'helpers/constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './DatePicker.pcss';
-
-const iconStyle = { transform: 'rotate(180deg)' };
 
 const renderContainer = ({ children }) => (
   <CalendarContainer className={styles.container}>
@@ -33,7 +31,6 @@ const renderHeader = ({
       Icon={ArrowLeftIcon}
       disabled={prevMonthButtonDisabled}
       onClick={decreaseMonth}
-      style={iconStyle}
     />
     {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
     <IconButton
@@ -49,7 +46,7 @@ const DatepickerInput = forwardRef(({ ...props }, ref) => {
 
   return (
     <div className={styles.inputRoot}>
-      <Input {...props} ref={inputRef} />
+      <Input {...props} defaultOnChange={props.onChange} ref={inputRef} />
       <CalendarIcon
         className={cn({
           [styles.active]: props.isOpen,
@@ -95,7 +92,6 @@ const DatepickerComponent = ({
           error={error}
           disabled={disabled}
           isOpen={isOpen}
-          setOpen={setOpen}
         />
       )}
       showPopperArrow={false}
@@ -146,6 +142,11 @@ DatePicker.defaultProps = {
 DatepickerInput.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
+};
+
+DatepickerInput.defaultProps = {
+  onChange: null,
 };
 
 export default memo(DatePicker);

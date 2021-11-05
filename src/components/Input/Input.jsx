@@ -7,8 +7,8 @@ import { ShowPasswordIcon, HidePasswordIcon } from 'static/icons';
 import styles from './Input.pcss';
 
 const Input = forwardRef(({
-  type, maxLength, disabled, placeholder, error, label,
-  className, name, defaultValue, onChange, value, onFocus,
+  type, maxLength, disabled, placeholder, error, label, className, name,
+  onChange, value, onFocus, Icon, customIcon, iconPosition, defaultOnChange,
 }, ref) => {
   const [currentType, setCurrentType] = useState(type);
 
@@ -17,73 +17,92 @@ const Input = forwardRef(({
     else setCurrentType('password');
   };
 
-  const icon = currentType === 'password'
-    ? <ShowPasswordIcon className={styles.icon} onClick={onEyeClick} />
-    : <HidePasswordIcon className={styles.icon} onClick={onEyeClick} />;
+  const passwordIcon = currentType === 'password'
+    ? <ShowPasswordIcon className={styles.passwordIcon} onClick={onEyeClick} />
+    : <HidePasswordIcon className={styles.passwordIcon} onClick={onEyeClick} />;
+
+  const getIcon = () => {
+    if (type === 'password') return passwordIcon;
+    if (customIcon) return customIcon;
+    if (Icon) return <Icon className={styles.icon} />;
+    return null;
+  };
 
   return (
-    <label
-      htmlFor="input"
-      className={cn([styles.container], className)}
-    >
-      <span className={cn({
-        [styles.label]: true,
-        [styles.error]: error,
-      }, className)}
+    <div className={cn([styles.container], className)}>
+      <label
+        htmlFor="input"
+        className={cn({
+          [styles.error]: error,
+        }, styles.label, className)}
       >
         {label}
-      </span>
-      <input
-        type={currentType}
-        placeholder={placeholder}
-        onChange={onChange}
-        onFocus={onFocus}
-        value={value}
-        disabled={disabled}
-        maxLength={maxLength}
-        className={cn({
-          [styles.input]: true,
-          [styles.password]: type === 'password',
-          [styles.error]: error,
-        })}
-        name={name}
-        defaultValue={defaultValue}
-        ref={ref}
-      />
-      {type === 'password' && icon}
+      </label>
+      <div className={styles.inputWrapper}>
+        <input
+          name={name}
+          type={currentType}
+          placeholder={placeholder}
+          value={value}
+          onChange={defaultOnChange || ((e) => onChange(e.target.value))}
+          onFocus={onFocus}
+          disabled={disabled}
+          maxLength={maxLength}
+          ref={ref}
+          className={cn({
+            [styles.error]: error,
+            [styles.iconOnRight]: type === 'password' || Icon,
+            [styles.iconOnLeft]: Icon && iconPosition === 'left',
+          }, styles.input)}
+        />
+        <div className={cn({
+          [styles.iconOnLeft]: iconPosition === 'left',
+        }, styles.iconWrapper)}
+        >
+          {getIcon()}
+        </div>
+      </div>
       {error && <span className={styles.errorMessage}>{error.message}</span>}
-    </label>
+    </div>
   );
 });
 
 Input.propTypes = {
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
-  disabled: PropTypes.bool,
-  maxLength: PropTypes.number,
-  className: PropTypes.string,
+  label: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.oneOf(['text', 'password']),
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
+  placeholder: PropTypes.string,
   value: PropTypes.string,
+  onChange: PropTypes.func,
+  defaultOnChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  disabled: PropTypes.bool,
+  maxLength: PropTypes.number,
+  className: PropTypes.string,
+  Icon: PropTypes.elementType,
+  customIcon: PropTypes.element,
+  iconPosition: PropTypes.string,
 };
 
 Input.defaultProps = {
+  label: null,
+  name: null,
   type: 'text',
+  error: null,
+  placeholder: null,
+  value: null,
+  onChange: null,
+  defaultOnChange: null,
+  onFocus: null,
   disabled: false,
   maxLength: 150,
-  defaultValue: null,
-  error: null,
-  name: null,
   className: null,
-  onChange: null,
-  onFocus: null,
-  value: null,
+  Icon: null,
+  customIcon: null,
+  iconPosition: 'right',
 };
 
 export default Input;

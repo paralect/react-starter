@@ -4,28 +4,65 @@
   position: relative;
   font-size: 14px;
   line-height: 17px;
-}
-
-.label {
-  font-weight: 500;
   transition: all 0.2s ease-in-out;
 
   &:focus-within {
     color: var(--blue);
-  }
 
-  &.error {
-    color: var(--red);
+    .label {
+      &.error {
+        color: var(--red);
+      }
+    }
 
-    &:focus-within {
-      color: var(--red);
+    .icon {
+      color: var(--blue);
     }
   }
 }
 
+.label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  transition: inherit;
+
+  &.error {
+    color: var(--red);
+  }
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.iconWrapper {
+  height: 100%;
+  max-width: fit-content;
+  position: absolute;
+  top: 0;
+  right: 8px;
+  display: flex;
+  align-items: center;
+
+  &.iconOnLeft {
+    left: 8px;
+  }
+}
+
+.icon {
+  color: var(--gray-dark);
+  transition: all 0.2s ease-in-out;
+}
+
+.passwordIcon {
+  color: var(--gray-dark);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
 .input {
   height: 40px;
-  margin-top: 6px;
+  width: 100%;
   padding: 12px 14px;
   border: 1px solid var(--gray);
   border-radius: 6px;
@@ -60,8 +97,12 @@
     }
   }
 
-  &.password {
+  &.iconOnRight {
     padding-right: 40px;
+  }
+
+  &.iconOnLeft {
+    padding-left: 40px;
   }
 }
 
@@ -71,13 +112,4 @@
   font-size: 12px;
   line-height: 15px;
   word-wrap: break-word;
-}
-
-.icon {
-  display: block;
-  position: absolute;
-  top: 32px;
-  right: 8px;
-  color: var(--gray-dark);
-  cursor: pointer;
 }
