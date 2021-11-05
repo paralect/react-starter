@@ -7,8 +7,8 @@ import { ShowPasswordIcon, HidePasswordIcon } from 'static/icons';
 import styles from './Input.pcss';
 
 const Input = forwardRef(({
-  type, maxLength, disabled, placeholder, error, label, className, name,
-  onChange, value, onFocus, Icon, customIcon, iconPosition, defaultOnChange,
+  value, onChange, defaultOnChange, type, name, label, placeholder, disabled,
+  error, maxLength, onFocus, Icon, customIcon, iconPosition, className,
 }, ref) => {
   const [currentType, setCurrentType] = useState(type);
 
@@ -70,41 +70,41 @@ const Input = forwardRef(({
 });
 
 Input.propTypes = {
-  label: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.oneOf(['text', 'password']),
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
-  placeholder: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   defaultOnChange: PropTypes.func,
-  onFocus: PropTypes.func,
+  type: PropTypes.oneOf(['text', 'password']),
+  name: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
   maxLength: PropTypes.number,
-  className: PropTypes.string,
+  onFocus: PropTypes.func,
   Icon: PropTypes.elementType,
   customIcon: PropTypes.element,
   iconPosition: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Input.defaultProps = {
-  label: null,
-  name: null,
-  type: 'text',
-  error: null,
-  placeholder: null,
   value: null,
   onChange: null,
   defaultOnChange: null,
-  onFocus: null,
+  type: 'text',
+  name: null,
+  label: null,
+  placeholder: null,
   disabled: false,
+  error: null,
   maxLength: 150,
-  className: null,
+  onFocus: null,
   Icon: null,
   customIcon: null,
   iconPosition: 'right',
+  className: null,
 };
 
 export default Input;
