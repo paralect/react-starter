@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from 'components/Input';
 import DatePicker from 'components/DatePicker';
 import Select from 'components/Select';
+import TextArea from 'components/TextArea';
 import Button from 'components/Button';
 
 import styles from './sandbox.stories.pcss';
@@ -29,7 +30,7 @@ const schema = yup.object().shape({});
 
 export default {
   title: 'Sandbox/Example',
-  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
+  decorators: [(Story) => <div style={{ maxWidth: '350px' }}><Story /></div>],
 };
 
 export const Template = () => {
@@ -45,6 +46,7 @@ export const Template = () => {
     reset({
       input: '',
       date: '',
+      textarea: '',
     });
   };
 
@@ -79,14 +81,19 @@ export const Template = () => {
         label="Multiselect"
         name="multiselect"
         placeholder="Multiselect"
-        isMulti
         options={options}
         control={control}
         error={errors.multiselect}
+        isMulti
       />
-      <Button htmlType="submit">
-        Save
-      </Button>
+      <TextArea
+        label="TextArea"
+        name="textarea"
+        placeholder="TextArea"
+        control={control}
+        error={errors.textarea}
+      />
+      <Button htmlType="submit">Save</Button>
     </form>
   );
 };

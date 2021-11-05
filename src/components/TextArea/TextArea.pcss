@@ -1,29 +1,29 @@
 .container {
   display: flex;
   flex-direction: column;
+  transition: all 0.2s ease-in-out;
 
   &:focus-within {
     color: var(--blue);
-  }
 
-  &.error {
-    color: var(--red);
-
-    &:focus-within {
-      color: var(--red);
+    .label {
+      &.error {
+        color: var(--red);
+      }
     }
   }
 }
 
 .label {
-  font-size: 14px;
+  margin-bottom: 6px;
   font-weight: 500;
-  line-height: 17px;
-  transition: all 0.2s ease-in-out;
+
+  &.error {
+    color: var(--red);
+  }
 }
 
 .textarea {
-  margin-top: 6px;
   padding: 8px 14px;
   border-radius: 6px;
   border: 1px solid var(--gray);

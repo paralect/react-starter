@@ -15,25 +15,23 @@ export default {
     error: {
       message: { name: 'Error', control: 'text', defaultValue: null },
     },
+    control: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
     label: 'Label',
     disabled: false,
   },
+  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
 const Template = (args) => {
   const [value, setValue] = useState('');
 
-  return (
-    <div style={{ width: '400px' }}>
-      <DatePicker
-        {...args}
-        value={value}
-        onChange={setValue}
-      />
-    </div>
-  );
+  return <DatePicker value={value} onChange={setValue} {...args} />;
 };
 
 export const Active = Template.bind({});

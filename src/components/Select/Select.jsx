@@ -50,7 +50,6 @@ const Select = forwardRef(({
         placeholder={placeholder}
         isDisabled={disabled}
         isMulti={isMulti}
-        isSearchable={!isMulti}
         classNamePrefix="select"
         hideSelectedOptions={false}
         isFocused={false}

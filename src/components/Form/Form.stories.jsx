@@ -7,7 +7,6 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import CheckBox from 'components/Checkbox';
 import Datepicker from 'components/DatePicker';
-import MultiSelect from 'components/Multiselect';
 import RadioButton from 'components/RadioGroup/RadioButton';
 import Select from 'components/Select';
 import Toggle from 'components/Toggle';
@@ -122,12 +121,6 @@ export const Template = () => {
           label="Datepicker"
           placeholder="Datepicker"
           name="datepicker"
-        />
-        <MultiSelect
-          label="MultiSelect"
-          placeholder="MultiSelect"
-          name="multiSelect"
-          options={options}
         />
         <TextArea
           label="TextArea"
