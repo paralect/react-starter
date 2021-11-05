@@ -30,14 +30,16 @@ const Input = forwardRef(({
 
   return (
     <div className={cn([styles.container], className)}>
+      {label && (
       <label
-        htmlFor="input"
+        htmlFor={name}
         className={cn({
           [styles.error]: error,
         }, styles.label, className)}
       >
         {label}
       </label>
+      )}
       <div className={styles.inputWrapper}>
         <input
           name={name}

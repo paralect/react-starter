@@ -5,14 +5,27 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import Input from 'components/Input';
 import DatePicker from 'components/DatePicker';
+import Select from 'components/Select';
 import Button from 'components/Button';
 
 import styles from './sandbox.stories.pcss';
 
-const schema = yup.object().shape({
-  fullName: yup.string().required('This field is required'),
-  date: yup.date().required('This field is required'),
-});
+const options = [
+  {
+    label: 'Option 1',
+    value: '1',
+  },
+  {
+    label: 'Option 2',
+    value: '2',
+  },
+  {
+    label: 'Option 3',
+    value: '3',
+  },
+];
+
+const schema = yup.object().shape({});
 
 export default {
   title: 'Sandbox/Example',
@@ -30,7 +43,7 @@ export const Template = () => {
     // eslint-disable-next-line no-console
     console.log(data);
     reset({
-      fullName: '',
+      input: '',
       date: '',
     });
   };
@@ -41,11 +54,11 @@ export const Template = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        label="Full Name"
-        name="fullName"
-        placeholder="Full Name"
+        label="Input"
+        name="input"
+        placeholder="Input"
         control={control}
-        error={errors.fullName}
+        error={errors.input}
       />
       <DatePicker
         label="Date"
@@ -53,6 +66,23 @@ export const Template = () => {
         placeholder="mm/dd/yyyy"
         control={control}
         error={errors.date}
+      />
+      <Select
+        label="Select"
+        name="select"
+        placeholder="Select"
+        options={options}
+        control={control}
+        error={errors.select}
+      />
+      <Select
+        label="Multiselect"
+        name="multiselect"
+        placeholder="Multiselect"
+        isMulti
+        options={options}
+        control={control}
+        error={errors.multiselect}
       />
       <Button htmlType="submit">
         Save

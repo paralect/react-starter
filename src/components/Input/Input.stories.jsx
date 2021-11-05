@@ -12,6 +12,7 @@ export default {
     disabled: {
       options: [true, false],
       control: { type: 'inline-radio' },
+      defaultValue: false,
     },
     maxLength: { name: 'Max Length', control: 'number' },
     iconPosition: {
@@ -28,10 +29,6 @@ export default {
     type: { table: { disable: true } },
     control: { table: { disable: true } },
     Icon: { table: { disable: true } },
-  },
-  args: {
-    label: 'Label',
-    disabled: false,
   },
   decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
