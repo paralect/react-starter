@@ -44,7 +44,7 @@ const Template = (args) => {
   const handleChange = () => setChecked(!isChecked);
 
   return (
-    <Toggle {...args} value={isChecked} onChange={handleChange} />
+    <Toggle {...args} checked={isChecked} onChange={handleChange} />
   );
 };
 

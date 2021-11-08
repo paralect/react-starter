@@ -7,9 +7,11 @@ import Input from 'components/Input';
 import DatePicker from 'components/DatePicker';
 import Select from 'components/Select';
 import TextArea from 'components/TextArea';
+import Checkbox from 'components/Checkbox';
 import Button from 'components/Button';
 
 import styles from './sandbox.stories.pcss';
+import Toggle from '../Toggle';
 
 const options = [
   {
@@ -47,6 +49,7 @@ export const Template = () => {
       input: '',
       date: '',
       textarea: '',
+      checkbox: false,
     });
   };
 
@@ -87,11 +90,23 @@ export const Template = () => {
         isMulti
       />
       <TextArea
-        label="TextArea"
+        label="Text area"
         name="textarea"
-        placeholder="TextArea"
+        placeholder="Text area"
         control={control}
         error={errors.textarea}
+      />
+      <Checkbox
+        label="Checkbox"
+        name="checkbox"
+        text="Checkbox"
+        control={control}
+      />
+      <Toggle
+        label="Toggle"
+        name="toggle"
+        text="Toggle"
+        control={control}
       />
       <Button htmlType="submit">Save</Button>
     </form>
