@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 
 import styles from './Spinner.pcss';
 
-const Spinner = ({ theme }) => {
+const sizes = {
+  l: 'l',
+  m: 'm',
+  s: 's',
+};
+
+const Spinner = ({ theme, size }) => {
   return (
-    <div className={styles.container}>
+    <div className={cn(styles[size], styles.container)}>
       <svg className={cn({
         [styles.dark]: theme === 'dark',
       }, styles.spinner, styles.spinner_loading)}
@@ -25,10 +31,12 @@ const Spinner = ({ theme }) => {
 
 Spinner.propTypes = {
   theme: PropTypes.oneOf(['dark', 'light']),
+  size: PropTypes.oneOf(Object.values(sizes)),
 };
 
 Spinner.defaultProps = {
   theme: 'light',
+  size: sizes.m,
 };
 
 export default memo(Spinner);

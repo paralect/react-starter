@@ -2,12 +2,17 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
+import { ToRightIcon } from 'static/icons';
+
+import Spinner from 'components/Spinner';
+
 import styles from './Button.pcss';
 
 const types = {
   primary: 'primary',
   secondary: 'secondary',
   text: 'text',
+  link: 'link',
 };
 
 const sizes = {
@@ -16,7 +21,7 @@ const sizes = {
 };
 
 function Button({
-  children, type, size, isLoading, disabled, className, htmlType, ...props
+  children, type, htmlType, size, Icon, iconPosition, withIcon, loading, disabled, className,
 }) {
   return (
     <button
@@ -24,7 +29,7 @@ function Button({
       type={htmlType}
       className={cn(
         {
-          [styles.buttonLoading]: isLoading,
+          [styles.loading]: loading,
           [styles.disabled]: disabled,
         },
         styles.button,
@@ -32,19 +37,19 @@ function Button({
         styles[size],
         className,
       )}
-      {...props}
     >
-      {isLoading
-        ? (
-          <span
-            className={cn({
-              [styles.loader]: true,
-              [styles.loaderLoading]: isLoading,
-            },
-            styles[type])}
-          />
-        )
-        : children}
+      {loading
+        ? <Spinner theme={type === types.primary && 'dark'} size="s" />
+        : (
+          <span className={cn({
+            [styles.right]: iconPosition === 'right',
+          }, styles.childrenWrapper)}
+          >
+            {Icon && <Icon className={styles.icon} />}
+            {children}
+            {(type === types.link && withIcon) && <ToRightIcon /> }
+          </span>
+        )}
     </button>
   );
 }
@@ -52,20 +57,26 @@ function Button({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   type: PropTypes.oneOf(Object.values(types)),
-  size: PropTypes.oneOf(Object.values(sizes)),
-  disabled: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  className: PropTypes.string,
   htmlType: PropTypes.string,
+  size: PropTypes.oneOf(Object.values(sizes)),
+  Icon: PropTypes.elementType,
+  iconPosition: PropTypes.string,
+  withIcon: PropTypes.bool,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
   type: types.primary,
-  size: sizes.m,
-  isLoading: false,
-  className: null,
-  disabled: false,
   htmlType: 'button',
+  size: sizes.m,
+  Icon: null,
+  iconPosition: 'left',
+  withIcon: false,
+  loading: false,
+  disabled: false,
+  className: null,
 };
 
 export default React.memo(Button);

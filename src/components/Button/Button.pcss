@@ -1,163 +1,116 @@
+:root {
+  --outline-button-color: #b3d1f9;
+}
+
 .button {
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0;
-  border-radius: 6px;
-  box-sizing: border-box;
   font-weight: 500;
-  line-height: 19.36px;
   color: var(--white);
   cursor: pointer;
-  transition: all 0.2s;
-  outline-color: var(--blue);
+  transition: all 0.2s ease-in-out;
 
   &.primary {
-    background: var(--primary);
     border: 1px solid var(--primary);
+    background-color: var(--primary);
 
     &:hover {
-      border: 1px solid var(--gray-dark);
-      background: var(--gray-dark);
-    }
-
-    &.disabled {
-      pointer-events: none;
-      background: var(--gray);
+      opacity: 0.7;
     }
   }
 
   &.secondary {
     border: 1px solid var(--gray);
-    background: var(--white);
+    background-color: var(--white);
     color: var(--black);
 
     &:hover {
-      background: var(--gray-light);
+      background-color: var(--gray-light);
     }
 
-    &.disabled {
-      pointer-events: none;
-      background: var(--white);
-      color: var(--gray);
+    &:focus-visible {
+      border: 1px solid var(--gray-dark);
     }
   }
 
   &.text {
-    border-radius: 6px;
-    background: transparent;
+    background-color: transparent;
     border: 1px solid transparent;
     color: var(--black);
 
     &:hover {
-      background: var(--gray-light);
-    }
-
-    &.disabled {
-      pointer-events: none;
-      background: transparent;
-      color: var(--gray);
+      background-color: var(--gray-light);
     }
   }
 
-  &:focus {
-    border: 1px solid var(--blue);
+  &.link {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--blue);
+
+    &:hover {
+      color: var(--hover-blue);
+    }
+  }
+
+  &.loading {
+    padding: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--outline-button-color);
   }
 }
 
-.buttonLoading {
-  position: relative;
-  color: transparent;
-  pointer-events: none;
-  user-select: none;
+.childrenWrapper {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    margin-right: 4px;
+  }
+
+  &.right {
+    flex-direction: row-reverse;
+
+    .icon {
+      margin-right: 0;
+      margin-left: 4px;
+    }
+  }
+}
+
+.l {
+  height: 48px;
+  min-width: 95px;
+  padding: 14px 22px;
+  font-size: 16px;
+  line-height: 19px;
 }
 
 .m {
   height: 40px;
-  min-width: 81px;
-  padding: 8px 22px;
-  font-size: 16px;
+  min-width: 70px;
+  padding: 10px 18px;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .s {
   height: 32px;
-  min-width: 77px;
-  padding: 8px 18px;
+  min-width: 70px;
+  padding: 6px 16px;
   font-size: 14px;
-}
-
-.icon {
-  margin-right: 4px;
-  display: block;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.loader {
-  width: 20px;
-  height: 20px;
-  margin: auto;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  border-top-color: var(--white);
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-  animation: spin 1.5s linear infinite;
-
-  &::before {
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    content: '';
-    display: block;
-    top: 0.5px;
-    left: 0.8px;
-    position: absolute;
-    background: var(--white);
-  }
-
-  &::after {
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    content: '';
-    display: block;
-    top: 0.5px;
-    right: 0.8px;
-    position: absolute;
-    background: var(--white);
-  }
-
-  &.secondary {
-    border: 2px solid rgba(0, 0, 0, 0.4);
-    border-top-color: var(--black);
-
-    &::before {
-      background: var(--black);
-    }
-
-    &::after {
-      background: var(--black);
-    }
-  }
-
-  &.text {
-    border: 2px solid rgba(0, 0, 0, 0.4);
-    border-top-color: var(--black);
-
-    &::before {
-      background: var(--black);
-    }
-
-    &::after {
-      background: var(--black);
-    }
-  }
+  line-height: 17px;
 }
