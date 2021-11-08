@@ -16,7 +16,7 @@ import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
 
 import Toast from 'components/Toaster';
-import Loading from 'components/Loading';
+import Loading from 'components/Spinner';
 import { ErrorBoundary } from 'components/error-boundary';
 
 import { routes, scope, layout } from 'routes';
