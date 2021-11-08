@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './Checkbox.pcss';
 
 const Checkbox = forwardRef(({
-  text, disabled, checked, onChange, className, name,
+  checked, onChange, name, text, disabled, className,
 }, ref) => (
   <button
     type="button"
@@ -39,21 +39,21 @@ const Checkbox = forwardRef(({
 ));
 
 Checkbox.propTypes = {
-  text: PropTypes.string,
-  disabled: PropTypes.bool,
   checked: PropTypes.bool,
-  className: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  text: PropTypes.string,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Checkbox.defaultProps = {
-  text: '',
-  disabled: false,
   checked: null,
-  className: null,
   onChange: null,
   name: null,
+  text: '',
+  disabled: false,
+  className: null,
 };
 
 export default memo(Checkbox);

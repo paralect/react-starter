@@ -12,6 +12,7 @@ import Button from 'components/Button';
 
 import styles from './sandbox.stories.pcss';
 import Toggle from '../Toggle';
+import RadioGroup from '../RadioGroup';
 
 const options = [
   {
@@ -97,18 +98,22 @@ export const Template = () => {
         error={errors.textarea}
       />
       <Checkbox
-        label="Checkbox"
         name="checkbox"
         text="Checkbox"
         control={control}
       />
       <Toggle
-        label="Toggle"
         name="toggle"
         text="Toggle"
         control={control}
       />
-      <Button htmlType="submit">Save</Button>
+      <RadioGroup
+        label="Radio group"
+        name="radioGroup"
+        options={options}
+        control={control}
+      />
+      <Button htmlType="submit">Log</Button>
     </form>
   );
 };

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './Toggle.pcss';
 
 const Toggle = forwardRef(({
-  text, disabled, checked, onChange, className, name,
+  checked, onChange, name, text, disabled, className,
 }, ref) => (
   <button
     type="button"
@@ -46,21 +46,21 @@ const Toggle = forwardRef(({
 ));
 
 Toggle.propTypes = {
-  text: PropTypes.string,
-  disabled: PropTypes.bool,
   checked: PropTypes.bool,
-  className: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  text: PropTypes.string,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Toggle.defaultProps = {
-  text: '',
-  disabled: false,
   checked: false,
-  className: null,
   onChange: null,
   name: null,
+  text: '',
+  disabled: false,
+  className: null,
 };
 
 export default memo(Toggle);

@@ -34,11 +34,11 @@ const options = [
   {
     label: 'Option 4',
     value: 'option-4',
-    isDisabled: true,
   },
   {
     label: 'Option 5',
     value: 'option-5',
+    isDisabled: true,
   },
 ];
 
