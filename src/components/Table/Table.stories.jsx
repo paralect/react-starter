@@ -5,7 +5,7 @@ import * as sort from 'lodash/sortBy';
 
 import Table from 'components/Table';
 import StatusTag from 'components/Table/StatusTag/StatusTag';
-import ButtonLink from 'components/ButtonLink';
+import ButtonLink from 'components/Link';
 
 const columns = [
   {

@@ -21,6 +21,7 @@ import TrashIcon from './trash.svg';
 import AttachmentIcon from './attachment.svg';
 import CloseSmallIcon from './close-small.svg';
 import ToRightIcon from './to-right.svg';
+import ToLeftIcon from './to-left.svg';
 import CheckMarkIcon from './checkMark.svg';
 import DocumentEmptyIcon from './document-empty.svg';
 import CheckSmallIcon from './check-small.svg';
@@ -52,6 +53,7 @@ export {
   AttachmentIcon,
   CloseSmallIcon,
   ToRightIcon,
+  ToLeftIcon,
   CheckMarkIcon,
   DocumentEmptyIcon,
   CheckSmallIcon,

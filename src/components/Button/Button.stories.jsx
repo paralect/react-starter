@@ -22,12 +22,29 @@ export default {
     type: {
       name: 'Type',
       options: ['primary', 'secondary', 'text', 'link'],
-      control: { type: 'radio' },
+      control: {
+        type: 'inline-radio',
+        labels: {
+          primary: 'Primary',
+          secondary: 'Secondary',
+          text: 'Text',
+          link: 'Link',
+        },
+      },
+      defaultValue: 'm',
     },
     size: {
       name: 'Size',
-      options: ['l', 'm', 's'],
-      control: { type: 'radio' },
+      options: ['s', 'm', 'l'],
+      control: {
+        type: 'inline-radio',
+        labels: {
+          s: 'Small',
+          m: 'Medium',
+          l: 'Large',
+        },
+      },
+      defaultValue: 'm',
     },
     className: {
       table: {

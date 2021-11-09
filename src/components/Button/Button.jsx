@@ -16,6 +16,7 @@ const types = {
 };
 
 const sizes = {
+  l: 'l',
   m: 'm',
   s: 's',
 };
@@ -43,7 +44,7 @@ function Button({
         : (
           <span className={cn({
             [styles.right]: iconPosition === 'right',
-          }, styles.childrenWrapper)}
+          }, styles.value)}
           >
             {Icon && <Icon className={styles.icon} />}
             {children}
