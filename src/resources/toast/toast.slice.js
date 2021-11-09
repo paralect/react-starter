@@ -1,30 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 import uniqueId from 'lodash/uniqueId';
 
-const initialState = {
-  messages: [],
-};
+const initialState = [];
 
 const toastSlice = createSlice({
   name: 'toast',
   initialState,
   reducers: {
-    add: (state, action) => {
-      state.messages.push(action.payload.message);
+    addToast: (state, action) => {
+      state.push(action.payload.message);
     },
-    remove: (state, action) => ({
-      messages: state.messages.filter((message) => message.id !== action.payload.id),
-    }),
+    removeToast: (state, action) => state.filter((message) => message.id !== action.payload.id),
   },
 });
 
-const { add, remove } = toastSlice.actions;
+const { addToast, removeToast } = toastSlice.actions;
 
 const createToast = (data) => (dispatch) => {
   const id = uniqueId('toast_');
 
-  dispatch(add({ message: { id, ...data } }));
-  setTimeout(() => dispatch(remove({ id })), 3000);
+  dispatch(addToast({ message: { id, ...data } }));
+  setTimeout(() => dispatch(removeToast({ id })), 3000);
 };
 
 const success = (text) => (dispatch) => {
@@ -43,12 +39,24 @@ const warning = (text) => (dispatch) => {
   dispatch(createToast({ type: 'warning', text }));
 };
 
-export const toastActions = {
-  remove,
+export const selectMessages = ({ toast }) => toast;
+
+const toastSelectors = {
+  selectMessages,
+};
+
+const toastActions = {
   success,
   info,
   error,
   warning,
+  removeToast,
 };
 
-export default toastSlice.reducer;
+const toastReducer = toastSlice.reducer;
+
+export {
+  toastSelectors,
+  toastActions,
+  toastReducer,
+};
