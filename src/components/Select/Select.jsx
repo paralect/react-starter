@@ -57,7 +57,6 @@ const Select = forwardRef(({
         styles={getCustomStyle(error)}
         components={{ MultiValueRemove, DropdownIndicator }}
         className={cn({
-          [styles.isMulti]: isMulti,
           [styles.error]: error,
         }, styles.select)}
         ref={ref}

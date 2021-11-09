@@ -73,35 +73,36 @@ const Datepicker = forwardRef(({
   const getWeekStyle = () => styles.weeks;
 
   return (
-    <DatepickerComponent
-      selected={value}
-      onChange={(date) => onChange(date)}
-      name={name}
-      placeholder={placeholder}
-      disabled={disabled}
-      placeholderText={placeholder}
-      className={className}
-      popperClassName={styles.popper}
-      onCalendarOpen={() => setOpen(true)}
-      onCalendarClose={() => setOpen(false)}
-      showPopperArrow={false}
-      open={isOpen}
-      setOpen={setOpen}
-      renderCustomHeader={renderHeader}
-      calendarContainer={renderContainer}
-      weekDayClassName={getWeekStyle}
-      dayClassName={getDayStyle}
-      customInput={(
-        <DatepickerInput
-          label={label}
-          value={value}
-          error={error}
-          disabled={disabled}
-          isOpen={isOpen}
-        />
-      )}
-      ref={ref}
-    />
+    <div className={cn(className)}>
+      <DatepickerComponent
+        selected={value}
+        onChange={(date) => onChange(date)}
+        name={name}
+        placeholder={placeholder}
+        disabled={disabled}
+        placeholderText={placeholder}
+        popperClassName={styles.popper}
+        onCalendarOpen={() => setOpen(true)}
+        onCalendarClose={() => setOpen(false)}
+        showPopperArrow={false}
+        open={isOpen}
+        setOpen={setOpen}
+        renderCustomHeader={renderHeader}
+        calendarContainer={renderContainer}
+        weekDayClassName={getWeekStyle}
+        dayClassName={getDayStyle}
+        customInput={(
+          <DatepickerInput
+            label={label}
+            value={value}
+            error={error}
+            disabled={disabled}
+            isOpen={isOpen}
+          />
+        )}
+        ref={ref}
+      />
+    </div>
   );
 });
 

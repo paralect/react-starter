@@ -61,6 +61,16 @@ export const getCustomStyle = (isError) => ({
     alignItems: 'center',
     justifyContent: 'center',
   }),
+  valueContainer: (provided, state) => ({
+    ...provided,
+    padding: state.isMulti ? '8px 12px 2px 12px' : '0 12px',
+    maxHeight: state.isMulti ? '72px' : 'none',
+    overflowY: 'auto',
+  }),
+  input: (provided, state) => ({
+    ...provided,
+    marginTop: state.isMulti ? '-4px' : '2px',
+  }),
   multiValue: (provided, state) => ({
     ...provided,
     background: state.isDisabled
