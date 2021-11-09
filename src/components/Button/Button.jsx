@@ -22,12 +22,14 @@ const sizes = {
 };
 
 function Button({
-  children, type, htmlType, size, Icon, iconPosition, withIcon, loading, disabled, className,
+  children, onClick, type, htmlType, size,
+  withIcon, loading, disabled, className,
 }) {
   return (
     <button
       // eslint-disable-next-line react/button-has-type
       type={htmlType}
+      onClick={onClick}
       className={cn(
         {
           [styles.loading]: loading,
@@ -42,13 +44,9 @@ function Button({
       {loading
         ? <Spinner theme={type === types.primary && 'dark'} size="s" />
         : (
-          <span className={cn({
-            [styles.right]: iconPosition === 'right',
-          }, styles.value)}
-          >
-            {Icon && <Icon className={styles.icon} />}
+          <span className={styles.value}>
             {children}
-            {(type === types.link && withIcon) && <ToRightIcon /> }
+            {(type === types.link && withIcon) && <ToRightIcon className={styles.icon} /> }
           </span>
         )}
     </button>
@@ -57,11 +55,10 @@ function Button({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
   type: PropTypes.oneOf(Object.values(types)),
   htmlType: PropTypes.string,
   size: PropTypes.oneOf(Object.values(sizes)),
-  Icon: PropTypes.elementType,
-  iconPosition: PropTypes.string,
   withIcon: PropTypes.bool,
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -69,11 +66,10 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  onClick: null,
   type: types.primary,
   htmlType: 'button',
   size: sizes.m,
-  Icon: null,
-  iconPosition: 'left',
   withIcon: false,
   loading: false,
   disabled: false,

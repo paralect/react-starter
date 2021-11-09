@@ -71,6 +71,11 @@ export default {
         disable: true,
       },
     },
+    onClick: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
     loading: false,
@@ -80,6 +85,12 @@ export default {
 };
 
 const Template = ({ ...args }) => <Button {...args}>{args.children}</Button>;
+const TemplateWithIcon = ({ ...args }) => (
+  <Button {...args}>
+    <CopyIcon style={{ marginRight: '4px' }} />
+    {args.children}
+  </Button>
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -107,7 +118,7 @@ LinkWithIcon.args = {
   withIcon: true,
 };
 
-export const WithIcon = Template.bind({});
+export const WithIcon = TemplateWithIcon.bind({});
 WithIcon.args = {
-  Icon: CopyIcon,
+  type: 'primary',
 };
