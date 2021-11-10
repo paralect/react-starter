@@ -1,69 +1,67 @@
-import React from 'react';
+import React, { useState, memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
 
 import {
-  CheckIcon, ErrorIcon, AlertIcon, CloseIcon,
+  CheckIcon, AlertIcon, ErrorIcon, InfoIcon, CloseIcon,
 } from 'static/icons';
 
 import Button from 'components/Button';
 
 import styles from './Banner.pcss';
 
-function getIconProps(type) {
-  switch (type) {
-    case 'success':
-      return <CheckIcon />;
-    case 'warning':
-      return <CheckIcon />;
-    case 'error':
-      return <ErrorIcon />;
-    case 'info':
-      return <AlertIcon />;
-    default:
-      return {};
-  }
-}
+const types = {
+  success: 'success',
+  warning: 'warning',
+  error: 'error',
+  info: 'info',
+};
+
+const iconsList = {
+  success: <CheckIcon />,
+  warning: <AlertIcon />,
+  error: <ErrorIcon />,
+  info: <InfoIcon />,
+};
 
 const Banner = ({
-  onButtonClick, onClose, type, text, buttonText,
+  type, text, buttonText, onButtonClick,
 }) => {
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
-    <div
-      className={cn(styles.banner, styles[type])}
+    <div className={cn({
+      [styles.isOpen]: isOpen,
+    }, styles.banner, styles[type])}
     >
-      <div className={styles.left}>
-        {getIconProps(type)}
-        <span>{text}</span>
-      </div>
-      <div className={styles.right}>
-        {!!buttonText && (
+      {iconsList[type]}
+      <div className={styles.text}>{text}</div>
+      <div className={styles.controls}>
+        {buttonText && (
           <Button
             onClick={onButtonClick}
             className={cn(styles.button, styles[type])}
           >
-            {buttonText}
+            <span className={styles.buttonText}>{buttonText}</span>
           </Button>
         )}
-        <CloseIcon onClick={onClose} />
+        <CloseIcon onClick={() => setIsOpen(false)} className={styles.closeIcon} />
       </div>
     </div>
   );
 };
 
 Banner.propTypes = {
+  type: PropTypes.oneOf(Object.keys(types)),
   text: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  type: PropTypes.string,
   buttonText: PropTypes.string,
   onButtonClick: PropTypes.func,
 };
 
 Banner.defaultProps = {
-  type: 'info',
+  type: types.success,
   buttonText: null,
-  onButtonClick: noop,
+  onButtonClick: null,
 };
 
-export default React.memo(Banner);
+export default memo(Banner);

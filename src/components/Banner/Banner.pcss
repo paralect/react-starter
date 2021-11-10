@@ -1,10 +1,12 @@
 .banner {
+  width: 100%;
+  padding: 9px 64px;
   display: flex;
   align-items: center;
-  width: 100%;
-  padding: 8px 65px;
-  justify-content: space-between;
   color: var(--white);
+  transition: 0.3s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
 
   &.success {
     background-color: var(--green);
@@ -22,14 +24,32 @@
     background-color: var(--yellow);
     color: var(--black);
   }
+
+  &.isOpen {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.text {
+  max-width: 80%;
+  margin-left: 12px;
+  line-height: 19px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .button {
   && {
-    background-color: var(--white);
+    border: none !important;
+    background-color: var(--white) !important;
 
     &:hover {
-      background-color: var(--gray);
+      opacity: 0.9;
     }
   }
 
@@ -46,29 +66,28 @@
   }
 
   &.warning {
-    background-color: var(--black);
+    background-color: var(--black) !important;
     color: var(--yellow);
 
     &:hover {
-      background-color: var(--gray-dark);
+      opacity: 0.7;
     }
   }
 }
 
-.left {
-  display: flex;
-  align-items: center;
-
-  >:first-child {
-    margin-right: 12px;
-  }
+.buttonText {
+  max-width: 150px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.right {
-  display: flex;
-  align-items: center;
+.closeIcon {
+  margin-left: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 
-  >:first-child {
-    margin-right: 22px;
+  &:hover {
+    opacity: 0.7;
   }
 }
