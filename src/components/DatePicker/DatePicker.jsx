@@ -45,7 +45,7 @@ const DatepickerInput = forwardRef(({ ...props }, ref) => {
 
   return (
     <div className={styles.inputRoot}>
-      <Input {...props} defaultOnChange={props.onChange} ref={inputRef} />
+      <Input {...props} onChange={props.onChange} ref={inputRef} />
       <CalendarIcon
         className={cn({
           [styles.active]: props.isOpen,

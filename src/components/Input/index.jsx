@@ -19,19 +19,21 @@ const InputControlled = ({
     defaultValue={defaultValue}
     render={({
       field: {
-        onChange,
+        onChange: controllerOnChange,
         onBlur,
         value,
         ref,
       },
     }) => (
       <InputComponent
+        {...props}
         value={value}
-        defaultValue={defaultValue}
-        onChange={onChange}
+        onChange={(e) => {
+          controllerOnChange(e.target.value);
+          if (props.onChange) props.onChange(e);
+        }}
         onBlur={onBlur}
         ref={ref}
-        {...props}
       />
     )}
   />
@@ -41,10 +43,12 @@ InputControlled.propTypes = {
   control: PropTypes.shape({}).isRequired,
   name: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 InputControlled.defaultProps = {
   defaultValue: '',
+  onChange: null,
 };
 
 Input.propTypes = {

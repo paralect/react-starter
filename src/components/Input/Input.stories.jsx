@@ -36,7 +36,9 @@ export default {
 const Template = (args) => {
   const [value, setValue] = useState('');
 
-  return <Input value={value} onChange={setValue} {...args} />;
+  return (
+    <Input value={value} onChange={(e) => setValue(e.target.value)} {...args} />
+  );
 };
 
 export const Active = Template.bind({});

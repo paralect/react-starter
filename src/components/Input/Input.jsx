@@ -7,7 +7,7 @@ import { ShowPasswordIcon, HidePasswordIcon } from 'static/icons';
 import styles from './Input.pcss';
 
 const Input = forwardRef(({
-  value, onChange, defaultOnChange, type, name, label, placeholder, disabled,
+  value, onChange, type, name, label, placeholder, disabled,
   error, maxLength, onFocus, Icon, customIcon, iconPosition, className,
 }, ref) => {
   const [currentType, setCurrentType] = useState(type);
@@ -46,7 +46,7 @@ const Input = forwardRef(({
           type={currentType}
           placeholder={placeholder}
           value={value}
-          onChange={defaultOnChange || ((e) => onChange(e.target.value))}
+          onChange={onChange}
           onFocus={onFocus}
           disabled={disabled}
           maxLength={maxLength}
@@ -72,7 +72,6 @@ const Input = forwardRef(({
 Input.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
-  defaultOnChange: PropTypes.func,
   type: PropTypes.oneOf(['text', 'password']),
   name: PropTypes.string,
   label: PropTypes.string,
@@ -92,7 +91,6 @@ Input.propTypes = {
 Input.defaultProps = {
   value: null,
   onChange: null,
-  defaultOnChange: null,
   type: 'text',
   name: null,
   label: null,
