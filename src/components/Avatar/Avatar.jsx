@@ -5,35 +5,39 @@ import PropTypes from 'prop-types';
 import styles from './Avatar.pcss';
 
 const sizes = {
-  xl: styles.xl,
-  l: styles.l,
-  m: styles.m,
-  s: styles.s,
-  xs: styles.xs,
+  xl: 'l',
+  l: 'l',
+  m: 'm',
+  s: 's',
+  xs: 'xs',
 };
 
-function Avatar({ size, src, fullName }) {
-  const convertedName = fullName.split(' ').slice(0, 2).map((el) => el[0]);
+const Avatar = ({
+  size, src, fullName, className,
+}) => {
+  const convertedName = fullName?.split(' ').slice(0, 2).map((el) => el[0]);
 
   return (
-    <div className={cn(styles.avatarBlock, styles[size])}>
+    <div className={cn(styles.avatarBlock, styles[size], className)}>
       {src
         ? <img className={styles.avatarImage} src={src} alt="Person Avatar" />
         : <span className={styles.avatarName}>{convertedName}</span>}
     </div>
   );
-}
+};
 
 Avatar.propTypes = {
   size: PropTypes.oneOf(Object.keys(sizes)),
   fullName: PropTypes.string,
   src: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Avatar.defaultProps = {
-  size: 'm',
-  src: '',
-  fullName: '',
+  size: sizes.m,
+  src: null,
+  fullName: null,
+  className: null,
 };
 
 export default memo(Avatar);
