@@ -1,70 +1,56 @@
 .tabBar {
   display: flex;
   position: relative;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: 0.01em;
   color: var(--gray-dark);
-}
 
-.withBorder::after {
-  z-index: 1;
-  position: absolute;
-  content: '';
-  height: 1px;
-  width: 100%;
-  bottom: 0;
-  background: var(--gray);
+  &.withBorder::after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: var(--gray);
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+  }
 }
 
 .tab {
-  z-index: 10;
+  height: 42px;
+  padding: 0 12px;
+  border: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 42px;
-  padding: 12px;
-  border: 0;
-  border-radius: 6px 6px 0 0;
-  cursor: pointer;
-  background: transparent;
+  background-color: transparent;
+  font-weight: 500;
+  line-height: 19px;
   color: var(--gray-dark);
-  transition: all 0.2s;
+  z-index: 5;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 
-  &:focus {
-    background: transparent;
+  &.disabled {
+    opacity: 0.3;
+    pointer-events: none;
   }
 
-  &:active {
-    background: var(--gray-light);
+  &.active {
+    box-shadow: inset 0 -2px 0 0 var(--black);
+    color: var(--black);
   }
 
   &:hover {
     color: var(--black);
   }
-
-  &.disabled {
-    color: var(--gray);
-    pointer-events: none;
-  }
-}
-
-.active {
-  box-shadow: inset 0 -2px 0 0 var(--black);
-  color: var(--black);
 }
 
 .counter {
   margin-left: 8px;
   padding: 4px 8px;
   border-radius: 6px;
-  color: var(--black);
+  background-color: var(--gray-light);
   font-size: 12px;
-  background: var(--gray-light);
-
-  &.disabled {
-    color: var(--gray);
-  }
+  font-weight: 400;
+  color: var(--black);
+  transition: all 0.2s ease-in-out;
 }

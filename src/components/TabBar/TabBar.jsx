@@ -5,41 +5,31 @@ import PropTypes from 'prop-types';
 import styles from './TabBar.pcss';
 
 const TabBar = ({
-  currentTab, tabs, withBorder, onChange,
+  tabs, currentTab, onChange, withBorder,
 }) => (
   <div
-    className={cn(styles.tabBar, {
+    className={cn({
       [styles.withBorder]: withBorder,
-    })}
+    }, styles.tabBar)}
   >
     {tabs.map((tab) => {
       const {
-        path, label, count, disabled,
+        label, path, count, disabled,
       } = tab;
-
-      const isCurrentTab = currentTab.path === path;
-      const handleChange = () => onChange(tab);
 
       return (
         <button
           key={path}
           type="button"
+          disabled={disabled}
+          onClick={() => onChange(tab)}
           className={cn(styles.tab, {
-            [styles.active]: isCurrentTab,
+            [styles.active]: currentTab.path === path,
             [styles.disabled]: disabled,
           })}
-          onClick={handleChange}
         >
-          <span>{label}</span>
-          {count > 0 && (
-            <span
-              className={cn(styles.counter, {
-                [styles.disabled]: disabled,
-              })}
-            >
-              {tab.count}
-            </span>
-          )}
+          {typeof label === 'function' ? label() : label}
+          {count > 0 && <span className={styles.counter}>{count}</span>}
         </button>
       );
     })}
@@ -48,25 +38,26 @@ const TabBar = ({
 
 TabBar.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
-    path: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-    disabled: PropTypes.bool.isRequired,
+    path: PropTypes.string.isRequired,
+    component: PropTypes.elementType,
+    count: PropTypes.number,
+    disabled: PropTypes.bool,
   })).isRequired,
-  withBorder: PropTypes.bool,
-  onChange: PropTypes.func,
   currentTab: PropTypes.shape({
-    path: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-    disabled: PropTypes.bool.isRequired,
+    path: PropTypes.string.isRequired,
+    component: PropTypes.elementType,
+    count: PropTypes.number,
+    disabled: PropTypes.bool,
   }),
+  onChange: PropTypes.func.isRequired,
+  withBorder: PropTypes.bool,
 };
 
 TabBar.defaultProps = {
-  withBorder: false,
   currentTab: {},
-  onChange: null,
+  withBorder: false,
 };
 
 export default memo(TabBar);
