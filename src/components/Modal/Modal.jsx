@@ -23,7 +23,11 @@ const Modal = ({ children, isOpen, onRequestClose }) => (
 );
 
 Modal.propTypes = {
-  children: PropTypes.elementType.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.elementType,
+    PropTypes.object,
+    PropTypes.node,
+  ]).isRequired,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func,
 };
