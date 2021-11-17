@@ -3,7 +3,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
-import ButtonMenu from 'components/ButtonMenu';
+import ButtonMenu from 'components/ComboButton';
 import ShipLogo from 'static/icons/ship-logo.svg';
 
 import styles from './Header.pcss';
