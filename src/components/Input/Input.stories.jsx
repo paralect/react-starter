@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { SearchIcon } from 'static/icons';
 import Input from './index';
 
 export default {
@@ -11,36 +12,34 @@ export default {
     disabled: {
       options: [true, false],
       control: { type: 'inline-radio' },
+      defaultValue: false,
     },
     maxLength: { name: 'Max Length', control: 'number' },
+    iconPosition: {
+      name: 'Icon position',
+      options: ['left', 'right'],
+      control: { type: 'inline-radio' },
+      defaultValue: 'right',
+    },
     error: {
       message: { name: 'Error', control: 'text', defaultValue: null },
     },
-    defaultValue: { name: 'Default value', control: 'text' },
-    name: {
-      table: {
-        disable: true,
-      },
-    },
-    className: {
-      table: {
-        disable: true,
-      },
-    },
-    type: {
-      table: {
-        disable: true,
-      },
-    },
-  },
-  args: {
-    label: 'Label',
-    disabled: false,
+    name: { table: { disable: true } },
+    className: { table: { disable: true } },
+    type: { table: { disable: true } },
+    control: { table: { disable: true } },
+    Icon: { table: { disable: true } },
   },
   decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
-const Template = (args) => <Input {...args} />;
+const Template = (args) => {
+  const [value, setValue] = useState('');
+
+  return (
+    <Input value={value} onChange={(e) => setValue(e.target.value)} {...args} />
+  );
+};
 
 export const Active = Template.bind({});
 
@@ -59,4 +58,9 @@ Error.args = {
 export const Password = Template.bind({});
 Password.args = {
   type: 'password',
+};
+
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  Icon: SearchIcon,
 };

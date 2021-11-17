@@ -4,55 +4,36 @@ import Select from './index';
 
 const options = [
   {
+    label: 'Option 1',
     value: '1',
-    label: 'One',
   },
   {
+    label: 'Option 2',
     value: '2',
-    label: 'Two',
   },
   {
+    label: 'Option 3',
     value: '3',
-    label: 'Three',
   },
   {
+    label: 'Option 4',
     value: '4',
-    label: 'Four',
   },
   {
+    label: 'Option 5',
     value: '5',
-    label: 'Five',
-  },
-];
-
-const optionsWithAvatar = [
-  {
-    value: 'John Doe',
-    fullName: 'John Doe',
-    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
-    label: 'John Doe',
   },
   {
-    value: 'Oscar Steele',
-    fullName: 'Oscar Steele',
-    label: 'Oscar Steele',
+    label: 'Option 6',
+    value: '6',
   },
   {
-    value: 'Casey Banks',
-    fullName: 'Casey Banks',
-    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
-    label: 'Casey Banks',
+    label: 'Option 7',
+    value: '7',
   },
   {
-    value: 'Jayce Friedman',
-    fullName: 'Jayce Friedman',
-    label: 'Jayce Friedman',
-  },
-  {
-    value: 'Ace Sharp',
-    fullName: 'Ace Sharp',
-    avatarUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
-    label: 'Ace Sharp',
+    label: 'Option 8',
+    value: '8',
   },
 ];
 
@@ -65,6 +46,13 @@ export default {
     disabled: {
       options: [true, false],
       control: { type: 'inline-radio' },
+      defaultValue: false,
+    },
+    isMulti: {
+      name: 'Is multi',
+      options: [true, false],
+      control: { type: 'inline-radio' },
+      defaultValue: false,
     },
     error: {
       message: { name: 'Error', control: 'object', defaultValue: null },
@@ -74,10 +62,6 @@ export default {
         disable: true,
       },
     },
-  },
-  args: {
-    label: 'Label',
-    disabled: false,
   },
   decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
@@ -97,6 +81,11 @@ const Template = (args) => {
 
 export const Active = Template.bind({});
 
+export const Multi = Template.bind({});
+Multi.args = {
+  isMulti: true,
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
@@ -107,10 +96,4 @@ Error.args = {
   error: {
     message: 'Error message',
   },
-};
-
-export const WithAvatar = Template.bind({});
-WithAvatar.args = {
-  options: optionsWithAvatar,
-  withAvatar: true,
 };

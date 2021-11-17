@@ -3,20 +3,17 @@ import React, {
 } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import Datepicker, { CalendarContainer } from 'react-datepicker';
+import DatepickerComponent, { CalendarContainer } from 'react-datepicker';
 
 import { ArrowLeftIcon, ArrowRightIcon, CalendarIcon } from 'static/icons';
 
-import Input from 'components/Input';
+import Input from 'components/Input/Input';
 import IconButton from 'components/IconButton';
-import InputController from 'components/InputController';
 
 import { MONTHS } from 'helpers/constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './DatePicker.pcss';
-
-const iconStyle = { transform: 'rotate(180deg)' };
 
 const renderContainer = ({ children }) => (
   <CalendarContainer className={styles.container}>
@@ -33,7 +30,6 @@ const renderHeader = ({
       Icon={ArrowLeftIcon}
       disabled={prevMonthButtonDisabled}
       onClick={decreaseMonth}
-      style={iconStyle}
     />
     {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
     <IconButton
@@ -49,7 +45,7 @@ const DatepickerInput = forwardRef(({ ...props }, ref) => {
 
   return (
     <div className={styles.inputRoot}>
-      <Input {...props} ref={inputRef} />
+      <Input {...props} onChange={props.onChange} ref={inputRef} />
       <CalendarIcon
         className={cn({
           [styles.active]: props.isOpen,
@@ -64,9 +60,9 @@ const DatepickerInput = forwardRef(({ ...props }, ref) => {
   );
 });
 
-const DatepickerComponent = ({
-  label, disabled, error, placeholder, onChange, value, name,
-}) => {
+const Datepicker = forwardRef(({
+  value, onChange, name, label, placeholder, disabled, error, className,
+}, ref) => {
   const [isOpen, setOpen] = useState(false);
 
   const getDayStyle = (date) => (
@@ -77,75 +73,71 @@ const DatepickerComponent = ({
   const getWeekStyle = () => styles.weeks;
 
   return (
-    <Datepicker
-      name={name}
-      renderCustomHeader={renderHeader}
-      selected={value}
-      disabled={disabled}
-      placeholderText={placeholder}
-      onChange={(date) => onChange(date)}
-      onCalendarOpen={() => setOpen(true)}
-      onCalendarClose={() => setOpen(false)}
-      open={isOpen}
-      setOpen={setOpen}
-      customInput={(
-        <DatepickerInput
-          label={label}
-          value={value}
-          error={error}
-          disabled={disabled}
-          isOpen={isOpen}
-          setOpen={setOpen}
-        />
-      )}
-      showPopperArrow={false}
-      popperClassName={styles.popper}
-      calendarContainer={renderContainer}
-      weekDayClassName={getWeekStyle}
-      dayClassName={getDayStyle}
-    />
+    <div className={cn(className)}>
+      <DatepickerComponent
+        selected={value}
+        onChange={(date) => onChange(date)}
+        name={name}
+        placeholder={placeholder}
+        disabled={disabled}
+        placeholderText={placeholder}
+        popperClassName={styles.popper}
+        onCalendarOpen={() => setOpen(true)}
+        onCalendarClose={() => setOpen(false)}
+        showPopperArrow={false}
+        open={isOpen}
+        setOpen={setOpen}
+        renderCustomHeader={renderHeader}
+        calendarContainer={renderContainer}
+        weekDayClassName={getWeekStyle}
+        dayClassName={getDayStyle}
+        customInput={(
+          <DatepickerInput
+            label={label}
+            value={value}
+            error={error}
+            disabled={disabled}
+            isOpen={isOpen}
+          />
+        )}
+        ref={ref}
+      />
+    </div>
   );
-};
+});
 
-const DatePicker = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <DatepickerComponent />
-    </InputController>
-  ) : <DatepickerComponent {...props} />
-);
-
-DatepickerComponent.propTypes = {
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
-  error: PropTypes.arrayOf(PropTypes.string),
+Datepicker.propTypes = {
   value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   onChange: PropTypes.func,
-  placeholder: PropTypes.string,
   name: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
+  className: PropTypes.string,
 };
 
-DatepickerComponent.defaultProps = {
+Datepicker.defaultProps = {
+  value: null,
+  onChange: null,
+  name: null,
   label: null,
+  placeholder: null,
   disabled: false,
   error: null,
-  value: null,
-  placeholder: '',
-  name: '',
-  onChange: () => {},
-};
-
-DatePicker.propTypes = {
-  name: PropTypes.string,
-};
-
-DatePicker.defaultProps = {
-  name: '',
+  className: null,
 };
 
 DatepickerInput.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
 };
 
-export default memo(DatePicker);
+DatepickerInput.defaultProps = {
+  onChange: null,
+};
+
+export default memo(Datepicker);

@@ -2,12 +2,10 @@ import React, { forwardRef, memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import InputController from 'components/InputController';
-
 import styles from './Toggle.pcss';
 
-const ToggleComponent = forwardRef(({
-  text, disabled, value, onChange, className, name,
+const Toggle = forwardRef(({
+  checked, onChange, name, text, disabled, className,
 }, ref) => (
   <button
     type="button"
@@ -24,7 +22,7 @@ const ToggleComponent = forwardRef(({
     </label>
     <div
       className={cn({
-        [styles.checked]: value,
+        [styles.checked]: checked,
         [styles.disabled]: disabled,
       }, styles.toggle)}
     >
@@ -32,14 +30,14 @@ const ToggleComponent = forwardRef(({
         type="checkbox"
         name={name}
         ref={ref}
-        checked={value}
+        checked={checked}
         onChange={onChange}
         disabled={disabled}
         className={styles.input}
       />
       <span
         className={cn({
-          [styles.checked]: value,
+          [styles.checked]: checked,
           [styles.disabled]: disabled,
         }, styles.circle)}
       />
@@ -47,38 +45,22 @@ const ToggleComponent = forwardRef(({
   </button>
 ));
 
-const Toggle = ({ ...props }) => (
-  props.name ? (
-    <InputController name={props.name} {...props}>
-      <ToggleComponent name={props.name} />
-    </InputController>
-  ) : <ToggleComponent {...props} />
-);
-
-ToggleComponent.propTypes = {
-  text: PropTypes.string,
-  disabled: PropTypes.bool,
-  value: PropTypes.bool,
-  className: PropTypes.string,
+Toggle.propTypes = {
+  checked: PropTypes.bool,
   onChange: PropTypes.func,
   name: PropTypes.string,
-};
-
-ToggleComponent.defaultProps = {
-  text: '',
-  disabled: false,
-  value: false,
-  className: null,
-  onChange: null,
-  name: null,
-};
-
-Toggle.propTypes = {
-  name: PropTypes.string,
+  text: PropTypes.string,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Toggle.defaultProps = {
+  checked: false,
+  onChange: null,
   name: null,
+  text: '',
+  disabled: false,
+  className: null,
 };
 
 export default memo(Toggle);

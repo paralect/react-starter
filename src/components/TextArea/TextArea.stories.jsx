@@ -11,13 +11,13 @@ export default {
     disabled: {
       options: [true, false],
       control: { type: 'inline-radio' },
+      defaultValue: false,
     },
     maxLength: { name: 'Max Length', control: 'number', defaultValue: 500 },
     height: { name: 'Height', control: 'text', defaultValue: '80px' },
     error: {
       message: { name: 'Error', control: 'text', defaultValue: null },
     },
-    defaultValue: { name: 'Default value', control: 'text' },
     name: {
       table: {
         disable: true,
@@ -33,16 +33,13 @@ export default {
         disable: true,
       },
     },
-    onBlur: {
+    control: {
       table: {
         disable: true,
       },
     },
   },
-  args: {
-    disabled: false,
-  },
-  decorators: [(Story) => <div style={{ maxWidth: '260px' }}><Story /></div>],
+  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
 const Template = (args) => <TextArea {...args} />;

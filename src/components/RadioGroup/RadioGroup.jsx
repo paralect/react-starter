@@ -8,11 +8,10 @@ import RadioButton from './RadioButton';
 import styles from './RadioGroup.pcss';
 
 const RadioGroup = ({
-  // eslint-disable-next-line react/prop-types
-  label, options, value, onChange, disabled, className,
+  value, onChange, options, label, disabled, className,
 }) => {
   const [radioGroupOptions, setRadioGroupOptions] = useState(options);
-  // add proptypes for onChange
+
   useEffect(() => {
     setRadioGroupOptions(options.map((option) => {
       const newOption = { ...option };
@@ -35,10 +34,10 @@ const RadioGroup = ({
           <RadioButton
             key={option.value}
             text={option.label}
-            value={option.isActive}
+            checked={option.isActive}
+            onChange={() => handleClick(index)}
             disabled={option.isDisabled}
             className={styles.radioButton}
-            onClick={() => handleClick(index)}
           />
         ))}
       </div>
@@ -47,23 +46,27 @@ const RadioGroup = ({
 };
 
 RadioGroup.propTypes = {
-  label: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.string,
-  })),
   value: PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,
+    isDisabled: PropTypes.bool,
   }),
+  onChange: PropTypes.func,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+    isDisabled: PropTypes.bool,
+  })),
+  label: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
 };
 
 RadioGroup.defaultProps = {
+  value: {},
+  onChange: null,
+  options: [],
   label: null,
-  options: null,
-  value: null,
   disabled: false,
   className: null,
 };
