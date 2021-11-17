@@ -1,5 +1,6 @@
 {
   "apiUrl": "http://localhost:3001",
   "landingUrl": "http://localhost:3000",
-  "webSocketUrl": "http://localhost:8082"
+  "webSocketUrl": "http://localhost:8082",
+  "dsnSentryUrl": "https://da17bd641d7e4371b54b809cb2f03896@o1018683.ingest.sentry.io/5984511"
 }

@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import get from 'lodash/get';
 import set from 'lodash/set';
+import * as Sentry from '@sentry/browser';
 
 const yupOptions = {
   abortEarly: false,
@@ -35,6 +36,7 @@ export const validate = async (obj, schema) => {
     };
   } catch (error) {
     const errors = parseErrors(error);
+    Sentry.captureException(errors);
     return {
       value: obj,
       errors,
@@ -53,6 +55,7 @@ export const validateField = async (obj, field, schema) => {
     };
   } catch (error) {
     const errors = parseErrors(error, field);
+    Sentry.captureException(errors);
     return {
       value: obj,
       errors,
