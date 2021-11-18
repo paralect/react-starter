@@ -12,6 +12,11 @@ export default {
     },
     fullName: 'text',
     src: 'text',
+    className: {
+      table: {
+        disable: true,
+      },
+    },
   },
   args: {
     fullName: 'Bachrimchuk Unknown',

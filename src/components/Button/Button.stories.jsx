@@ -85,12 +85,6 @@ export default {
 };
 
 const Template = ({ ...args }) => <Button {...args}>{args.children}</Button>;
-const TemplateWithIcon = ({ ...args }) => (
-  <Button {...args}>
-    <CopyIcon style={{ marginRight: '4px' }} />
-    {args.children}
-  </Button>
-);
 
 export const Primary = Template.bind({});
 Primary.args = {

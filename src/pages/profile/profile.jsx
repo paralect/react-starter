@@ -11,7 +11,7 @@ import * as filesApi from 'resources/files/files.api';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Form from 'components/Form';
-import FileUpload from 'components/FileUpload';
+import FileUpload from 'components/FileUpload/FileUpload';
 import CloseIcon from 'static/icons/close.svg';
 
 import styles from './profile.styles.pcss';
