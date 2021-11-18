@@ -11,6 +11,7 @@ import ActivateCardIcon from './activate-card.svg';
 import AlertIcon from './alert.svg';
 import CheckIcon from './check.svg';
 import ErrorIcon from './error.svg';
+import InfoIcon from './info.svg';
 import NotificationIcon from './notification.svg';
 import ArrowDoubleIcon from './arrow-double.svg';
 import ArchiveIcon from './archive.svg';
@@ -44,6 +45,7 @@ export {
   AlertIcon,
   CheckIcon,
   ErrorIcon,
+  InfoIcon,
   NotificationIcon,
   ArrowDoubleIcon,
   ArchiveIcon,
@@ -61,5 +63,3 @@ export {
   ShipLogo,
   FileUploadIcon,
 };
-
-// Replace imports other icon

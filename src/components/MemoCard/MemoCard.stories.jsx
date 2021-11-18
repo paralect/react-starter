@@ -2,19 +2,38 @@ import React from 'react';
 
 import MemoCard from './index';
 
+const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+
 export default {
   title: 'Components/Memo',
   component: MemoCard,
+  argTypes: {
+    title: { name: 'Title', control: 'text' },
+    type: {
+      name: 'Type',
+      options: ['info', 'alert', 'error'],
+      control: {
+        type: 'inline-radio',
+        labels: {
+          info: 'Info',
+          alert: 'Alert',
+          error: 'Error',
+        },
+      },
+    },
+    items: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+
   args: {
-    items: ['#1 item', '#2 item'],
+    items,
   },
 };
 
-const Template = (args) => {
-  return (
-    <MemoCard {...args} />
-  );
-};
+const Template = (args) => <MemoCard {...args} />;
 
 export const Info = Template.bind({});
 Info.args = {
@@ -22,10 +41,10 @@ Info.args = {
   type: 'info',
 };
 
-export const Warning = Template.bind({});
-Warning.args = {
-  title: 'Warning memo title',
-  type: 'warning',
+export const Alert = Template.bind({});
+Alert.args = {
+  title: 'Alert memo title',
+  type: 'alert',
 };
 
 export const Error = Template.bind({});

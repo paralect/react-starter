@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 
 import styles from './MemoCard.pcss';
 
-const MemoCard = ({
-  title, items, type,
-}) => {
+const types = {
+  info: 'info',
+  alert: 'alert',
+  error: 'error',
+};
+
+const MemoCard = ({ title, items, type }) => {
   return (
-    <div
-      className={cn(styles.memoCard, styles[type])}
-    >
+    <div className={cn(styles.memoCard, styles[type])}>
       {title}
       <ul>
         {items.map((item) => (
-          <li>{item}</li>
+          <li key={item.title}>{item}</li>
         ))}
       </ul>
     </div>
@@ -22,14 +24,12 @@ const MemoCard = ({
 };
 
 MemoCard.propTypes = {
-  title: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.string),
-  type: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  type: PropTypes.oneOf(Object.values(types)),
 };
 
 MemoCard.defaultProps = {
-  title: '',
-  items: [],
   type: 'info',
 };
 
