@@ -44,11 +44,11 @@ const signUp = ({
 };
 
 const forgot = ({ email }) => async () => {
-  await api.forgot({ email });
+  await api.forgotPassword({ email });
 };
 
 const reset = ({ password, token }) => async (_dispatch, _getState, ctx) => {
-  await api.reset({ password, token });
+  await api.resetPassword({ password, token });
   ctx.history.push(routes.signIn.path);
 };
 
@@ -64,7 +64,7 @@ const getCurrentUser = () => async (dispatch) => {
 };
 
 const updateCurrentUser = (data) => async (dispatch) => {
-  const user = await api.updateCurrentUser(data);
+  const user = await api.updateProfile(data);
   dispatch(setUser({ user }));
 };
 

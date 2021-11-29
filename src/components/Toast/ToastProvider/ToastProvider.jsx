@@ -5,7 +5,7 @@ import { toastActions, toastSelectors } from 'resources/toast/toast.slice';
 
 import Toast from 'components/Toast';
 
-import styles from './ToastProvider.pcss';
+import styles from './ToastProvider.module.css';
 
 const ToasterProvider = () => {
   const dispatch = useDispatch();

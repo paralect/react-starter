@@ -2,6 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
 import { routes } from 'routes';
 
@@ -10,7 +11,6 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
-import Form from 'components/Form';
 
 import styles from './forgot.pcss';
 
@@ -19,11 +19,13 @@ const Forgot = () => {
 
   const user = useSelector(userSelectors.selectUser);
 
+  const { handleSubmit, formState: { errors }, control } = useForm();
+
   const [values, setValues] = React.useState({});
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
 
-  const handleSubmit = async (submitValues) => {
+  const onSubmit = async (submitValues) => {
     setPending(true);
     await dispatch(userActions.forgot(submitValues));
     setValues(submitValues);
@@ -57,8 +59,8 @@ const Forgot = () => {
           <p className={styles.description}>
             We’ll send a reset link to your email
           </p>
-          <Form
-            onSubmit={handleSubmit}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
             className={styles.form}
           >
             <div className={styles.row}>
@@ -67,6 +69,8 @@ const Forgot = () => {
                 name="email"
                 placeholder="Email"
                 disabled={pending}
+                control={control}
+                error={errors.email}
               />
             </div>
             <div className={styles.row}>
@@ -86,7 +90,7 @@ const Forgot = () => {
                 </Link>
               </div>
             </div>
-          </Form>
+          </form>
         </>
       )}
     </div>
