@@ -15,7 +15,7 @@ import store from 'resources/store';
 import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
 
-import Toast from 'components/Toast';
+import ToastProvider from 'components/Toast/ToastProvider';
 import Spinner from 'components/Spinner';
 
 import { ErrorBoundary } from 'components/error-boundary';
@@ -26,7 +26,6 @@ import MainLayout from 'layouts/main';
 import SignIn from 'pages/sign-in';
 import SignUp from 'pages/sign-up';
 import Forgot from 'pages/forgot';
-import Reset from 'pages/reset';
 import Home from 'pages/home';
 import NotFound from 'pages/not-found';
 
@@ -58,7 +57,6 @@ const routeToComponent = {
   [routes.signIn.name]: SignIn,
   [routes.signUp.name]: SignUp,
   [routes.forgot.name]: Forgot,
-  [routes.reset.name]: Reset,
   [routes.home.name]: Home,
   [routes.profile.name]: Profile,
   [routes.notFound.name]: NotFound,
@@ -127,7 +125,7 @@ function App() {
         </ErrorBoundary>
       </Router>
 
-      <Toast />
+      <ToastProvider />
     </Provider>
   );
 }

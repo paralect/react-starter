@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
 
 import { routes } from 'routes';
@@ -9,7 +10,6 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
-import Form from 'components/Form';
 
 import styles from './sign-in.pcss';
 
@@ -18,7 +18,9 @@ function SignIn() {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = async (submitValues) => {
+  const { handleSubmit, formState: { errors }, control } = useForm();
+
+  const onSubmit = async (submitValues) => {
     await dispatch(userActions.signIn(submitValues));
   };
 
@@ -29,8 +31,8 @@ function SignIn() {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
       className={styles.container}
     >
       <h1 className={styles.title}>
@@ -38,18 +40,21 @@ function SignIn() {
       </h1>
       <div className={styles.row}>
         <Input
-          type="email"
-          placeholder="Email"
           name="email"
-          label="Email"
+          label="Email Address"
+          placeholder="Email"
+          control={control}
+          error={errors.email}
         />
       </div>
       <div className={styles.row}>
         <Input
-          type="password"
           name="password"
+          type="password"
           label="Password"
           placeholder="Password"
+          control={control}
+          error={errors.password}
         />
       </div>
       <div className={styles.row}>
@@ -73,7 +78,7 @@ function SignIn() {
           </Link>
         </div>
       </div>
-    </Form>
+    </form>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 import config from 'config';
 import { routes } from 'routes';
@@ -10,7 +11,6 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
-import Form from 'components/Form';
 
 import styles from './sign-up.pcss';
 
@@ -19,12 +19,14 @@ function SignUp() {
 
   const user = useSelector(userSelectors.selectUser);
 
+  const { handleSubmit, formState: { errors }, control } = useForm();
+
   const [values, setValues] = React.useState({});
   const [registered, setRegistered] = React.useState(false);
 
   const [signupToken, setSignupToken] = React.useState();
 
-  const handleSubmit = async (submitValues) => {
+  const onSubmit = async (submitValues) => {
     const response = await dispatch(userActions.signUp(submitValues));
     if (response.signupToken) setSignupToken(response.signupToken);
     setRegistered(true);
@@ -66,8 +68,8 @@ function SignUp() {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
       className={styles.container}
     >
       <h1 className={styles.title}>
@@ -79,6 +81,8 @@ function SignUp() {
           name="firstName"
           placeholder="First Name"
           label="First Name"
+          control={control}
+          error={errors.firstName}
         />
       </div>
       <div className={styles.row}>
@@ -87,6 +91,8 @@ function SignUp() {
           name="lastName"
           label="Last Name"
           placeholder="Last Name"
+          control={control}
+          error={errors.lastName}
         />
       </div>
       <div className={styles.row}>
@@ -95,6 +101,8 @@ function SignUp() {
           name="email"
           placeholder="Email"
           label="Email"
+          control={control}
+          error={errors.email}
         />
       </div>
       <div className={styles.row}>
@@ -103,6 +111,8 @@ function SignUp() {
           name="password"
           label="Password"
           placeholder="Password"
+          control={control}
+          error={errors.password}
         />
       </div>
       <div className={styles.row}>
@@ -121,7 +131,7 @@ function SignUp() {
           </Link>
         </div>
       </div>
-    </Form>
+    </form>
   );
 }
 
