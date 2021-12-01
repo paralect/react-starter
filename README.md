@@ -1,7 +1,7 @@
 # React Starter
 
 React starter is what we think an ideal starting point for the most React.JS frontend applications. It is based on the following primary technologies:
-
+ 
 - webpack
 - react
 - react-router
